@@ -483,13 +483,6 @@ object NodeUtil {
     case _ => node.getClass.getSimpleName
   }
 
-  /* add Path to ModExpSpecifier ******************************************/
-  def addPath(node: ModExpSpecifier, path: Path): ModExpSpecifier = node match {
-    case SModExpAlias(i, n, p) => SModExpAlias(i, n, NF.makePath(p, path))
-    case SModExpName(i, p) => SModExpName(i, NF.makePath(p, path))
-    case _ => error("Cannot add a path to a catch-all export statement.")
-  }
-
   def readSpan(span: String) = {
     var next = span.slice(3, span.size)
 

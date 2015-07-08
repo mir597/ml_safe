@@ -9,23 +9,17 @@
 
 package kr.ac.kaist.jsaf.nodes_util
 
-import _root_.java.util.ArrayList
 import kr.ac.kaist.jsaf.nodes._
 import kr.ac.kaist.jsaf.nodes_util.{ NodeUtil => NU }
 import kr.ac.kaist.jsaf.scala_src.nodes._
 import kr.ac.kaist.jsaf.scala_src.useful.Lists._
 import kr.ac.kaist.jsaf.scala_src.useful.Options._
-import kr.ac.kaist.jsaf.scala_src.useful.Sets._
-import kr.ac.kaist.jsaf.ts.TSToString
-import edu.rice.cs.plt.iter.IterUtil
-import edu.rice.cs.plt.tuple.Option
 
 object JSAstToConcrete extends Walker {
 
   val width = 50
   var internal = false
   var testWith = false
-  var typescript = false
   val significantBits = NU.significantBits
 
   def doit(node: ASTNode): String = walk(node)
@@ -36,9 +30,6 @@ object JSAstToConcrete extends Walker {
   def doitTestWith(node: ASTNode) = {
     testWith = true
     walk(node)
-  }
-  def setTypeScript = {
-    typescript = true
   }
 
   /* indentation utilities *************************************************/
@@ -492,8 +483,7 @@ object JSAstToConcrete extends Walker {
       val s: StringBuilder = new StringBuilder
       s.append(walk(info))
       s.append(quote)
-      if (typescript) pp(s, txt)
-      else pp(s, NU.unescapeJava(txt))
+      pp(s, NU.unescapeJava(txt))
       s.append(quote)
       s.toString
     case SSwitch(info, cond, frontCases, defjs, backCases) =>
@@ -580,90 +570,6 @@ object JSAstToConcrete extends Walker {
       if(oneline) decreaseIndent
       s.toString
 
-    // Module syntax
-    case SModDecl(info, name, STopLevel(fds, vds, program)) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("module ").append(name.getText).append(" {\n")
-      prFtn(s, fds, vds, NU.toStmts(program))
-      s.append("\n}")
-      s.toString
-    case SModExpVarStmt(info, vds) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("export var ")
-      s.append(join(vds, ", ", new StringBuilder(""))).append(";")
-      s.toString
-    case SModExpFunDecl(info, fd) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("export ").append(walk(fd))
-      s.toString
-    case SModExpGetter(info, fd) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("export ").append(walk(fd))
-      s.toString
-    case SModExpSetter(info, fd) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("export ").append(walk(fd))
-      s.toString
-    case SModExpSpecifiers(info, names) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("export ")
-      s.append(join(names, ", ", new StringBuilder(""))).append(";")
-      s.toString
-    case SModImpDecl(info, imports) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("import ")
-      s.append(join(imports, ", ", new StringBuilder(""))).append(";")
-      s.toString
-    case SModImpSpecifierSet(info, imports, module) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("{").append(join(imports, ", ", new StringBuilder(""))).append("} from ")
-      s.append(walk(module))
-      s.toString
-    case SModImpAliasClause(info, name, alias) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append(walk(name)).append(" as ").append(walk(alias))
-      s.toString
-    case SModExpStarFromPath(info, path) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append("* from ").append(walk(path))
-      s.toString
-    case SModExpStar(info) => "*"
-    case SModExpAlias(info, name, alias) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append(walk(name)).append(" : ").append(walk(alias))
-      s.toString
-    case SModExpName(info, name) => name match {
-      case SPath(i, names) if names.length == 1 =>
-        walk(info)+walk(names.head)
-      case SPath(i, names) =>
-        val s: StringBuilder = new StringBuilder
-        s.append(walk(info))
-        s.append(walk(names.last)).append(" from ").append(walk(SPath(i, names.dropRight(1))))
-        s.toString
-    }
-    case SModImpAlias(info, name, alias) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append(walk(name)).append(" : ").append(walk(alias))
-      s.toString
-    case SModImpName(info, name) =>
-      walk(info)+walk(name)
-    case SPath(info, names) =>
-      val s: StringBuilder = new StringBuilder
-      s.append(walk(info))
-      s.append(join(names, ".", new StringBuilder("")))
-      s.toString
     case SComment(info, comment) =>
       comment + "\n"
     case SASTSpanInfo(_, comment) => walk(comment)
@@ -672,7 +578,6 @@ object JSAstToConcrete extends Walker {
     case Some(in) => walk(in)
     case None => ""
     case _ =>
-      if (typescript) TSToString.walk(node)
-      else "#@#"+node.getClass.toString
+      "#@#"+node.getClass.toString
   }
 }

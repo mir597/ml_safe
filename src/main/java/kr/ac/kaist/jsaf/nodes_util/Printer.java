@@ -173,11 +173,6 @@ public class Printer extends NodeReflection {
             w.append("Some");
             w.append(")");
 
-        } else if (o instanceof Modifier){
-            if (o instanceof PublicMod) w.append("(PublicMod)");
-            else if (o instanceof PrivateMod) w.append("(PrivateMod)");
-            else if (o instanceof StaticMod) w.append("(StaticMod)");
-
         } else if (o instanceof AbstractNode) {
             AbstractNode x = (AbstractNode) o;
             Class cl = x.getClass();

@@ -11,26 +11,20 @@ package kr.ac.kaist.jsaf.compiler
 
 import _root_.java.util.{List => JList}
 import edu.rice.cs.plt.tuple.{Option => JOption}
-import kr.ac.kaist.jsaf.exceptions.JSAFError.error
 import kr.ac.kaist.jsaf.exceptions.StaticError
-import kr.ac.kaist.jsaf.interpreter.{InterpreterPredefine => IP, _}
 import kr.ac.kaist.jsaf.nodes._
 import kr.ac.kaist.jsaf.nodes_util.{ IRFactory => IF }
 import kr.ac.kaist.jsaf.nodes_util.{ NodeFactory => NF }
 import kr.ac.kaist.jsaf.nodes_util.{ NodeUtil => NU }
-import kr.ac.kaist.jsaf.nodes_util.Coverage
 import kr.ac.kaist.jsaf.nodes_util.Span
 import kr.ac.kaist.jsaf.scala_src.nodes._
 import kr.ac.kaist.jsaf.scala_src.useful.ErrorLog
 import kr.ac.kaist.jsaf.scala_src.useful.Lists._
 import kr.ac.kaist.jsaf.scala_src.useful.Options._
-import kr.ac.kaist.jsaf.scala_src.useful.Sets._
 import kr.ac.kaist.jsaf.useful.HasAt
-import kr.ac.kaist.jsaf.useful.Useful
-import kr.ac.kaist.jsaf.analysis.typing.Config
 
 /* Translates JavaScript AST to IR. */
-class Translator(program: Program, coverage: JOption[Coverage]) extends Walker {
+class Translator(program: Program) extends Walker {
   val debug = false
   var isLocal = false
   var locals : List[String] = List()
@@ -49,10 +43,7 @@ class Translator(program: Program, coverage: JOption[Coverage]) extends Walker {
   /*
    * For code coverage
    */
-  def incCov() = toOption(coverage) match {
-    case Some(cov) => cov.total = cov.total + 1
-    case None =>
-  }
+  def incCov() = Unit
 
   def makeStmtUnit(ast: ASTNode, span: Span): IRStmtUnit = {
     incCov
@@ -511,13 +502,7 @@ class Translator(program: Program, coverage: JOption[Coverage]) extends Walker {
                                 List(IF.makeLabelStmt(false, s, span, cont, walkStmt(body, new_env)),
                                      IF.makeSeq(s, span, ss)))
       isDoWhile = false
-      val stmt = if(Config.loopSensitive) { 
-        val new_body2 = IF.makeSeq(s, span,
-                                List(IF.makeLabelStmt(false, s, span, cont, walkStmt(body, new_env)),
-                                     IF.makeSeq(s, span, ss)))
-         IF.makeSeq(s, span, List(new_body, IF.makeWhile(true, s, span, r, new_body2)))
-       } else 
-         IF.makeSeq(s, span, List(new_body, IF.makeWhile(true, s, span, r, new_body)))
+      val stmt = IF.makeSeq(s, span, List(new_body, IF.makeWhile(true, s, span, r, new_body)))
       makeStmtUnit(s, span, IF.makeLabelStmt(false, s, span, labelName, stmt))
 
     case SWhile(info, cond, body) =>
@@ -613,21 +598,9 @@ class Translator(program: Program, coverage: JOption[Coverage]) extends Walker {
       val span = getSpan(info)
       target match {
         case None => 
-          if(Config.loopSensitive && isDoWhile){
-            val original = getE(env, breakName)
-            val new_label = new IRTmpId(original.getInfo, "<>break<>do<>", original.getUniqueName, false)
-            makeStmtUnit(s, span, IF.makeBreak(true, s, span, new_label))
-          }
-          else
-            makeStmtUnit(s, span, IF.makeBreak(true, s, span, getE(env, breakName)))
+          makeStmtUnit(s, span, IF.makeBreak(true, s, span, getE(env, breakName)))
         case Some(tg) => 
-          if(Config.loopSensitive && isDoWhile){
-            val original = label2ir(tg)
-            val new_label = new IRTmpId(original.getInfo, "<>break<>do<>", original.getUniqueName, false)
-            makeStmtUnit(s, span, IF.makeBreak(true, s, span, new_label))
-          }
-          else
-            makeStmtUnit(s, span, IF.makeBreak(true, s, span, label2ir(tg)))
+          makeStmtUnit(s, span, IF.makeBreak(true, s, span, label2ir(tg)))
       }
 
     case r@SReturn(info, expr) =>

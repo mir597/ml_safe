@@ -28,7 +28,7 @@ object CompileMain {
    * If you want a dump then give -out somefile.
    */
   def compile(): Int = {
-    if (Shell.params.FileNames.length == 0) throw new UserError("Need a file to compile.")
+    if (Shell.params.FileNames.isEmpty) throw new UserError("Need a file to compile.")
     val fileNames = JavaConversions.seqAsJavaList(Shell.params.FileNames)
 
     val return_code = 0

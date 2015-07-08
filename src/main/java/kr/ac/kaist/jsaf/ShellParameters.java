@@ -9,8 +9,6 @@
 
 package kr.ac.kaist.jsaf;
 
-import kr.ac.kaist.jsaf.analysis.typing.Worklist;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -224,7 +222,6 @@ public class ShellParameters
         opt_debugger = false;
         opt_unrollingCount = 0;
         opt_forinunrollingCount = 0;
-        opt_WorklistOrder = Worklist.WORKLIST_ORDER_DEFAULT();
         opt_DDGFileName = null;
         opt_DDG0FileName = null;
         opt_FGFileName = null;
@@ -696,10 +693,6 @@ public class ShellParameters
         else if(opt.compareTo("-single-thread") == 0) opt_SingleThread = true;
         else if(opt.compareTo("-multi-thread") == 0) opt_MultiThread = true;
         else if(opt.compareTo("-fcov") == 0) opt_FunctionCoverage = true;
-        else if(opt.compareTo("-worklist-order-default") == 0) opt_WorklistOrder = Worklist.WORKLIST_ORDER_DEFAULT();
-        else if(opt.compareTo("-worklist-order-fifo") == 0) opt_WorklistOrder = Worklist.WORKLIST_ORDER_FIFO();
-        else if(opt.compareTo("-worklist-order-lifo") == 0) opt_WorklistOrder = Worklist.WORKLIST_ORDER_LIFO();
-        else if(opt.compareTo("-worklist-order-count") == 0) opt_WorklistOrder = Worklist.WORKLIST_ORDER_COUNT();
         else if(opt.compareTo("-console") == 0) opt_debugger = true;
         else if(opt.compareTo("-xml") == 0) opt_XML = true;
         else if(opt.compareTo("-function") == 0) opt_Function = true;

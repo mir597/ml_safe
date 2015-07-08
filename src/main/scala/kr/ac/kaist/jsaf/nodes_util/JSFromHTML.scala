@@ -23,7 +23,6 @@ import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.compiler.Parser
 import kr.ac.kaist.jsaf.scala_src.useful.Lists._
 import kr.ac.kaist.jsaf.useful.{ Useful, Triple, Pair }
-import kr.ac.kaist.jsaf.analysis.typing.Config
 import kr.ac.kaist.jsaf.ProjectProperties
 import org.cyberneko.html.parsers._
 import org.apache.html.dom.HTMLDocumentImpl
@@ -31,7 +30,6 @@ import org.w3c.dom.Document
 import org.w3c.dom.Node
 import org.w3c.dom.DOMConfiguration
 import org.w3c.dom.html.HTMLDocument
-import kr.ac.kaist.jsaf.analysis.typing.models.DOMHelper
 import org.xml.sax.InputSource
 import kr.ac.kaist.jsaf.Shell
 import java.util.ArrayList
@@ -42,14 +40,91 @@ import org.apache.commons.io.FileUtils
 import kr.ac.kaist.jsaf.ShellParameters
 
 class JSFromHTML(filename: String) {
+
+  def isLoadEventAttribute(attr: String): Boolean = {
+    attr=="onload"
+  }
+
+  def isLoadEventProperty(attr: String): Boolean = {
+    attr=="load"
+  }
+
+
+  def isUnloadEventAttribute(attr: String): Boolean = {
+    attr=="onunload"
+  }
+
+  def isUnloadEventProperty(attr: String): Boolean = {
+    attr=="unload"
+  }
+
+  def isKeyboardEventAttribute(attr: String): Boolean = {
+    attr=="onkeypress" || attr=="onkeydown" || attr=="onkeyup"
+  }
+  def isKeyboardEventProperty(attr: String): Boolean = {
+    attr=="keypress" || attr=="keydown" || attr=="keyup"
+  }
+
+  def isMouseEventAttribute(attr: String): Boolean = {
+    attr=="onclick" || attr=="ondbclick" || attr=="onmousedown" || attr=="onmouseup" ||
+      attr=="onmouseover" || attr=="onmousemove" || attr=="onmouseout"
+  }
+  def isMouseEventProperty(attr: String): Boolean = {
+    attr=="click" || attr=="dbclick" || attr=="mousedown" || attr=="mouseup" ||
+      attr=="mouseover" || attr=="mousemove" || attr=="mouseout" ||
+      // for jQuery
+      attr=="scroll" || attr=="mouseleave" || attr=="mouseenter"
+  }
+
+  def isMessageEventAttribute(attr: String): Boolean = {
+    attr=="onmessage"
+  }
+  def isMessageEventProperty(attr: String): Boolean = {
+    attr=="message"
+  }
+
+  def isOtherEventAttribute(attr: String): Boolean = {
+    attr=="onfocus" || attr=="onblur" || attr=="onsubmit" || attr=="onreset" ||
+      attr=="onselect" || attr=="onchange" || attr=="onresize" || attr=="onselectstart"
+  }
+
+  def isOtherEventProperty(attr: String): Boolean = {
+    attr=="focus" || attr=="blur" || attr=="submit" || attr=="reset" ||
+      attr=="select" || attr=="change" || attr=="resize" || attr=="selectstart" ||
+      // DOM Events Level 3
+      attr=="compositionstart" || attr=="compositionend" ||
+      // HTML 5
+      attr=="hashchange" || attr=="DOMContentLoaded" ||
+      // input
+      attr=="input" ||
+      // for jQuery
+      attr=="error" || attr == "focusin" || attr =="focusout" || attr == "ajax"
+  }
+
+  def isTouchEventAttribute(attr: String): Boolean = {
+    attr=="ontouchstart" || attr=="ontouchend" || attr=="ontouchmove" || attr=="ontouchcancel" ||
+      attr=="ontouchenter" || attr=="ontouchleave"
+  }
+
+  def isTouchEventProperty(attr: String): Boolean = {
+    attr=="touchstart" || attr=="touchend" || attr=="touchmove" || attr=="touchcancel" ||
+      attr=="touchenter" || attr=="touchleave"
+  }
+
+  def isMobileEventProperty(attr: String): Boolean = {
+    attr=="touchmove" || attr=="touchstart" || attr=="touchend"
+  }
+
+  def isReadyEventProperty(attr: String): Boolean = {
+    attr == "DOMContentLoaded" || attr == "onreadystatechange"
+  }
+
   val file = new File(filename)
   val filepath = file.getParent
   val source: Source = new Source(file)
   source.fullSequentialParse
   val scriptelements: JList[Element] = source.getAllElements(HTMLElementName.SCRIPT)
   var dump = ""
-  DOMHelper.setDocumentURI(file.toURI.getScheme + "://" + file.toURI.getPath)
-  DOMHelper.setProtocol(file.toURI.getScheme)
   def getSource(): Source = source
 
   // use of Neko HTML parser for the DOM tree
@@ -123,22 +198,6 @@ class JSFromHTML(filename: String) {
                 val source = scala.io.Source.fromFile(path)
                 val result = 
                   // jQuery modeling 
-                  if (Config.jqMode && NodeUtil.isModeledLibrary(srcname)) {
-                    // JavaScript stub model for jQuery
-                    val SEP = File.separator
-                    val base = ProjectProperties.BASEDIR + SEP
-                    val newpath = base + "bin/models/jquery/__jquery__.js"
-                    val newfile = new File(newpath)
-                    val newsource = scala.io.Source.fromFile(newpath)
-                    if(file.exists) {
-                      Config.setModeledFiles(Config.getModeledFiles ++ List(newpath))
-                      new Triple(newpath, new JInteger(1), newsource.mkString)
-                      
-                    }
-                    else
-                      new Triple(path, new JInteger(1), "")
-                  }
-                  else 
                     new Triple(path, new JInteger(1), source.mkString)
                 source.close
                 li :+ result
@@ -165,22 +224,6 @@ class JSFromHTML(filename: String) {
                   val source = scala.io.Source.fromFile(external)
                   val result = 
                   // jQuery modeling 
-                  if (Config.jqMode && NodeUtil.isModeledLibrary(srcname)) {
-                    // JavaScript stub model for jQuery
-                    val SEP = File.separator
-                    val base = ProjectProperties.BASEDIR + SEP
-                    val newpath = base + "bin/models/jquery/__jquery__.js"
-                    val newfile = new File(newpath)
-                    val newsource = scala.io.Source.fromFile(newpath)
-                    if(file.exists) {
-                      Config.setModeledFiles(Config.getModeledFiles ++ List(newpath))
-                      new Triple(newpath, new JInteger(1), newsource.mkString)
-                      
-                    }
-                    else
-                      new Triple(external.toString, new JInteger(1), "")
-                  }
-                  else 
                     new Triple(external.toString, new JInteger(1), source.mkString)
                   source.close
                   // external.delete
@@ -221,9 +264,6 @@ class JSFromHTML(filename: String) {
         val source = scala.io.Source.fromFile(ff.getPath)
         val name = ff.getName
         val ss =
-          if (Config.jqMode && NodeUtil.isModeledLibrary(name))
-            new Triple("#loading#" + name, new JInteger(1), "")
-          else
             new Triple("#loading#" + name, new JInteger(1), source.mkString)
         source.close
         li :+ ss
@@ -267,32 +307,32 @@ class JSFromHTML(filename: String) {
             val name = attr.getKey
             val value = attr.getValue
             // load event attribute
-            if (DOMHelper.isLoadEventAttribute(name) && value != null) {
+            if (isLoadEventAttribute(name) && value != null) {
               val eventsource = "function __LOADEvent__" + loadevent_count + "(event) { " + value + "}\n"
               loadevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))
             } // unload event attribute
-            else if (DOMHelper.isUnloadEventAttribute(name) && value != null) {
+            else if (isUnloadEventAttribute(name) && value != null) {
               val eventsource = "function __UNLOADEvent__" + unloadevent_count + "(event) { " + value + "}\n"
               unloadevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))
             } // keyboard event attribute
-            else if (DOMHelper.isKeyboardEventAttribute(name) && value != null) {
+            else if (isKeyboardEventAttribute(name) && value != null) {
               val eventsource = "function __KEYBOARDEvent__" + keyboardevent_count + "(event) { " + value + "}\n"
               keyboardevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))
             } // mouse event attribute
-            else if (DOMHelper.isMouseEventAttribute(name) && value != null) {
+            else if (isMouseEventAttribute(name) && value != null) {
               val eventsource = "function __MOUSEEvent__" + mouseevent_count + "(event) { " + value + "}\n"
               mouseevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))
             } // message event attribute
-            else if (DOMHelper.isMessageEventAttribute(name) && value != null) {
+            else if (isMessageEventAttribute(name) && value != null) {
               val eventsource = "function __MESSAGEEvent__" + messageevent_count + "(event) { " + value + "}\n"
               messageevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))
             } // other event attribute
-            else if (DOMHelper.isOtherEventAttribute(name) && value != null) {
+            else if (isOtherEventAttribute(name) && value != null) {
               val eventsource = "function __OTHEREvent__" + otherevent_count + "(event) { " + value + "}\n"
               otherevent_count += 1
               e_list.add(new Triple(filename, new JInteger(attr.getRowColumnVector().getRow()), eventsource))

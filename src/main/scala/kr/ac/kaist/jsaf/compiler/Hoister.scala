@@ -10,8 +10,6 @@
 package kr.ac.kaist.jsaf.compiler
 
 import java.lang.{Integer => JInteger}
-import java.util.{List => JList}
-import kr.ac.kaist.jsaf.bug_detector._
 import kr.ac.kaist.jsaf.exceptions.ParserError
 import kr.ac.kaist.jsaf.exceptions.StaticError
 import kr.ac.kaist.jsaf.nodes._
@@ -19,8 +17,6 @@ import kr.ac.kaist.jsaf.nodes_util.{NodeUtil => NU}
 import kr.ac.kaist.jsaf.nodes_util.Span
 import kr.ac.kaist.jsaf.scala_src.nodes._
 import kr.ac.kaist.jsaf.scala_src.useful.Lists._
-import kr.ac.kaist.jsaf.scala_src.useful.Options._
-import kr.ac.kaist.jsaf.useful.HasAt
 import kr.ac.kaist.jsaf.useful.Triple
 
 class Hoister(program: Program) extends Walker {
@@ -29,13 +25,9 @@ class Hoister(program: Program) extends Walker {
    * To collect multiple errors,
    * we should return a dummy value after signaling an error.
    */
-  var errors = List[BugInfo]()
   private def isUserCode(span: Span): Boolean =
     !span.getFileName.containsSlice("jquery")
-  def signal(span: Span, bugKind: Int, arg1: String, arg2: String): Unit =
-    if (isUserCode(span))
-      errors ++= List(new BugInfo(span, bugKind, arg1, arg2))
-  def getErrors(): JList[BugInfo] = toJavaList(errors)
+  def signal(span: Span, bugKind: Int, arg1: String, arg2: String): Unit = Unit
 
   // getters
   def toSpan(node: ASTNode): Span = node.getInfo.getSpan
@@ -179,8 +171,7 @@ class Hoister(program: Program) extends Walker {
   //   2) a transitively enclosing function is the same name
   def nestedF(bl: LocalBlock, name: String, span: String): Unit = bl.outer match {
     case b:VarBlock => nestedF(b, name, span)
-    case f:FunBlock if f.name.equals(name) =>
-      signal(f.span, ShadowedFuncByFunc, name, span)
+    case f:FunBlock if f.name.equals(name) => ()
     case f:FunBlock => nestedF(f, name, span)
     case _ =>
   }
@@ -198,8 +189,7 @@ class Hoister(program: Program) extends Walker {
       // 4. var vs function
       //   3) multiple variable and function names in a local environment
       bl.vds.find(vd2Str(_).equals(name)) match {
-             case Some(vd) =>
-               signal(bl.span, ShadowedFuncByVar, name, toSpan(vd).toStringWithoutFiles)
+             case Some(vd) => ()
              case _ =>
       }
     }
@@ -232,14 +222,14 @@ class Hoister(program: Program) extends Walker {
                     //   1) multiple names in a single var statement
                     res.find(p => p._2.equals(name)) match {
                       case Some((span, _)) =>
-                        signal(span, ShadowedVarByVar, name, toSpan(vd).toStringWithoutFiles)
+                        ()
                       case _ =>
                     }
                     // 4. var vs function
                     //   1) variable and function with the same name
                     currentBlock.fds.find(fd2Str(_).equals(name)) match {
                       case Some(fd) =>
-                        signal(toSpan(vd), ShadowedVarByFunc, name, toSpan(fd).toStringWithoutFiles)
+                        ()
                       case _ =>
                     }
                     // 5. parameter vs (var or function)
@@ -248,14 +238,14 @@ class Hoister(program: Program) extends Walker {
                     //   5) parameter and variable with the same name
                         immediate.params.find(id2Str(_).equals(name)) match {
                           case Some(param) =>
-                            signal(toSpan(param), ShadowedParamByVar, name, toSpan(vd).toStringWithoutFiles)
+                            ()
                           case _ =>
                         }
                     //   7) parameter and nested variable with the same name
                         rest.foreach(b =>
                           b.params.find(id2Str(_).equals(name)) match {
                             case Some(param) =>
-                              signal(toSpan(param), ShadowedParamByVar, name, toSpan(vd).toStringWithoutFiles)
+                              ()
                             case _ =>
                           })
                       case _ =>
@@ -263,7 +253,7 @@ class Hoister(program: Program) extends Walker {
                     // 6. assignments vs var
                     collectAssigns(currentBlock).find(ass => ass._2.equals(name)) match {
                       case Some((span, _)) =>
-                        signal(span, ShadowedVarByVar, name, toSpan(vd).toStringWithoutFiles)
+                        ()
                       case _ =>
                     }
                     res++List((toSpan(vd), name))
@@ -279,15 +269,13 @@ class Hoister(program: Program) extends Walker {
                        //   2) multiple variable names in nested blocks
                        //      and the name is used in an outer block
                        declareVR(bl, name) match {
-                         case Some(sp) =>
-                          signal(span, ShadowedVarByVar, name, sp.toStringWithoutFiles)
+                         case Some(sp) => ()
                          case _ => }
                        // 4. var vs function
                        //   2) multiple variable and function names in nested blocks
                        //      and the name is used in an outer block
                        declareFR(bl, name) match {
-                         case Some(sp) =>
-                           signal(span, ShadowedVarByFunc, name, sp.toStringWithoutFiles)
+                         case Some(sp) => ()
                          case _ => }
              })
         case _ =>
@@ -299,8 +287,7 @@ class Hoister(program: Program) extends Walker {
                        //   2) multiple variable and function names in nested blocks
                        //      and the name is used in an outer block
                        declareVR(bl, name) match {
-                         case Some(sp) =>
-                           signal(span, ShadowedFuncByVar, name, sp.toStringWithoutFiles)
+                         case Some(sp) => ()
                          case _ => }
              })
         case _ =>
@@ -314,8 +301,7 @@ class Hoister(program: Program) extends Walker {
                case Some(span) =>
                  blocks.takeRight(size-p._2-1).foreach(b =>
                    declareV(b, name) match {
-                     case Some(sp) =>
-                       signal(span, ShadowedVarByVar, name, sp.toStringWithoutFiles)
+                     case Some(sp) => ()
                      case _ => })
                case _ => })
       // multiple names in a local environment
@@ -326,8 +312,7 @@ class Hoister(program: Program) extends Walker {
             case Some(vd) =>
               // 4. var vs function
               //   4) if any transitively enclosing FunBlock has the same name
-              rest.foreach(b => if (b.name.equals(name))
-                                  signal(b.span, ShadowedFuncByVar, name, toSpan(vd).toStringWithoutFiles))
+              ()
             case _ =>
           }
         case _ =>
@@ -341,8 +326,7 @@ class Hoister(program: Program) extends Walker {
       // 4. var vs function
       //   1) variable and function with the same name
       currentBlock.vds.find(vd2Str(_).equals(name)) match {
-                      case Some(vd) =>
-                        signal(toSpan(vd), ShadowedVarByFunc, name, toSpan(fd).toStringWithoutFiles)
+                      case Some(vd) => ()
                       case _ =>
                     }
       // 5. parameter vs (var or function)
@@ -350,15 +334,14 @@ class Hoister(program: Program) extends Walker {
         case immediate::rest =>
       //   6) parameter and function with the same name
           immediate.params.find(id2Str(_).equals(name)) match {
-            case Some(param) =>
-              signal(toSpan(param), ShadowedParamByFunc, name, toSpan(fd).toStringWithoutFiles)
+            case Some(param) => ()
             case _ =>
           }
       //   8) parameter and nested function with the same name
           rest.foreach(b =>
             b.params.find(id2Str(_).equals(name)) match {
               case Some(param) =>
-                signal(toSpan(param), ShadowedParamByFunc, name, toSpan(fd).toStringWithoutFiles)
+                ()
               case _ =>
             })
         case _ =>
@@ -368,7 +351,7 @@ class Hoister(program: Program) extends Walker {
       //   1) multiple function names in the same block
       currentBlock.fds.find(f => fd2Str(f).equals(name)) match {
         case Some(f) =>
-          signal(toSpan(f), ShadowedFuncByFunc, name, fdSpan)
+          ()
         case _ =>
       }
       if (currentBlock.outer != null) { // if (!toplevel)
@@ -376,7 +359,7 @@ class Hoister(program: Program) extends Walker {
         //   1) multiple function names in nested blocks
         declareF(currentBlock.outer, name) match {
           case Some(span) =>
-            signal(span, ShadowedFuncByFunc, name, fdSpan)
+            ()
           case _ =>
         }
         // 3. function vs function
@@ -389,7 +372,7 @@ class Hoister(program: Program) extends Walker {
                    blocks.takeRight(size-p._2-1).foreach(b =>
                      declareF(b, name) match {
                        case Some(sp) =>
-                         signal(span, ShadowedFuncByFunc, name, sp.toStringWithoutFiles)
+                         ()
                        case _ => })
                  case _ => })
       }
@@ -403,7 +386,7 @@ class Hoister(program: Program) extends Walker {
                         val name = id2Str(param)
                         res.find(p => p._2.equals(name)) match {
                           case Some((span, _)) =>
-                            signal(span, ShadowedParamByParam, name, toSpan(param).toStringWithoutFiles)
+                            ()
                           case _ =>
                         }
                         res++List((toSpan(param), name))
@@ -442,7 +425,7 @@ class Hoister(program: Program) extends Walker {
         Parser.scriptToAST(toJavaList(List(new Triple("evalParse", new JInteger(1), str))))
       } catch {
         case e:ParserError =>
-          signal(toSpan(fa), EvalArgSyntax, str, null)
+          ()
       }
       super.walkUnit(node)
 

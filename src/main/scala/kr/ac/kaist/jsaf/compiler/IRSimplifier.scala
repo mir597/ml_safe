@@ -11,7 +11,6 @@ package kr.ac.kaist.jsaf.compiler
 
 import _root_.java.util.{List => JList}
 import kr.ac.kaist.jsaf.nodes._
-import kr.ac.kaist.jsaf.nodes_util.Coverage
 import kr.ac.kaist.jsaf.nodes_util.{IRFactory => IF}
 import kr.ac.kaist.jsaf.nodes_util.{NodeUtil => NU, NodeFactory => NF}
 import kr.ac.kaist.jsaf.nodes_util.Span

@@ -156,58 +156,6 @@ object NodeFactory {
   def makeProgram(info: ASTSpanInfo, toplevel: TopLevel): Program =
     new Program(info, toplevel)
 
-  def makeModDecl(span: Span, name: Id, body: JList[SourceElement], strict: Boolean) = {
-    val info = makeSpanInfoComment(span)
-    new ModDecl(info, name, makeTopLevel(info, body, strict))
-  }
-
-  def makeModExpVarStmt(span: Span, vds: JList[VarDecl]) =
-    new ModExpVarStmt(makeSpanInfoComment(span), vds)
-
-  def makeModExpFunDecl(span: Span, fd: FunDecl) =
-    new ModExpFunDecl(makeSpanInfoComment(span), fd)
-
-  def makeModExpGetter(span: Span, name: Id, body: JList[SourceElement], strict: Boolean) =
-    new ModExpGetter(makeSpanInfoComment(span),
-                     makeGetProp(span, makePropId(span, name), body, strict))
-
-  def makeModExpSetter(span: Span, name: Id, param: Id, body: JList[SourceElement], strict: Boolean) =
-    new ModExpSetter(makeSpanInfoComment(span),
-                     makeSetProp(span, makePropId(span, name), param, body, strict))
-
-  def makeModExpSpecifiers(span: Span, names: JList[ModExpSpecifier]) =
-    new ModExpSpecifiers(makeSpanInfoComment(span), names)
-
-  def makeExportName(span: Span, name: Id): ModExpSpecifier =
-    new ModExpName(makeSpanInfoComment(span), makePath(name))
-
-  def makeExportName(span: Span, name: Id, path: Path): ModExpSpecifier =
-    new ModExpName(makeSpanInfoComment(span), makePath(name, path))
-
-  def makeStarFromPath(span: Span, path: Path): ModExpSpecifier =
-    new ModExpStarFromPath(makeSpanInfoComment(span), path)
-
-  def makeStar(span: Span): ModExpSpecifier =
-    new ModExpStar(makeSpanInfoComment(span))
-
-  def makeExportAlias(span: Span, name: Id, alias: Path): ModExpSpecifier =
-    new ModExpAlias(makeSpanInfoComment(span), name, alias)
-
-  def makeModImpDecl(span: Span, imports: JList[ModImport]) =
-    new ModImpDecl(makeSpanInfoComment(span), imports)
-
-  def makeModImpSpecifierSet(span: Span, imports: JList[ModImpSpecifier], module: Path): ModImport =
-    new ModImpSpecifierSet(makeSpanInfoComment(span), imports, module)
-
-  def makeModImpAlias(span: Span, name: Path, alias: Id): ModImport =
-    new ModImpAliasClause(makeSpanInfoComment(span), name, alias)
-
-  def makeImportAlias(span: Span, name: Id, alias: Id): ModImpSpecifier =
-    new ModImpAlias(makeSpanInfoComment(span), name, alias)
-
-  def makeImportName(span: Span, name: Id): ModImpSpecifier =
-    new ModImpName(makeSpanInfoComment(span), name)
-
   def makeFunctional(info: ASTSpanInfo, name: Id, fds: JList[FunDecl], vds: JList[VarDecl],
                      body: JList[SourceElement], params: JList[Id], strict: Boolean) =
     new Functional(fds, vds, new SourceElements(info, body, strict), name, params)
@@ -493,18 +441,6 @@ object NodeFactory {
 
   def makeComment(span: Span, comment: String): Comment =
     new Comment(makeSpanInfoComment(span), comment)
-
-  def makePath(id: Id): Path =
-    makePath(NU.getSpan(id), toJavaList(List(id)))
-
-  def makePath(id: Id, path: Path): Path =
-    makePath(makeSpan(id, path), toJavaList(toList(path.getNames):+id))
-
-  def makePath(p: Path, path: Path): Path =
-    makePath(makeSpan(p, path), toJavaList(toList(path.getNames)++toList(p.getNames)))
-
-  def makePath(span: Span, ids: JList[Id]): Path =
-    new Path(makeSpanInfoComment(span), ids)
 
   def makeNoOp(span: Span, desc: String): NoOp =
     makeNoOp(makeSpanInfoComment(span), desc)

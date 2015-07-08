@@ -10,9 +10,7 @@
 package kr.ac.kaist.jsaf.compiler
 
 import kr.ac.kaist.jsaf.nodes_util.{NodeUtil => NU}
-import kr.ac.kaist.jsaf.Shell
 import kr.ac.kaist.jsaf.ShellParameters
-import kr.ac.kaist.jsaf.analysis.typing.Config
 
 class Predefined(params: ShellParameters) {
   val doms = List(
