@@ -14,6 +14,7 @@ import kr.ac.kaist.jsaf.nodes_util.JSAstToConcrete
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
+import scala.collection.mutable.{HashMap => MHashMap}
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
 import kr.ac.kaist.jsaf.Shell
@@ -58,6 +59,27 @@ object AnalyzeMain {
         val str = JSAstToConcrete.walk(s)
         System.out.println("- " + info.getSpan.toString + ": " + str)
     }
+
+    val feature_map: MHashMap[(Any, Any), List[Int]] = new MHashMap()
+
+    // Initialize features.
+    decls.foreach(decl => {
+      calls.foreach(call => {
+        // initial feature vectors for each case: 0 0 0
+        feature_map += (decl,call) -> (0::0::0::Nil)
+      })
+    })
+
+    System.out.println("* data")
+    decls.foreach(decl => {
+      calls.foreach(call => {
+        val bitvectors = feature_map((decl, call))
+        bitvectors.foreach(v => System.out.print(v))
+        System.out.print(":")
+        // initial answer is 0
+        System.out.println("0")
+      })
+    })
 
     return_code
   }
