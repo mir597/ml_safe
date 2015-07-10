@@ -49,8 +49,7 @@ class Disambiguator(program: Program, disambiguateOnly: Boolean) extends Walker 
   /* Environment for renaming identifiers. */
   type Env = List[(String, String)]
   val emptyLabel = ("empty", "empty")
-  val pred = if (Shell.pred == null) new Predefined(new ShellParameters())
-             else Shell.pred
+  val pred = Predefined
   var env: Env = pred.vars.map(v => (v,v)) ++
                  pred.funs.map(f => (f,f)) ++ List(("alert", "alert"), // alert???
                                                    (NU.internalPrint, NU.internalPrint))

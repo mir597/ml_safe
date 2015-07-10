@@ -24,6 +24,19 @@ import kr.ac.kaist.jsaf.Shell
 ////////////////////////////////////////////////////////////////////////////////
 object AnalyzeMain {
 
+  def parse(decls: List[Any], calls: List[Any], filename: String): MHashMap[(Any, Any), Int] = {
+    val map = MHashMap[(Any, Any), Int]()
+
+    // Initial result value is 0.
+    decls.foreach(d => {
+      calls.foreach(c => {
+        map += (d, c) -> 0
+      })
+    })
+
+    map
+  }
+
   def analyze: Int = {
 
     if (Shell.params.FileNames.isEmpty) throw new UserError("Need a file to analyze")
@@ -62,6 +75,9 @@ object AnalyzeMain {
 
     val feature_map: MHashMap[(Any, Any), List[Int]] = new MHashMap()
 
+    // Parse the result.
+    val result_map = parse(decls, calls, Shell.params.opt_ResultFileName)
+
     // Initialize features.
     decls.foreach(decl => {
       calls.foreach(call => {
@@ -76,8 +92,8 @@ object AnalyzeMain {
         val bitvectors = feature_map((decl, call))
         bitvectors.foreach(v => System.out.print(v))
         System.out.print(":")
-        // initial answer is 0
-        System.out.println("0")
+        val answer = result_map((decl, call))
+        System.out.println(answer)
       })
     })
 
