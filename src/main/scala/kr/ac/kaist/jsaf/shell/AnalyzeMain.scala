@@ -38,39 +38,38 @@ object AnalyzeMain {
   }
 
   def analyze: Int = {
-
     if (Shell.params.FileNames.isEmpty) throw new UserError("Need a file to analyze")
     val fileNames = JavaConversions.seqAsJavaList(Shell.params.FileNames)
 
     // Initialize
     val return_code = 0
-    System.out.println("\n* Initialize *")
+    System.err.println("\n* Initialize *")
 
     // Read a JavaScript file and translate to IR
     val start = System.nanoTime
     val program: Program = Parser.fileToAST(fileNames)
 
     val parseTime = (System.nanoTime - start) / 1000000000.0
-    printf("# Time for parsing(s): %.2f\n", parseTime)
+    System.err.println("# Time for parsing(s): %.2f\n".format(parseTime))
 
     val hoistedProgram = new Hoister(program).doit().asInstanceOf[Program]
     val disambiguatedProgram = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
 
     val (decls, calls) = walkAST(null, disambiguatedProgram)(Nil, Nil)
 
-    System.out.println("** Decls **")
+    System.err.println("** Decls **")
     decls.foreach {
       case SFunDecl(info, ftn, strict) =>
-        System.out.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
+        System.err.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
       case SFunExpr(info, ftn) =>
-        System.out.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
+        System.err.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
     }
 
-    System.out.println("** Calls **")
+    System.err.println("** Calls **")
     calls.foreach {
       case s@SFunApp(info, fun, args) =>
         val str = JSAstToConcrete.walk(s)
-        System.out.println("- " + info.getSpan.toString + ": " + str)
+        System.err.println("- " + info.getSpan.toString + ": " + str)
     }
 
     val feature_map: MHashMap[(Any, Any), List[Int]] = new MHashMap()
@@ -86,7 +85,7 @@ object AnalyzeMain {
       })
     })
 
-    System.out.println("* data")
+    System.err.println("* data")
     decls.foreach(decl => {
       calls.foreach(call => {
         val bitvectors = feature_map((decl, call))
