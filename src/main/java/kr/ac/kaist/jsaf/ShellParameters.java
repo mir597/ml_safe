@@ -25,7 +25,6 @@ public class ShellParameters
     public static final int                        CMD_JUNIT = 9;
     public static final int                        CMD_DISAMBIGUATE = 10;
     public static final int                        CMD_COMPILE = 11;
-    public static final int                        CMD_CFG = 12;
     public static final int                        CMD_ANALYZE = 14;
     public static final int                        CMD_HELP = 99;
 
@@ -255,6 +254,7 @@ public class ShellParameters
             } else {
                 if(opt.compareTo("-out") == 0) opt_OutFileName = args[index + 1];
                 else if(opt.compareTo("-result") == 0) {opt_ResultFileName = args[index + 1];}
+                ConsumedParameterCount = 1;
             }
         }
         else if(opt.compareTo("-dir") == 0)
@@ -264,16 +264,6 @@ public class ShellParameters
                 ErrorMessage = "`" + opt + "` parameter needs an output filename. See help.";
             } else {
                 opt_Dir = args[index + 1];
-                ConsumedParameterCount = 1;
-            }
-        }
-        else if (opt.compareTo("-html") == 0)
-        {
-            if(index + 1 >= args.length)
-            {
-                ErrorMessage = "`" + opt + "` parameter needs an output filename. See help.";
-            } else {
-                opt_HTML = args[index + 1];
                 ConsumedParameterCount = 1;
             }
         }

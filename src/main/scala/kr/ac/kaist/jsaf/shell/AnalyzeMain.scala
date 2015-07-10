@@ -9,15 +9,17 @@
 
 package kr.ac.kaist.jsaf.shell
 
-import kr.ac.kaist.jsaf.nodes.Program
-import kr.ac.kaist.jsaf.nodes_util.JSAstToConcrete
+import kr.ac.kaist.jsaf.nodes.{ASTSpanInfo, Program}
+import kr.ac.kaist.jsaf.nodes_util.{Span, JSAstToConcrete}
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
+import scala.collection.immutable.HashMap
 import scala.collection.mutable.{HashMap => MHashMap}
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
 import kr.ac.kaist.jsaf.Shell
+import scala.io.Source
 
 ////////////////////////////////////////////////////////////////////////////////
 // Analyze
@@ -33,6 +35,47 @@ object AnalyzeMain {
         map += (d, c) -> 0
       })
     })
+
+    def span(i: Span): (Int, Int, Int, Int) = {
+      val begin = i.getBegin
+      val end = i.getEnd
+      (begin.getLine,begin.column(),end.getLine,end.column())
+    }
+    def findmap[A](m: HashMap[A,Any])(s: A): Any = {
+      try
+        m(s)
+      catch {
+        case _: Throwable =>
+          System.out.println("* Error: cannot find a case for "+m)
+          throw new InternalError()
+      }
+    }
+
+    val spanmap =
+      (calls ++ decls).foldLeft(HashMap[(Int,Int,Int,Int),Any]())((m, n) => {
+        n match {
+          case SFunDecl(info, _, _) => m + (span(info.getSpan) -> n)
+          case SFunExpr(info, _) => m + (span(info.getSpan) -> n)
+          case SFunApp(info, _, _) => m + (span(info.getSpan) -> n)
+        }
+      })
+
+    val find = findmap(spanmap)(_)
+
+    // The file must contain all the function call histories for a given executions.
+    // A function call consists of 8 integers which format is as follows:
+    //  start_line_of_decl:start_column:end_line:end_column:start_line_of_callexpr:start_column:end_line_end_column
+    for (line <- Source.fromFile(filename).getLines()) {
+      val data: Array[Int] = line.split(':').map(s => s.toInt)
+      val declsite = (data(0), data(1), data(2), data(3))
+      val callsite = (data(4), data(5), data(6), data(7))
+
+      // (decl, call)
+      val dn = find(declsite)
+      val cn = find(callsite)
+
+      map += (dn, cn) -> 1
+    }
 
     map
   }
