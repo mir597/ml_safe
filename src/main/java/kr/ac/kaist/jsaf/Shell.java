@@ -15,8 +15,10 @@ import kr.ac.kaist.jsaf.compiler.*;
 import kr.ac.kaist.jsaf.exceptions.*;
 import kr.ac.kaist.jsaf.nodes.IRRoot;
 import kr.ac.kaist.jsaf.nodes.Program;
-import kr.ac.kaist.jsaf.nodes_util.*;
-import kr.ac.kaist.jsaf.scala_src.useful.WorkManager;
+import kr.ac.kaist.jsaf.nodes_util.IRFactory;
+import kr.ac.kaist.jsaf.nodes_util.JSAstToConcrete;
+import kr.ac.kaist.jsaf.nodes_util.JSFromHTML;
+import kr.ac.kaist.jsaf.nodes_util.NodeUtil;
 import kr.ac.kaist.jsaf.shell.*;
 import kr.ac.kaist.jsaf.useful.Pair;
 import kr.ac.kaist.jsaf.useful.Triple;
@@ -39,9 +41,6 @@ public final class Shell {
     public static boolean                       opt_DisambiguateOnly = false;
     public static String                        printTimeTitle = null;
     private static long                         startTime;
-
-    public static WorkManager                   workManager = new WorkManager();
-    public static Predefined                    pred;
 
     ////////////////////////////////////////////////////////////////////////////////
     // Main Entry point
@@ -82,7 +81,6 @@ public final class Shell {
             // Parse parameters
             String errorMessage = params.Set(tokens);
             if(errorMessage != null) throw new UserError(errorMessage);
-            pred = new Predefined(params);
 
             // Set the start time.
             startTime = System.currentTimeMillis();

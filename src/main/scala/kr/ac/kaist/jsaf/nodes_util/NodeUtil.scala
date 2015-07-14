@@ -261,10 +261,7 @@ object NodeUtil {
   }
 
   def isEval(n: Expr) = n match {
-    case SVarRef(info, SId(_, text, _, _)) => 
-      if(Shell.params.command == ShellParameters.CMD_WEBAPP_BUG_DETECTOR) 
-        false 
-      else text.equals("eval")
+    case SVarRef(info, SId(_, text, _, _)) => text.equals("eval")
     case _ => false
   }
 

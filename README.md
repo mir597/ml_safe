@@ -25,4 +25,8 @@ Once you have built the framework, you can call it from any directory, on any Ja
 
 ### Run Tests
 
+The following test script will generate a vector file 'vectors.txt':
+
+	./test.sh
+
 
