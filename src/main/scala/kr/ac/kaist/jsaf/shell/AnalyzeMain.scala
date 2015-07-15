@@ -9,11 +9,14 @@
 
 package kr.ac.kaist.jsaf.shell
 
-import kr.ac.kaist.jsaf.nodes.{ASTSpanInfo, Program}
+import java.util
+
+import kr.ac.kaist.jsaf.nodes.{VarRef, Id, Program}
 import kr.ac.kaist.jsaf.nodes_util.{Span, JSAstToConcrete}
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
+import scala.collection.JavaConverters._
 import scala.collection.immutable.HashMap
 import scala.collection.mutable.{HashMap => MHashMap}
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
@@ -150,18 +153,75 @@ object AnalyzeMain {
         System.err.println("- " + info.getSpan.toString + ": " + str)
     }
 
-    val feature_map: MHashMap[(Any, Any), List[Int]] = new MHashMap()
+    val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
 
     // Parse the result.
     val result_map = parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
 
-    // Initialize features.
-    decls.foreach(decl => {
-      calls.foreach(call => {
-        // initial feature vectors for each case: 0 0 0
-        feature_map += (decl,call) -> (0::0::0::Nil)
+    def init_set(map: HashMap[(Any, Any), List[Int]]) = {
+      decls.foldLeft(map)((map_1, decl) => {
+        calls.foldLeft(map_1)((map_2, call) => {
+          // initial feature vectors with an empty list
+          map_2 + ((decl, call) -> Nil)
+        })
       })
-    })
+    }
+
+    def exprClassFeature(map: HashMap[(Any, Any), List[Int]]) = {
+      // classify the type of call expressions.
+      // 1: simple function call
+      // 2: method call
+      map.map(f => {
+        val dc = f._1
+        val vectors = f._2
+        val callexpr = dc._2
+        val vec =
+          callexpr match {
+            case SFunApp(info, fun, args) =>
+              fun match {
+                case _: VarRef => 1
+                case _ => 2
+              }
+          }
+
+        (dc, vec::vectors)
+      })
+    }
+
+    def name(n: Any) = {
+      n match {
+        case SFunDecl(_, fun, _) =>
+          fun.getName.getText
+        case SFunExpr(_, fun) =>
+          fun.getName.getText
+        case SFunApp(_, call, args) =>
+          call match {
+            case SVarRef(_, id) => id.getText
+            case _ => ""
+          }
+      }
+    }
+
+    def nameFeature(map: HashMap[(Any, Any), List[Int]]) = {
+      map.map(f => {
+        val dc = f._1
+        val vectors = f._2
+        val callname = name(dc._2)
+        val declname = name(dc._1)
+
+        val vec =
+          if (callname.equals(declname)) 1
+          else 0
+
+        (dc, vec::vectors)
+      })
+    }
+
+    // Initialize features.
+    val feature_map =
+      init_set(init_map) >>
+      exprClassFeature >>
+      nameFeature
 
     System.err.println("* data")
     decls.foreach(decl => {
