@@ -102,7 +102,7 @@ object AnalyzeMain {
                   map += (dn, cn) -> 1
                 } else {
                   // TODO built-in function calls should be considered.
-                  System.out.println(name + " -> "+str)
+                  System.err.println(name + " -> "+str)
                 }
               case _ =>
             }
