@@ -20,13 +20,14 @@ import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
 import kr.ac.kaist.jsaf.Shell
 import scala.io.Source
+import net.liftweb.json._
 
 ////////////////////////////////////////////////////////////////////////////////
 // Analyze
 ////////////////////////////////////////////////////////////////////////////////
 object AnalyzeMain {
 
-  def parse(decls: List[Any], calls: List[Any], filename: String): MHashMap[(Any, Any), Int] = {
+  def parseFromFile(decls: List[Any], calls: List[Any], filename: String): MHashMap[(Any, Any), Int] = {
     val map = MHashMap[(Any, Any), Int]()
 
     // Initial result value is 0.
@@ -36,23 +37,40 @@ object AnalyzeMain {
       })
     })
 
-    def span(i: Span): (Int, Int, Int, Int) = {
+    def span(i: Span): (String, Int, Int, Int) = {
       val begin = i.getBegin
       val end = i.getEnd
-      (begin.getLine,begin.column(),end.getLine,end.column())
+      (begin.getFileNameOnly, begin.getLine,begin.getOffset, end.getOffset)
     }
+
+    def parse_span(s: String, decl: Boolean): (String, Int, Int, Int) = {
+      val a1 = s.split("@")
+      val filename = a1(0)
+      val others = a1(1)
+      val a2 = others.split(Array(':', '-'))
+      val line = a2(0)
+      val start_offset = a2(1)
+      val end_offset = a2(2)
+      val p = if (decl) 0 else 1
+      (filename, line.toInt, start_offset.toInt, end_offset.toInt - p)
+    }
+
     def findmap[A](m: HashMap[A,Any])(s: A): Any = {
       try
         m(s)
       catch {
         case _: Throwable =>
-          System.out.println("* Error: cannot find a case for "+m)
+          System.out.println("* Error: cannot find a case for "+s)
+          System.out.println("* Dump for hash map")
+          m.foreach(kv => {
+            System.out.println(kv._1+" -> "+kv._2)
+          })
           throw new InternalError()
       }
     }
 
     val spanmap =
-      (calls ++ decls).foldLeft(HashMap[(Int,Int,Int,Int),Any]())((m, n) => {
+      (calls ++ decls).foldLeft(HashMap[(String,Int,Int,Int),Any]())((m, n) => {
         n match {
           case SFunDecl(info, _, _) => m + (span(info.getSpan) -> n)
           case SFunExpr(info, _) => m + (span(info.getSpan) -> n)
@@ -65,16 +83,33 @@ object AnalyzeMain {
     // The file must contain all the function call histories for a given executions.
     // A function call consists of 8 integers which format is as follows:
     //  start_line_of_decl:start_column:end_line:end_column:start_line_of_callexpr:start_column:end_line_end_column
-    for (line <- Source.fromFile(filename).getLines()) {
-      val data: Array[Int] = line.split(':').map(s => s.toInt)
-      val declsite = (data(0), data(1), data(2), data(3))
-      val callsite = (data(4), data(5), data(6), data(7))
+    val json = parse(Source.fromFile(filename) mkString)
 
-      // (decl, call)
-      val dn = find(declsite)
-      val cn = find(callsite)
+    json.children.foreach {
+      case JField(name, value) =>
+        value match {
+          case JArray(list) =>
+            list.foreach {
+              case JString(str) =>
+                if (str.contains("@")) {
+                  // user function call
+                  val declsite = parse_span(str, false)
+                  val callsite = parse_span(name, true)
 
-      map += (dn, cn) -> 1
+                  val dn = find(declsite)
+                  val cn = find(callsite)
+
+                  map += (dn, cn) -> 1
+                } else {
+                  // TODO built-in function calls should be considered.
+                  System.out.println(name + " -> "+str)
+                }
+              case _ =>
+            }
+
+          case _ =>
+        }
+      case _ =>
     }
 
     map
@@ -118,7 +153,7 @@ object AnalyzeMain {
     val feature_map: MHashMap[(Any, Any), List[Int]] = new MHashMap()
 
     // Parse the result.
-    val result_map = parse(decls, calls, Shell.params.opt_ResultFileName)
+    val result_map = parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
 
     // Initialize features.
     decls.foreach(decl => {
@@ -132,7 +167,7 @@ object AnalyzeMain {
     decls.foreach(decl => {
       calls.foreach(call => {
         val bitvectors = feature_map((decl, call))
-        bitvectors.foreach(v => System.out.print(v))
+        bitvectors.foreach(v => System.out.print(v+" "))
         System.out.print(":")
         val answer = result_map((decl, call))
         System.out.println(answer)
