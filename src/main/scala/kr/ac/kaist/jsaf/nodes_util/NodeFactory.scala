@@ -66,6 +66,10 @@ object NodeFactory {
     new Span(new SourceLocRats(file, line, startC, 0),
              new SourceLocRats(file, line, endC, 0))
 
+  def makeSpan(file: String, line: Int, startC: Int, endC: Int, startOffset: Int, endOffset: Int): Span =
+    new Span(new SourceLocRats(file, line, startC, startOffset),
+             new SourceLocRats(file, line, endC, endOffset))
+      
   def makeSpan(start: ASTNode, finish: ASTNode): Span =
     makeSpan(NU.getSpan(start), NU.getSpan(finish))
 

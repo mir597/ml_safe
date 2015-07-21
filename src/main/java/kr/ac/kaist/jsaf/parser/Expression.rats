@@ -410,6 +410,7 @@ constant inline Action<LHS> FunApp =
      w a1:Args
      { yyValue = new Action<LHS>() {
              public LHS run(LHS base) {
+				 /*
                  Span span, t;
                  if (a1.isEmpty()) {
                      t = NodeUtil.getSpan(base);
@@ -419,6 +420,16 @@ constant inline Action<LHS> FunApp =
                                               createSpan(yyStart,yyCount));
 
                  return NodeFactory.makeFunApp(NodeUtil.adjustCallSpan(span, (LHS)base),
+                                               (LHS)base, a1);
+				 */
+                 SourceLoc loc = NodeUtil.getSpan(base).getBegin();
+                 Span last;
+                 if (a1.isEmpty()) last = NodeUtil.getSpan(base);
+                 else last = NodeUtil.getSpan(a1.get(a1.size()-1));
+                 Span span = NodeFactory.makeSpan(loc.getFileName(), loc.getLine(),
+                                                  loc.column(), last.getEnd().column()+1,
+                                                  base.getInfo().getSpan().getBegin().getOffset(), last.getEnd().getOffset()+1);
+                 return NodeFactory.makeFunApp(span,
                                                (LHS)base, a1);
              }};
      };
