@@ -101,7 +101,7 @@ with open(f_test) as f:
 #
 
 C = 1.0
-classifiers = [('Nearest Neighbors', KNeighborsClassifier(5)),
+classifiers = [#('Nearest Neighbors', KNeighborsClassifier(5)),
                ('Logistic Regression (l1)', LogisticRegression(C=C, penalty='l1')),
                ('Logistic Regression (l2)', LogisticRegression(C=C, penalty='l2')),
                ('Linear SVM', SVC(kernel='linear',C=C,probability=True,random_state=0)),
