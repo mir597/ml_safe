@@ -78,6 +78,7 @@ object AnalyzeMain {
           case SFunDecl(info, _, _) => m + (span(info.getSpan) -> n)
           case SFunExpr(info, _) => m + (span(info.getSpan) -> n)
           case SFunApp(info, _, _) => m + (span(info.getSpan) -> n)
+          case SNew(info, _) => m + (span(info.getSpan) -> n)
         }
       })
 
@@ -151,6 +152,10 @@ object AnalyzeMain {
       case s@SFunApp(info, fun, args) =>
         val str = JSAstToConcrete.walk(s)
         System.err.println("- " + info.getSpan.toString + ": " + str)
+
+      case s@SNew(info, lhs) =>
+        val str = JSAstToConcrete.walk(s)
+        System.err.println("- " + info.getSpan.toString + ": " + str)
     }
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
@@ -182,23 +187,30 @@ object AnalyzeMain {
                 case _: VarRef => 1
                 case _ => 2
               }
+            case SNew(_, lhs) =>
+              lhs match {
+                case _: VarRef => 1
+                case _ => 2
+              }
           }
 
         (dc, vec::vectors)
       })
     }
 
-    def name(n: Any) = {
+    def name(n: Any): String = {
       n match {
         case SFunDecl(_, fun, _) =>
           fun.getName.getText
         case SFunExpr(_, fun) =>
           fun.getName.getText
         case SFunApp(_, call, args) =>
-          call match {
-            case SVarRef(_, id) => id.getText
-            case _ => ""
-          }
+          name(call)
+        case SNew(_, lhs) =>
+          name(lhs)
+        case SVarRef(_, id) =>
+          id.getText
+        case _ => ""
       }
     }
 
@@ -377,7 +389,12 @@ object AnalyzeMain {
       walkAST(node, obj)(pair) >>
         walkAST(node, member)
     case SNew(info, lhs) =>
-      walkAST(node, lhs)(pair)
+      val new_pair =
+        lhs match {
+          case SFunApp(_, _, _) => pair
+          case _ => (pair._1, node::pair._2) // case for 'new A'
+        }
+      walkAST(node, lhs)(new_pair)
     case SFunApp(info, fun, args) =>
       val new_pair = (pair._1, node::pair._2)
       walkAST(node, fun)(new_pair) >>

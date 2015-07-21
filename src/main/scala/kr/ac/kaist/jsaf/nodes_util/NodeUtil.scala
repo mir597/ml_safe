@@ -41,10 +41,13 @@ object NodeUtil {
     loc.getLine == 0 && loc.column == 0
   }
 
-  def adjustCallSpan(finish: Span, expr: LHS) = expr match {
-    case SParenthesized(info, body) => new Span(getSpan(body).getBegin, finish.getEnd)
-    case _ => finish
-  }
+  def adjustCallSpan(finish: Span, expr: LHS) =
+    expr match {
+      //    case SParenthesized(info, body) => new Span(getSpan(body).getBegin, finish.getEnd)
+      case SParenthesized(info, body) => new Span(info.getSpan.getBegin, finish.getEnd)
+      case _ => finish
+    }
+
   
   private val regex_jquery = """.*jquery[^/]*\.js""".r
   private val regex_jquery_plugin = """.*(tabs|ui|menu|carouFredSel|onebyone|prettyPhoto|touchwipe|autocomplete|backbone|cookie).*""".r
