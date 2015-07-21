@@ -160,9 +160,6 @@ object AnalyzeMain {
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
 
-    // Parse the result.
-    val result_map = parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
-
     def init_set(map: HashMap[(Any, Any), List[Int]]) = {
       decls.foldLeft(map)((map_1, decl) => {
         calls.foldLeft(map_1)((map_2, call) => {
@@ -229,22 +226,27 @@ object AnalyzeMain {
       })
     }
 
-    // Initialize features.
-    val feature_map =
-      init_set(init_map) >>
-      exprClassFeature >>
-      nameFeature
+    if (Shell.params.opt_ResultFileName != null) {
+      // Parse the result.
+      val result_map = parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
 
-    System.err.println("* data")
-    decls.foreach(decl => {
-      calls.foreach(call => {
-        val bitvectors = feature_map((decl, call))
-        bitvectors.foreach(v => System.out.print(v+" "))
-        System.out.print(":")
-        val answer = result_map((decl, call))
-        System.out.println(answer)
+      // Initialize features.
+      val feature_map =
+        init_set(init_map) >>
+          exprClassFeature >>
+          nameFeature
+
+      System.err.println("* data")
+      decls.foreach(decl => {
+        calls.foreach(call => {
+          val bitvectors = feature_map((decl, call))
+          bitvectors.foreach(v => System.out.print(v + " "))
+          System.out.print(":")
+          val answer = result_map((decl, call))
+          System.out.println(answer)
+        })
       })
-    })
+    }
 
     return_code
   }
