@@ -58,17 +58,17 @@ object AnalyzeMain {
       (filename, line.toInt, start_offset.toInt, end_offset.toInt - p)
     }
 
-    def findmap[A](m: HashMap[A,Any])(s: A): Any = {
-      try
-        m(s)
-      catch {
-        case _: Throwable =>
-          System.out.println("* Error: cannot find a case for "+s)
-          System.out.println("* Dump for hash map")
-          m.foreach(kv => {
-            System.out.println(kv._1+" -> "+kv._2)
-          })
-          throw new InternalError()
+    def findmap(m: HashMap[(String, Int, Int, Int),Any])(s: (String, Int, Int, Int)): Option[Any] = {
+      m.get(s) match {
+        case Some(v) => Some(v)
+        case None =>
+          val s2 = (s._1, s._2, s._3, s._4 - 1)
+          m.get(s2) match {
+            case Some(v) => Some(v)
+            case None =>
+              val s3 = (s._1, s._2, s._3, s._4 + 1)
+              m.get(s3)
+          }
       }
     }
 
@@ -103,7 +103,11 @@ object AnalyzeMain {
                   val dn = find(declsite)
                   val cn = find(callsite)
 
-                  map += (dn, cn) -> 1
+                  (dn, cn) match {
+                    case (Some(d), Some(c)) => map += (d, c) -> 1
+                    case _ =>
+                      // offset mismatch.
+                  }
                 } else {
                   // TODO built-in function calls should be considered.
                   System.err.println(name + " -> "+str)
