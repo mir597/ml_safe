@@ -23,10 +23,14 @@ Once you have built the framework, you can call it from any directory, on any Ja
     bin/jsaf
     bin/jsaf help
 
+### Environment variables
+
+	$ export JS_HOME={HOME_PATH}
+	$ export PATH=$JS_HOME/benchmarks/bin:$JS_HOME/bin:$PATH
+
 ### Run Tests
 
-The following test script will generate a vector file 'vectors.txt':
+The following test script will generate a vector file 'result_{benchmark_name}.out' for each benchmarks in benchmarks/cg.list:
 
-	./test.sh
-
+	$ runs
 
