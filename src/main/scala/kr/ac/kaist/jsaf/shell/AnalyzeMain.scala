@@ -17,7 +17,7 @@ import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
 import scala.collection.JavaConverters._
-import scala.collection.immutable.HashMap
+import scala.collection.immutable.{HashSet, HashMap}
 import scala.collection.mutable.{HashMap => MHashMap}
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
@@ -161,24 +161,24 @@ object AnalyzeMain {
 
     val (decls, calls) = walkAST(collectDeclCallPair)(null, disambiguatedProgram)(Nil, Nil)
 
-    System.err.println("** Decls **")
-    decls.foreach {
+    def toString(n: Any) = n match {
       case SFunDecl(info, ftn, strict) =>
-        System.err.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
+        info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles+": "+ftn.getName.getText
       case SFunExpr(info, ftn) =>
-        System.err.println("- "+info.getSpan.toString+": "+ftn.getName.getUniqueName)
+        info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles+": "+ftn.getName.getText
+      case s@SFunApp(info, fun, args) =>
+        val str = JSAstToConcrete.walk(fun)
+        info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles + ": " + str
+      case s@SNew(info, lhs) =>
+        val str = JSAstToConcrete.walk(lhs)
+        info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles + ": " + str
     }
+
+    System.err.println("** Decls **")
+    decls.foreach (n => System.err.println("- "+toString(n)))
 
     System.err.println("** Calls **")
-    calls.foreach {
-      case s@SFunApp(info, fun, args) =>
-        val str = JSAstToConcrete.walk(s)
-        System.err.println("- " + info.getSpan.toString + ": " + str)
-
-      case s@SNew(info, lhs) =>
-        val str = JSAstToConcrete.walk(s)
-        System.err.println("- " + info.getSpan.toString + ": " + str)
-    }
+    calls.foreach (n => System.err.println("- "+toString(n)))
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
 
@@ -219,18 +219,14 @@ object AnalyzeMain {
 
     def name(n: Any): String = {
       n match {
-        case SFunDecl(_, fun, _) =>
-          fun.getName.getText
-        case SFunExpr(_, fun) =>
-          fun.getName.getText
-        case SFunApp(_, call, args) =>
-          name(call)
-        case SNew(_, lhs) =>
-          name(lhs)
-        case SVarRef(_, id) =>
-          id.getText
-        case SDot(_, obj, member) =>
-          member.getText
+        case SFunDecl(_, fun, _) => fun.getName.getText
+        case SFunExpr(_, fun) => fun.getName.getText
+        case SFunApp(_, call, args) => name(call)
+        case SNew(_, lhs) => name(lhs)
+        case SVarRef(_, id) => id.getText
+        case SDot(_, obj, member) => member.getText
+        case SBracket(_, lhs, expr) => name(expr)
+        case SStringLiteral(_, qs, es) => es
         case _ => ""
       }
     }
@@ -243,8 +239,82 @@ object AnalyzeMain {
         val declname = name(dc._1)
 
         val vec =
-          if (callname.equals(declname)) 1
+          if (callname.equals(declname) && !callname.equals("")) 1
           else 0
+
+        (dc, vec::vectors)
+      })
+    }
+
+    // Collects function expressions from 'node'
+    def collectFuns(parent: Any, node: Any, set: HashSet[Any]) = {
+      node match {
+        case SFunExpr(_, ftn) => set + node
+        case _ => set
+      }
+    }
+    // Find appropriate name string from 'lhs'
+    def nameOfLHS(parent: Any, lhs: Any, name: Option[String]) = lhs match {
+      case SVarRef(_, id) => Some(id.getText)
+      case SDot(_, _, id) => Some(id.getText)
+      case SStringLiteral(_, qs, es) => Some(es)
+      case _ => name
+    }
+    // Get a property string from 'pr'
+    def nameOfProp(pr: Any): String = pr match {
+      case SPropId(_, id) => id.getText
+      case SPropStr(_, str) => str
+      case SPropNum(_, n) =>
+        // FIXME How can I get the number literal?
+        System.err.println("PropNumLiteral: "+n)
+        "__Number__"
+    }
+    def collectFunExprName(parent: Any, node: Any, map: HashMap[Any, HashSet[String]]) = {
+      node match {
+        case SAssignOpApp(info, lhs, op, expr) =>
+          val funs = walkAST(collectFuns)(null, expr)(HashSet())
+          if (funs.nonEmpty) {
+            val name = walkAST(nameOfLHS)(null, lhs)(None)
+            name match {
+              case Some(n) =>
+                funs.foldLeft(map)((m, f) => {
+                  val i = m.getOrElse(f, HashSet[String]()) + n
+                  m + (f -> i)
+                })
+              case None => map
+            }
+          } else {
+            map
+          }
+        case SField(_, prop, expr) =>
+          val funs = walkAST(collectFuns)(null, expr)(HashSet())
+          if (funs.nonEmpty) {
+            val name = nameOfProp(prop)
+            funs.foldLeft(map)((m, f) => {
+              val i = m.getOrElse(f, HashSet[String]()) + name
+              m + (f -> i)
+            })
+          } else {
+            map
+          }
+        case _ => map
+      }
+    }
+    val nameMap = walkAST(collectFunExprName)(null, disambiguatedProgram)(HashMap[Any, HashSet[String]]())
+
+    def propFeature(map: HashMap[(Any, Any), List[Int]]) = {
+      map.map(f => {
+        val dc = f._1
+        val vectors = f._2
+        val callname = name(dc._2)
+
+        val vec =
+          nameMap.get(dc._1) match {
+            case Some(xs) =>
+              if (xs.contains(callname)) 1
+              else 0
+            case None => 0
+          }
 
         (dc, vec::vectors)
       })
@@ -257,13 +327,17 @@ object AnalyzeMain {
     val feature_map =
       init_set(init_map) >>
         exprClassFeature >>
-        nameFeature
+        nameFeature >>
+        propFeature
 
     System.err.println("* data")
-    decls.foreach(decl => {
-      calls.foreach(call => {
+    calls.foreach(call => {
+      decls.foreach(decl => {
         val bitvectors = feature_map((decl, call))
-        bitvectors.foreach(v => System.out.print(v + " "))
+        System.err.print(toString(call) + " => " +toString(decl)+ "     ")
+        bitvectors.foreach(v => {
+          System.out.print(v + " ")
+        })
         System.out.print(":")
         val answer = result_map((decl, call))
         System.out.println(answer)
