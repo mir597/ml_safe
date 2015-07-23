@@ -11,12 +11,12 @@ package kr.ac.kaist.jsaf.shell
 
 import java.util
 
-import kr.ac.kaist.jsaf.nodes.{VarRef, Id, Program}
+import kr.ac.kaist.jsaf.features.SimpleName
+import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.nodes_util.{Span, JSAstToConcrete}
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
-import scala.collection.JavaConverters._
 import scala.collection.immutable.{HashSet, HashMap}
 import scala.collection.mutable.{HashMap => MHashMap}
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
@@ -24,6 +24,8 @@ import kr.ac.kaist.jsaf.exceptions.UserError
 import kr.ac.kaist.jsaf.Shell
 import scala.io.Source
 import net.liftweb.json._
+import kr.ac.kaist.jsaf._
+import kr.ac.kaist.jsaf.features._
 
 ////////////////////////////////////////////////////////////////////////////////
 // Analyze
@@ -191,144 +193,15 @@ object AnalyzeMain {
       })
     }
 
-    def exprClassFeature(map: HashMap[(Any, Any), List[Int]]) = {
-      // classify the type of call expressions.
-      // 1: simple function call
-      // 2: method call
-      map.map(f => {
-        val dc = f._1
-        val vectors = f._2
-        val callexpr = dc._2
-        val vec =
-          callexpr match {
-            case SFunApp(info, fun, args) =>
-              fun match {
-                case _: VarRef => 1
-                case _ => 2
-              }
-            case SNew(_, lhs) =>
-              lhs match {
-                case _: VarRef => 1
-                case _ => 2
-              }
-          }
-
-        (dc, vec::vectors)
-      })
-    }
-
-    def name(n: Any): String = {
-      n match {
-        case SFunDecl(_, fun, _) => fun.getName.getText
-        case SFunExpr(_, fun) => fun.getName.getText
-        case SFunApp(_, call, args) => name(call)
-        case SNew(_, lhs) => name(lhs)
-        case SVarRef(_, id) => id.getText
-        case SDot(_, obj, member) => member.getText
-        case SBracket(_, lhs, expr) => name(expr)
-        case SStringLiteral(_, qs, es) => es
-        case _ => ""
-      }
-    }
-
-    def nameFeature(map: HashMap[(Any, Any), List[Int]]) = {
-      map.map(f => {
-        val dc = f._1
-        val vectors = f._2
-        val callname = name(dc._2)
-        val declname = name(dc._1)
-
-        val vec =
-          if (callname.equals(declname) && !callname.equals("")) 1
-          else 0
-
-        (dc, vec::vectors)
-      })
-    }
-
-    // Collects function expressions from 'node'
-    def collectFuns(parent: Any, node: Any, set: HashSet[Any]) = {
-      node match {
-        case SFunExpr(_, ftn) => set + node
-        case _ => set
-      }
-    }
-    // Find appropriate name string from 'lhs'
-    def nameOfLHS(parent: Any, lhs: Any, name: Option[String]) = lhs match {
-      case SVarRef(_, id) => Some(id.getText)
-      case SDot(_, _, id) => Some(id.getText)
-      case SStringLiteral(_, qs, es) => Some(es)
-      case _ => name
-    }
-    // Get a property string from 'pr'
-    def nameOfProp(pr: Any): String = pr match {
-      case SPropId(_, id) => id.getText
-      case SPropStr(_, str) => str
-      case SPropNum(_, n) =>
-        // FIXME How can I get the number literal?
-        System.err.println("PropNumLiteral: "+n)
-        "__Number__"
-    }
-    def collectFunExprName(parent: Any, node: Any, map: HashMap[Any, HashSet[String]]) = {
-      node match {
-        case SAssignOpApp(info, lhs, op, expr) =>
-          val funs = walkAST(collectFuns)(null, expr)(HashSet())
-          if (funs.nonEmpty) {
-            val name = walkAST(nameOfLHS)(null, lhs)(None)
-            name match {
-              case Some(n) =>
-                funs.foldLeft(map)((m, f) => {
-                  val i = m.getOrElse(f, HashSet[String]()) + n
-                  m + (f -> i)
-                })
-              case None => map
-            }
-          } else {
-            map
-          }
-        case SField(_, prop, expr) =>
-          val funs = walkAST(collectFuns)(null, expr)(HashSet())
-          if (funs.nonEmpty) {
-            val name = nameOfProp(prop)
-            funs.foldLeft(map)((m, f) => {
-              val i = m.getOrElse(f, HashSet[String]()) + name
-              m + (f -> i)
-            })
-          } else {
-            map
-          }
-        case _ => map
-      }
-    }
-    val nameMap = walkAST(collectFunExprName)(null, disambiguatedProgram)(HashMap[Any, HashSet[String]]())
-
-    def propFeature(map: HashMap[(Any, Any), List[Int]]) = {
-      map.map(f => {
-        val dc = f._1
-        val vectors = f._2
-        val callname = name(dc._2)
-
-        val vec =
-          nameMap.get(dc._1) match {
-            case Some(xs) =>
-              if (xs.contains(callname)) 1
-              else 0
-            case None => 0
-          }
-
-        (dc, vec::vectors)
-      })
-    }
-
     // Parse the result.
     val result_map = parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
 
     // Initialize features.
     val feature_map =
       init_set(init_map) >>
-        exprClassFeature >>
-        nameFeature >>
-        propFeature
+        Classifier.genFeature >>
+        SimpleName.genFeature >>
+        PropName.genFeature(PropName.init(disambiguatedProgram))
 
     System.err.println("* data")
     calls.foreach(call => {
@@ -345,240 +218,5 @@ object AnalyzeMain {
     })
 
     return_code
-  }
-
-  implicit def any2waterfall[A](a: A): Object {def >>[B](f: (A) => B): B} = new AnyRef{
-    def >>[B](f: A=>B) = f(a)
-  }
-
-  def walkAST[A](f: (Any, Any, A) => A)(parent: Any, node: Any)(a: A): A = {
-    val rec = walkAST(f)(_,_)
-    node match {
-      case SProgram(info, body) =>
-        f(parent, node, a) >>
-          rec(node, body)
-      case SNoOp(info, desc) =>
-        f(parent, node, a)
-      case SStmtUnit(info, stmts) =>
-        f(parent, node, a) >>
-          rec(node, stmts)
-      case SFunDecl(info, ftn, strict) =>
-        f(parent, node, a) >>
-          rec(node, ftn)
-      case SBlock(info, stmts, internal) =>
-        f(parent, node, a) >>
-          rec(node, stmts)
-      case SVarStmt(info, vds) =>
-        f(parent, node, a) >>
-          rec(node, vds)
-      case SEmptyStmt(info) =>
-        f(parent, node, a)
-      case SExprStmt(info, expr, internal) =>
-        f(parent, node, a) >>
-          rec(node, expr)
-      case SIf(info, cond, trueBranch, falseBranch) =>
-        f(parent, node, a) >>
-          rec(node, cond) >>
-          rec(node, trueBranch) >>
-          rec(node, falseBranch)
-      case SDoWhile(info, body, cond) =>
-        f(parent, node, a) >>
-          rec(node, body) >>
-          rec(node, cond)
-      case SWhile(info, cond, body) =>
-        f(parent, node, a) >>
-          rec(node, cond) >>
-          rec(node, body)
-      case SFor(info, init, cond, action, body) =>
-        f(parent, node, a) >>
-          rec(node, init) >>
-          rec(node, cond) >>
-          rec(node, action) >>
-          rec(node, body)
-      case SForIn(info, lhs, expr, body) =>
-        f(parent, node, a) >>
-          rec(node, lhs) >>
-          rec(node, expr) >>
-          rec(node, body)
-      case SForVar(info, vars, cond, action, body) =>
-        f(parent, node, a) >>
-          rec(node, vars) >>
-          rec(node, cond) >>
-          rec(node, action) >>
-          rec(node, body)
-      case SForVarIn(info, _var, expr, body) =>
-        f(parent, node, a) >>
-          rec(node, _var) >>
-          rec(node, expr) >>
-          rec(node, body)
-      case SContinue(info, target) =>
-        f(parent, node, a) >>
-          rec(node, target)
-      case SBreak(info, target) =>
-        f(parent, node, a) >>
-          rec(node, target)
-      case SReturn(info, expr) =>
-        f(parent, node, a) >>
-          rec(node, expr)
-      case SWith(info, expr, stmt) =>
-        f(parent, node, a) >>
-          rec(node, expr) >>
-          rec(node, stmt)
-      case SSwitch(info, cond, frontCases, _def, backCases) =>
-        f(parent, node, a) >>
-          rec(node, cond) >>
-          rec(node, frontCases) >>
-          rec(node, _def) >>
-          rec(node, backCases)
-      case SLabelStmt(info, label, stmt) =>
-        f(parent, node, a) >>
-          rec(node, label) >>
-          rec(node, stmt)
-      case SThrow(info, expr) =>
-        f(parent, node, a) >>
-          rec(node, expr)
-      case STry(info, body, catchBlock, fin) =>
-        f(parent, node, a) >>
-          rec(node, body) >>
-          rec(node, catchBlock) >>
-          rec(node, fin)
-      case SDebugger(info) =>
-        f(parent, node, a)
-      case SSourceElements(info, body, strict) =>
-        f(parent, node, a) >>
-          rec(node, body)
-      case SVarDecl(info, id, expr, strict) =>
-        f(parent, node, a) >>
-          rec(node, id) >>
-          rec(node, expr)
-      case SCase(info, cond, body) =>
-        f(parent, node, a) >>
-          rec(node, cond) >>
-          rec(node, body)
-      case SCatch(info, id, body) =>
-        f(parent, node, a) >>
-          rec(node, id) >>
-          rec(node, body)
-      case SExprList(info, exprs) =>
-        f(parent, node, a) >>
-          rec(node, exprs)
-      case SCond(info, cond, trueBranch, falseBranch) =>
-        f(parent, node, a) >>
-          rec(node, cond) >>
-          rec(node, trueBranch) >>
-          rec(node, falseBranch)
-      case SInfixOpApp(info, left, op, right) =>
-        f(parent, node, a) >>
-          rec(node, left) >>
-          rec(node, op) >>
-          rec(node, right)
-      case SPrefixOpApp(info, op, right) =>
-        f(parent, node, a) >>
-          rec(node, op) >>
-          rec(node, right)
-      case SUnaryAssignOpApp(info, lhs, op) =>
-        f(parent, node, a) >>
-          rec(node, lhs) >>
-          rec(node, op)
-      case SAssignOpApp(info, lhs, op, right) =>
-        f(parent, node, a) >>
-          rec(node, lhs) >>
-          rec(node, op) >>
-          rec(node, right)
-      case SThis(info) =>
-        f(parent, node, a)
-      case SNull(info) =>
-        f(parent, node, a)
-      case SBool(info, bool) =>
-        f(parent, node, a)
-      case SDoubleLiteral(info, text, num) =>
-        f(parent, node, a)
-      case SIntLiteral(info, intVal, radix) =>
-        f(parent, node, a)
-      case SStringLiteral(info, quote, escaped) =>
-        f(parent, node, a)
-      case SRegularExpression(info, body, flag) =>
-        f(parent, node, a)
-      case SVarRef(info, id) =>
-        f(parent, node, a) >>
-          rec(node, id)
-      case SArrayExpr(info, elements) =>
-        f(parent, node, a) >>
-          rec(node, elements)
-      case SArrayNumberExpr(info, elements) =>
-        f(parent, node, a) >>
-          rec(node, elements)
-      case SObjectExpr(info, members) =>
-        f(parent, node, a) >>
-          rec(node, members)
-      case SParenthesized(info, expr) =>
-        f(parent, node, a) >>
-          rec(node, expr)
-      case SFunExpr(info, ftn) =>
-        f(parent, node, a) >>
-          rec(node, ftn)
-      case SBracket(info, obj, index) =>
-        f(parent, node, a) >>
-          rec(node, obj) >>
-          rec(node, index)
-      case SDot(info, obj, member) =>
-        f(parent, node, a) >>
-          rec(node, obj) >>
-          rec(node, member)
-      case SNew(info, lhs) =>
-        f(parent, node, a) >>
-          rec(node, lhs)
-      case SFunApp(info, fun, args) =>
-        f(parent, node, a) >>
-          rec(node, fun) >>
-          rec(node, args)
-      case SPropId(info, id) =>
-        f(parent, node, a) >>
-          rec(node, id)
-      case SPropStr(info, str) =>
-        f(parent, node, a)
-      case SPropNum(info, num) =>
-        f(parent, node, a)
-      case SField(info, prop, expr) =>
-        f(parent, node, a) >>
-          rec(node, prop) >>
-          rec(node, expr)
-      case SGetProp(info, prop, ftn) =>
-        f(parent, node, a) >>
-          rec(node, prop) >>
-          rec(node, ftn)
-      case SSetProp(info, prop, ftn) =>
-        f(parent, node, a) >>
-          rec(node, prop) >>
-          rec(node, ftn)
-      case SId(info, text, uniqueName, _with) =>
-        f(parent, node, a)
-      case SOp(info, text) =>
-        f(parent, node, a)
-      case SLabel(info, id) =>
-        f(parent, node, a) >>
-          rec(node, id)
-      case SComment(info, comment) =>
-        f(parent, node, a)
-      case STopLevel(fds, vds, stmts) =>
-        f(parent, node, a) >>
-          rec(node, fds) >>
-          rec(node, vds) >>
-          rec(node, stmts)
-      case SFunctional(fds, vds, stmts, id, params) =>
-        f(parent, node, a) >>
-          rec(node, fds) >>
-          rec(node, vds) >>
-          rec(node, stmts) >>
-          rec(node, id) >>
-          rec(node, params)
-      case list: List[_] =>
-        list.foldLeft(a)((b, node) => rec(parent, node)(b))
-      case Some(n) =>
-        f(parent, node, a) >>
-          rec(parent, n)
-      case None =>
-        f(parent, node, a)
-    }
   }
 }
