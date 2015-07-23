@@ -19,11 +19,14 @@ object PropName {
   }
 
   // Find appropriate name string from 'lhs'
-  private def nameOfLHS(parent: Any, lhs: Any, name: Option[String]) = lhs match {
-    case SVarRef(_, id) => Some(id.getText)
-    case SDot(_, _, id) => Some(id.getText)
-    case SStringLiteral(_, qs, es) => Some(es)
-    case _ => name
+  private def nameOfLHS(parent: Any, lhs: Any, name: Option[String]) = {
+    lhs match {
+      case SVarRef(_, id) => Some(id.getText)
+      case SDot(_, _, id) => Some(id.getText)
+      case SStringLiteral(_, qs, es) => Some(es)
+      case SId(_, txt, un, w) => Some(txt)
+      case _ => name
+    }
   }
   // Get a property string from 'pr'
   private def nameOfProp(pr: Any): String = pr match {

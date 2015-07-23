@@ -12,8 +12,9 @@ package object jsaf {
   }
 
   def abbreviate(s: String, len: Int): String = {
-    if (s.length < len) s
-    else s.substring(0, len - 4) + " ..."
+    val i = s.replace("\n", " ").replace("\r", "")
+    if (i.length < len) i
+    else i.substring(0, len - 4) + " ..."
   }
 
   def string(n: Any) = n match {
