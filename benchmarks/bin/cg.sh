@@ -32,12 +32,36 @@ msg() {
 	fi	
 }
 
+usage_run () {
+	cat << EOF
+Usage: `basename $0` [-h] [-d] TARGET
+Runs the analysis for a single TARGET, and records the result.
+TARGET must be a path for a root of the target benchmark.
+Runs type analysis for every single .js file in the LIST, and records the result.
+
+  -h    Display this help and exit.
+  -d    Records all the result messages for debugging.
+EOF
+	exit
+}
+
 run () {
+	while getopts hd OPT;do
+		case "$OPT" in
+			h) usage_run;;
+			d) s_debug=true;
+		esac
+	done
 	name=${1##*/}
 	out="result_$name.out"
 
 	msg info "- $name"
-	$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
+	if [[ -z "$s_debug" ]];then
+		msg info "* Debug mode"
+		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js 2>&1 | tee $out
+	else
+		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
+	fi
 }
 
 runs () {
