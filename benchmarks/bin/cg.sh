@@ -49,18 +49,20 @@ run () {
 	while getopts hd OPT;do
 		case "$OPT" in
 			h) usage_run;;
-			d) s_debug=true;
+			d) s_debug=true;;
 		esac
 	done
+	shift `expr $OPTIND - 1`
+
 	name=${1##*/}
 	out="result_$name.out"
 
 	msg info "- $name"
-	if [[ -z "$s_debug" ]];then
+	if [[ -z $s_debug ]];then
+		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
+	else
 		msg info "* Debug mode"
 		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js 2>&1 | tee $out
-	else
-		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
 	fi
 }
 
