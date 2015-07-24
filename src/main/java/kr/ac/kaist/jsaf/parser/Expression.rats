@@ -397,7 +397,8 @@ LHS CallExpr =
 LHS CallExprFront =
      a1:MemberExpr w a2:Args
      { Span span = createSpan(yyStart,yyCount+1);
-       yyValue = NodeFactory.makeFunApp(NodeUtil.adjustCallSpan(span, a1), a1, a2);
+       yyValue = NodeFactory.makeFunApp(NodeUtil.adjustCallSpan(span, a1),
+                                        a1, a2.getList());
      };
 
 constant transient Action<LHS> CallExprTail =
@@ -410,27 +411,9 @@ constant inline Action<LHS> FunApp =
      w a1:Args
      { yyValue = new Action<LHS>() {
              public LHS run(LHS base) {
-				 /*
-                 Span span, t;
-                 if (a1.isEmpty()) {
-                     t = NodeUtil.getSpan(base);
-                     span = NodeUtil.spanAll(t, createSpan(t.getBegin().column()+1, yyCount));
-                 } else
-                     span = NodeUtil.spanAll(NodeUtil.getSpan(base),
-                                              createSpan(yyStart,yyCount));
-
-                 return NodeFactory.makeFunApp(NodeUtil.adjustCallSpan(span, (LHS)base),
-                                               (LHS)base, a1);
-				 */
-                 SourceLoc loc = NodeUtil.getSpan(base).getBegin();
-                 Span last;
-                 if (a1.isEmpty()) last = NodeUtil.getSpan(base);
-                 else last = NodeUtil.getSpan(a1.get(a1.size()-1));
-                 Span span = NodeFactory.makeSpan(loc.getFileName(), loc.getLine(),
-                                                  loc.column(), last.getEnd().column()+1,
-                                                  base.getInfo().getSpan().getBegin().getOffset(), last.getEnd().getOffset()+1);
-                 return NodeFactory.makeFunApp(span,
-                                               (LHS)base, a1);
+                 return NodeFactory.makeFunApp(NodeFactory.makeSpan(NodeUtil.getSpan(base),
+                                                                    NodeUtil.getSpan(a1)),
+                                               (LHS)base, a1.getList());
              }};
      };
 
@@ -459,10 +442,13 @@ constant inline Action<LHS> Dot =
 /*
  * Args ::= ( (w ArgList)? w )
  */
-transient List<Expr> Args =
+transient Exprs Args =
      openparen w closeparen
-     { yyValue = Useful.list(); }
-   / openparen w yyValue:ArgList w closeparen ;
+     { List<Expr> exprs = Useful.list();
+       yyValue = NodeFactory.makeExprs(createSpan(yyStart,yyCount+1), exprs);
+     }
+   / openparen w a1:ArgList w closeparen
+     { yyValue = NodeFactory.makeExprs(createSpan(yyStart,yyCount+1), a1); };
 
 /*
  * ArgList ::= Assignment (w , w Assignment)*
@@ -500,7 +486,7 @@ LHS MemberExprFront =
    / PrimaryExpr
    / new w a1:MemberExpr w a2:Args
      { Span span = createSpan(yyStart,yyCount+1);
-       yyValue = NodeFactory.makeNew(span, NodeFactory.makeFunApp(span, a1, a2));
+       yyValue = NodeFactory.makeNew(span, NodeFactory.makeFunApp(span, a1, a2.getList()));
      };
 
 constant transient Action<LHS> MemberExprTail =

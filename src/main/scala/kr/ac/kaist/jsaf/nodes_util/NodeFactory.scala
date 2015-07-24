@@ -451,4 +451,7 @@ object NodeFactory {
 
   def makeNoOp(info: ASTSpanInfo, desc: String): NoOp =
     new NoOp(info, desc)
+
+  def makeExprs(span: Span, args: JList[Expr]) =
+    new Exprs(makeSpanInfoComment(span), args)
 }
