@@ -177,6 +177,10 @@ interface Node() extends HasAt;
                 /**
                  * Expr ::= Expr, Expr
                  */
+                Exprs(List<Expr> list);
+                /**
+                 * Expr ::= Expr, Expr
+                 */
                 ExprList(List<Expr> exprs);
                 /**
                  * Expr ::= Expr ? Expr : Expr
