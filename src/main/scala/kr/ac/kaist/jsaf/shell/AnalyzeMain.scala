@@ -42,8 +42,11 @@ object AnalyzeMain {
     val parseTime = (System.nanoTime - start) / 1000000000.0
     System.err.println("# Time for parsing(s): %.2f\n".format(parseTime))
 
+    val poststart = System.nanoTime
     val hoistedProgram = new Hoister(program).doit().asInstanceOf[Program]
     val disambiguatedProgram = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
+    val postTime = (System.nanoTime - poststart) / 1000000000.0
+    System.err.println("# Time for hoisting and disambiguation(s): %.2f\n".format(postTime))
 
     // Function Decl/Expr and Callsite Collector
     def collectDeclCallPair(parent: Any, node: Any, pair: (List[Any], List[Any])) = node match {
@@ -61,7 +64,10 @@ object AnalyzeMain {
       case _ => pair
     }
 
+    val initstart = System.nanoTime
     val (decls, calls) = walkAST(collectDeclCallPair)(null, disambiguatedProgram)(Nil, Nil)
+    val initTime = (System.nanoTime - initstart) / 1000000000.0
+    System.err.println("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
     System.err.println("** Decls **")
     decls.foreach (n => System.err.println("- "+string(n)))
@@ -81,10 +87,13 @@ object AnalyzeMain {
     }
 
     // Parse the result.
+    val inputstart = System.nanoTime
     val result_map = CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
+    val inputTime = (System.nanoTime - inputstart) / 1000000000.0
+    System.err.println("# Time for parse the call history information(s): %.2f\n".format(postTime))
 
     // Initialize features.
-    val feature_map =
+    val feature_map: HashMap[(Any, Any), List[Int]] =
       init_set(init_map) >>
         Classifier.genFeature >>
         SimpleName.genFeature >>
@@ -93,7 +102,7 @@ object AnalyzeMain {
     System.err.println("* data")
     calls.foreach(call => {
       decls.foreach(decl => {
-        val bitvectors = feature_map((decl, call))
+        val bitvectors: List[Int] = feature_map((decl, call))
         System.err.print(string(call) + " => " + string(decl)+ "\t")
         bitvectors.foreach(v => {
           System.out.print(v + " ")

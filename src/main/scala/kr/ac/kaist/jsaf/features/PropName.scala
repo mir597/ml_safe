@@ -1,5 +1,6 @@
 package kr.ac.kaist.jsaf.features
 
+import kr.ac.kaist.jsaf.features.Classifier._
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.{HashSet, HashMap}
@@ -7,8 +8,10 @@ import scala.collection.immutable.{HashSet, HashMap}
 /**
  * Created by ysko on 15. 7. 23..
  */
-object PropName {
+object PropName extends Features {
   type t = HashMap[Any, HashSet[String]]
+
+  override def featureName: String = "Property Name"
 
   // Collects function expressions from 'node'
   private def collectFuns(parent: Any, node: Any, set: HashSet[Any]) = {
@@ -72,8 +75,10 @@ object PropName {
 
   def init(pgm: Any): t = walkAST(collectFunExprName)(null, pgm)(HashMap[Any, HashSet[String]]())
 
-  def genFeature(nameMap: t)(map: HashMap[(Any, Any), List[Int]]) = {
-    map.map(f => {
+  def genFeature(nameMap: t)(map: FeatureMap) = {
+    genFeatureInit()
+
+    val m = map.map(f => {
       val dc = f._1
       val vectors = f._2
       val callname = name(dc._2)
@@ -88,5 +93,9 @@ object PropName {
 
       (dc, vec::vectors)
     })
+
+    genFeatureFinish()
+
+    m
   }
 }
