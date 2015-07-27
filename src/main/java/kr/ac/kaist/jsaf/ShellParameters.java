@@ -70,6 +70,7 @@ public class ShellParameters
     public int                                     opt_MaxLocCount;
     public boolean                                 opt_FunctionCoverage;
     public boolean                                 opt_debugger;
+    public boolean                                 opt_debug;
     public String                                  opt_DDGFileName;
     public String                                  opt_DDG0FileName;
     public String                                  opt_FGFileName;
@@ -202,6 +203,7 @@ public class ShellParameters
             if(cmd.compareTo("analyze") == 0) command = CMD_ANALYZE;
             feasibleOptions.add("-out");
             feasibleOptions.add("-result");
+            feasibleOptions.add("-debug");
         }
         else if(cmd.compareTo("help") == 0)
         {
@@ -267,6 +269,7 @@ public class ShellParameters
                 ConsumedParameterCount = 1;
             }
         }
+        else if(opt.compareTo("-debug") == 0) opt_debug = true;
         else if(opt.compareTo("-time") == 0) opt_Time = true;
         else if(opt.compareTo("-ignoreErrorOnAST") == 0) opt_IgnoreErrorOnAST = true;
         else if(opt.compareTo("-verbose1") == 0) opt_Verbose1 = true;

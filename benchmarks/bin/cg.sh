@@ -71,11 +71,12 @@ run () {
 
 	msg info "- $name"
 	if [[ -z $s_debug ]];then
-		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
+		$jsaf analyze -result $1/dynamic-cg.fixed.json -out $out $1/*.js
 	else
 		msg info "* Debug mode"
-		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js 2>&1 | tee $out
+		$jsaf analyze -result $1/dynamic-cg.fixed.json -debug -out $out $1/*.js
 	fi
+	echo "Generated outputs: $out"
 }
 
 runs () {
