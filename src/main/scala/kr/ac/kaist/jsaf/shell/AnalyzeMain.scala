@@ -142,6 +142,8 @@ object AnalyzeMain {
     }
     val outputTime = (System.nanoTime - outputstart) / 1000000000.0
     eprintln("# Time for printing out the result(s): %.2f\n".format(outputTime))
+    val totalTime = (System.nanoTime - start) / 1000000000.0
+    eprintln("# Total time(s): %.2f\n".format(totalTime))
 
     return_code
   }
