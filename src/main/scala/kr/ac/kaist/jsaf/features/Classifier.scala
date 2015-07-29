@@ -1,6 +1,6 @@
 package kr.ac.kaist.jsaf.features
 
-import kr.ac.kaist.jsaf.nodes.VarRef
+import kr.ac.kaist.jsaf.nodes._
 import kr.ac.kaist.jsaf.scala_src.nodes.{SNew, SFunApp}
 
 /**
@@ -23,12 +23,42 @@ object Classifier extends Features {
           case SFunApp(info, fun, args) =>
             fun match {
               case _: VarRef => 1
-              case _ => 2
+              case _: Dot => 2
+              case _: Bracket => 3
+              case s: Parenthesized =>
+                s.getExpr match {
+                  case _: FunExpr => 4
+                  case _: InfixOpApp => 8
+                  case _ =>
+                    System.out.println(s.getExpr)
+                    9
+                }
+              case _: FunExpr => 4
+              case _: FunApp => 5
+              case _: This => 6
+              case _ =>
+                System.err.println(fun)
+                7
             }
           case SNew(_, lhs) =>
             lhs match {
               case _: VarRef => 1
-              case _ => 2
+              case _: Dot => 2
+              case _: Bracket => 3
+              case s: Parenthesized =>
+                s.getExpr match {
+                  case _: FunExpr => 4
+                  case _: InfixOpApp => 8
+                  case _ =>
+                    System.out.println(s.getExpr)
+                    9
+                }
+              case _: FunExpr => 4
+              case _: FunApp => 5
+              case _: This => 6
+              case _ =>
+                System.err.println(lhs)
+                7
             }
         }
 
