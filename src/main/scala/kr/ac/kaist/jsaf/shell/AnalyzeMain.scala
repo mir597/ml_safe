@@ -9,6 +9,8 @@
 
 package kr.ac.kaist.jsaf.shell
 
+import java.io.{PrintWriter, File}
+
 import kr.ac.kaist.jsaf.features.SimpleName
 import kr.ac.kaist.jsaf.ml.CallHistoryParser
 import kr.ac.kaist.jsaf.nodes.Program
@@ -27,23 +29,29 @@ import kr.ac.kaist.jsaf.features._
 ////////////////////////////////////////////////////////////////////////////////
 object AnalyzeMain {
 
+  def eprintln(s: String) = System.err.println(s)
+  def eprint(s: String) = System.err.print(s)
+
   def analyze: Int = {
     if (Shell.params.FileNames.isEmpty) throw new UserError("Need a file to analyze")
     val fileNames = JavaConversions.seqAsJavaList(Shell.params.FileNames)
 
     // Initialize
     val return_code = 0
-    System.err.println("\n* Initialize *")
+    eprintln("\n* Initialize *")
 
     // Read a JavaScript file and translate to IR
     val start = System.nanoTime
     val program: Program = Parser.fileToAST(fileNames)
 
     val parseTime = (System.nanoTime - start) / 1000000000.0
-    System.err.println("# Time for parsing(s): %.2f\n".format(parseTime))
+    eprintln("# Time for parsing(s): %.2f\n".format(parseTime))
 
+    val poststart = System.nanoTime
     val hoistedProgram = new Hoister(program).doit().asInstanceOf[Program]
     val disambiguatedProgram = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
+    val postTime = (System.nanoTime - poststart) / 1000000000.0
+    eprintln("# Time for hoisting and disambiguation(s): %.2f\n".format(postTime))
 
     // Function Decl/Expr and Callsite Collector
     def collectDeclCallPair(parent: Any, node: Any, pair: (List[Any], List[Any])) = node match {
@@ -61,13 +69,18 @@ object AnalyzeMain {
       case _ => pair
     }
 
+    val initstart = System.nanoTime
     val (decls, calls) = walkAST(collectDeclCallPair)(null, disambiguatedProgram)(Nil, Nil)
+    val initTime = (System.nanoTime - initstart) / 1000000000.0
+    eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
-    System.err.println("** Decls **")
-    decls.foreach (n => System.err.println("- "+string(n)))
+    if (Shell.params.opt_debug) {
+      eprintln("** Decls **")
+      decls.foreach (n => eprintln("- "+string(n)))
 
-    System.err.println("** Calls **")
-    calls.foreach (n => System.err.println("- "+string(n)))
+      eprintln("** Calls **")
+      calls.foreach (n => eprintln("- "+string(n)))
+    }
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
 
@@ -81,28 +94,57 @@ object AnalyzeMain {
     }
 
     // Parse the result.
+    val inputstart = System.nanoTime
     val result_map = CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
+    val inputTime = (System.nanoTime - inputstart) / 1000000000.0
+    eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
     // Initialize features.
-    val feature_map =
+    val feature_map: HashMap[(Any, Any), List[Int]] =
       init_set(init_map) >>
         Classifier.genFeature >>
         SimpleName.genFeature >>
-        PropName.genFeature(PropName.init(disambiguatedProgram))
+        PropName.genFeature(PropName.init(disambiguatedProgram)) >>
+        OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
 
-    System.err.println("* data")
-    calls.foreach(call => {
-      decls.foreach(decl => {
-        val bitvectors = feature_map((decl, call))
-        System.err.print(string(call) + " => " + string(decl)+ "\t")
-        bitvectors.foreach(v => {
-          System.out.print(v + " ")
+    val outputstart = System.nanoTime
+    if (Shell.params.opt_OutFileName != null) {
+      val pw = new PrintWriter(new File(Shell.params.opt_OutFileName))
+
+      calls.foreach(call => {
+        decls.foreach(decl => {
+          val bitvectors: List[Int] = feature_map((decl, call))
+          if (Shell.params.opt_debug) {
+            pw.write(string(call) + " => " + string(decl) + "\t")
+          }
+          bitvectors.foreach(v => pw.write(v + " "))
+          pw.write(":")
+          val answer = result_map((decl, call))
+          pw.write(answer.toString)
+          pw.write("\r\n")
         })
-        System.out.print(":")
-        val answer = result_map((decl, call))
-        System.out.println(answer)
       })
-    })
+
+      pw.close()
+    } else {
+      eprintln("* data")
+      calls.foreach(call => {
+        decls.foreach(decl => {
+          val bitvectors: List[Int] = feature_map((decl, call))
+          if (Shell.params.opt_debug) {
+            eprint(string(call) + " => " + string(decl) + "\t")
+          }
+          bitvectors.foreach(v => System.out.print(v + " "))
+          System.out.print(":")
+          val answer = result_map((decl, call))
+          System.out.println(answer)
+        })
+      })
+    }
+    val outputTime = (System.nanoTime - outputstart) / 1000000000.0
+    eprintln("# Time for printing out the result(s): %.2f\n".format(outputTime))
+    val totalTime = (System.nanoTime - start) / 1000000000.0
+    eprintln("# Total time(s): %.2f\n".format(totalTime))
 
     return_code
   }

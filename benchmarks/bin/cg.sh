@@ -1,7 +1,6 @@
 #!/bin/bash
 
 BENCHMARK_HOME=${JS_HOME}/benchmarks
-target=${BENCHMARK_HOME}/cg.list
 jsaf=${JS_HOME}/bin/jsaf
 
 color_code=(
@@ -45,6 +44,19 @@ EOF
 	exit
 }
 
+usage_runs () {
+	cat << EOF
+Usage: `basename $0` [-h] [-d] LIST
+Runs the analysis for benchmarks in the given LIST, and records the result.
+LIST is a text file containing a list of benchmarks which is a path for a root of each benchmark.  LIST must be new line separated and can use # style comments.
+A default value for LIST is "${BENCHMARK_HOME}/cg.list"
+
+  -h    Display this help and exit.
+  -d    Records all the result messages for debugging.
+EOF
+	exit
+}
+
 run () {
 	while getopts hd OPT;do
 		case "$OPT" in
@@ -59,16 +71,26 @@ run () {
 
 	msg info "- $name"
 	if [[ -z $s_debug ]];then
-		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js | tee $out
+		$jsaf analyze -result $1/dynamic-cg.fixed.json -out $out $1/*.js
 	else
 		msg info "* Debug mode"
-		$jsaf analyze -result $1/dynamic-cg.fixed.json $1/*.js 2>&1 | tee $out
+		$jsaf analyze -result $1/dynamic-cg.fixed.json -debug -out $out $1/*.js
 	fi
+	echo "Generated outputs: $out"
 }
 
 runs () {
-	msg info_s "* Target: $target"
+	while getopts hd OPT;do
+		case "$OPT" in
+			h) usage_runs;;
+			d) s_debug="-d";;
+		esac
+	done
+	shift `expr $OPTIND - 1`
 
+	target=${BENCHMARK_HOME}/$1
+	[ ! -z $1 ] || target=${BENCHMARK_HOME}/cg.list
+	msg info_s "* Target: $target"
 	list=`cat $target | grep '^[^#]*' -o`
 
 	for v in $list;do
@@ -76,7 +98,7 @@ runs () {
 	done
 
 	for v in $list;do
-		run ${BENCHMARK_HOME}/$v
+		run $s_debug ${BENCHMARK_HOME}/$v
 	done
 }
 

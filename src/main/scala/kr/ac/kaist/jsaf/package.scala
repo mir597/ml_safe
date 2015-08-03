@@ -1,6 +1,5 @@
 package kr.ac.kaist
 
-import kr.ac.kaist.jsaf.nodes_util.JSAstToConcrete
 import kr.ac.kaist.jsaf.scala_src.nodes.{SNew, SFunApp, SFunExpr, SFunDecl}
 
 /**
@@ -23,11 +22,9 @@ package object jsaf {
     case SFunExpr(info, ftn) =>
       info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles+": "+ftn.getName.getText
     case s@SFunApp(info, fun, args) =>
-      val str = abbreviate(JSAstToConcrete.walk(fun), 20)
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles + ": " + str
+      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles
     case s@SNew(info, lhs) =>
-      val str = abbreviate(JSAstToConcrete.walk(lhs), 20)
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles + ": " + str
+      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles
   }
 }
 
