@@ -104,7 +104,8 @@ object AnalyzeMain {
       init_set(init_map) >>
         Classifier.genFeature >>
         SimpleName.genFeature >>
-        PropName.genFeature(PropName.init(disambiguatedProgram))
+        PropName.genFeature(PropName.init(disambiguatedProgram)) >>
+        OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
 
     val outputstart = System.nanoTime
     if (Shell.params.opt_OutFileName != null) {
