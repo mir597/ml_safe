@@ -1,5 +1,6 @@
 package kr.ac.kaist
 
+import kr.ac.kaist.jsaf.nodes_util.Span
 import kr.ac.kaist.jsaf.scala_src.nodes.{SNew, SFunApp, SFunExpr, SFunDecl}
 
 /**
@@ -16,15 +17,25 @@ package object jsaf {
     else i.substring(0, len - 4) + " ..."
   }
 
+  def span(s: Span): String = {
+    val fn = s.getFileNameOnly
+    val sn = s.getBegin
+    val en = s.getEnd
+
+    val os = sn.getOffset + "~" + (en.getOffset - sn.getOffset)
+
+    fn + "@" + os
+  }
+
   def string(n: Any) = n match {
     case SFunDecl(info, ftn, strict) =>
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles+": "+ftn.getName.getText
+      span(info.getSpan)+": "+ftn.getName.getText
     case SFunExpr(info, ftn) =>
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles+": "+ftn.getName.getText
+      span(info.getSpan)+": "+ftn.getName.getText
     case s@SFunApp(info, fun, args) =>
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles
+      span(info.getSpan)
     case s@SNew(info, lhs) =>
-      info.getSpan.getFileNameOnly+"@"+info.getSpan.toStringWithoutFiles
+      span(info.getSpan)
   }
 }
 
