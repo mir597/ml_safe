@@ -102,10 +102,33 @@ runs () {
 	done
 }
 
+showstat () {
+	while getopts h OPT;do
+		case "$OPT" in
+#			h) usage_showstat;;
+		esac
+	done
+	shift `expr $OPTIND - 1`
+
+	name=${1}
+	read miss <<< $(grep "0 0 0 [0-9] :1" $name | wc -l)
+	read all <<< $(grep "[0-9] [0-9] [0-9] [0-9] :1" $name | wc -l)
+	let hit="$all - $miss"
+	per=$(($hit * 100 / $all))
+	msg info "- $name: $hit / $all($per%)"
+}
+
+showstats () {
+	while [ $# -gt 0 ];do
+		showstat $1
+		shift
+	done
+}
+
 cmd=`basename $0`
 
 case $cmd in
-	"run" | "runs" )
+	"run" | "runs" | "showstat" | "showstats" )
 		$cmd $@;;
 	*) exit;;
 esac
