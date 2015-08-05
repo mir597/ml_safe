@@ -114,8 +114,12 @@ showstat () {
 	read miss <<< $(grep "0 0 0 [0-9] :1" $name | wc -l)
 	read all <<< $(grep "[0-9] [0-9] [0-9] [0-9] :1" $name | wc -l)
 	let hit="$all - $miss"
+	read fa <<< $(grep "[0-9] [0-9] [0-9] [0-9] :0" $name | grep -v "0 0 0 [0-9]" | wc -l)
 	per=$(($hit * 100 / $all))
-	msg info "- $name: $hit / $all($per%)"
+	alarms=$(($hit + $fa))
+	prec=$(($hit * 100 / $alarms))
+	msg info "- $name"
+	msg info " recall: $hit / $all($per%), precision: $hit / $alarms($prec%)"
 }
 
 showstats () {
@@ -155,7 +159,7 @@ comparewala () {
 	done
 
 	for v in `ls wala_*.out`;do
-		msg info "- $v"
+		msg info "* $v"
 		grep "0 0 0 [0-9] :1 1" $v | while read m;do echo "-$m"; done
 		grep "[0-9] [0-9] [0-9] [0-9] :1 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "+$m"; done
 	done
