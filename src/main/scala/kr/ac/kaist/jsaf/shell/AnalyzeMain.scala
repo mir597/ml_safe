@@ -18,6 +18,7 @@ import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
 import scala.collection.immutable.HashMap
+import scala.collection.mutable.{ HashMap => MHashMap }
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
 import kr.ac.kaist.jsaf.Shell
@@ -96,6 +97,10 @@ object AnalyzeMain {
     // Parse the result.
     val inputstart = System.nanoTime
     val result_map = CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_ResultFileName)
+    val wala_map: MHashMap[(Any, Any), Int] =
+      if (Shell.params.opt_WALAFileName != null) CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_WALAFileName)
+      else MHashMap[(Any, Any), Int]()
+
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
@@ -121,6 +126,11 @@ object AnalyzeMain {
           pw.write(":")
           val answer = result_map((decl, call))
           pw.write(answer.toString)
+          val wala = wala_map.get((decl, call)) match {
+            case Some(v) => v.toString
+            case _ => ""
+          }
+          pw.write(" "+wala)
           pw.write("\r\n")
         })
       })
@@ -138,6 +148,11 @@ object AnalyzeMain {
           System.out.print(":")
           val answer = result_map((decl, call))
           System.out.println(answer)
+          val wala = wala_map.get((decl, call)) match {
+            case Some(v) => v.toString
+            case _ => ""
+          }
+          System.out.println(" "+wala)
         })
       })
     }

@@ -125,10 +125,46 @@ showstats () {
 	done
 }
 
+walarun () {
+	name=${1##*/}
+	out="wala_$name.out"
+
+	$jsaf analyze -result $1/dynamic-cg.fixed.json -wala $1/optimistic-cg.fixed.json -debug -out $out $1/*.js
+}
+
+walaruns () {
+	target=${BENCHMARK_HOME}/$1
+	[ ! -z $1 ] || target=${BENCHMARK_HOME}/cg.list
+	msg info_s "* Target: $target"
+	list=`cat $target | grep '^[^#]*' -o`
+
+	for v in $list;do
+		msg info " $v"
+	done
+
+	for v in $list;do
+		walarun $s_debug ${BENCHMARK_HOME}/$v
+	done
+}
+
+comparewala () {
+	while getopts d OPT;do
+		case "$OPT" in
+			d) NO_ANSI=true;;
+		esac
+	done
+
+	for v in `ls wala_*.out`;do
+		msg info "- $v"
+		grep "0 0 0 [0-9] :1 1" $v | while read m;do echo "-$m"; done
+		grep "[0-9] [0-9] [0-9] [0-9] :1 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "+$m"; done
+	done
+}
+
 cmd=`basename $0`
 
 case $cmd in
-	"run" | "runs" | "showstat" | "showstats" )
+	"run" | "runs" | "showstat" | "showstats" | "walarun" | "walaruns" | "comparewala" )
 		$cmd $@;;
 	*) exit;;
 esac

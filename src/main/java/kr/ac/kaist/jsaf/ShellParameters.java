@@ -34,6 +34,7 @@ public class ShellParameters
     public int                                     command;
     public String                                  opt_OutFileName;
     public String                                  opt_ResultFileName;
+    public String                                  opt_WALAFileName;
     public String                                  opt_PrettyFileName;
     public String                                  opt_Dir;
     public String                                  opt_HTML;
@@ -93,6 +94,7 @@ public class ShellParameters
         command = CMD_USAGE;
         opt_OutFileName = null;
         opt_ResultFileName = null;
+        opt_WALAFileName = null;
         opt_Dir = null;
         opt_HTML = null;
         opt_Time = false;
@@ -203,6 +205,7 @@ public class ShellParameters
             if(cmd.compareTo("analyze") == 0) command = CMD_ANALYZE;
             feasibleOptions.add("-out");
             feasibleOptions.add("-result");
+            feasibleOptions.add("-wala");
             feasibleOptions.add("-debug");
         }
         else if(cmd.compareTo("help") == 0)
@@ -248,7 +251,8 @@ public class ShellParameters
 
         String opt = args[index];
         if(opt.compareTo("-out") == 0 ||
-           opt.compareTo("-result") == 0)
+           opt.compareTo("-result") == 0 ||
+                opt.compareTo("-wala") == 0)
         {
             if(index + 1 >= args.length)
             {
@@ -256,6 +260,7 @@ public class ShellParameters
             } else {
                 if(opt.compareTo("-out") == 0) opt_OutFileName = args[index + 1];
                 else if(opt.compareTo("-result") == 0) {opt_ResultFileName = args[index + 1];}
+                else if(opt.compareTo("-wala") == 0) {opt_WALAFileName = args[index + 1];}
                 ConsumedParameterCount = 1;
             }
         }
