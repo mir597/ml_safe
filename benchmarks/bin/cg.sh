@@ -123,9 +123,8 @@ showstat () {
 }
 
 showstats () {
-	while [ $# -gt 0 ];do
-		showstat $1
-		shift
+	for v in `ls result_*.out`;do
+		showstat $v
 	done
 }
 
@@ -158,10 +157,12 @@ comparewala () {
 		esac
 	done
 
+	msg info "========== -:worse, +:better, =:worse false alarms =========="
 	for v in `ls wala_*.out`;do
 		msg info "* $v"
 		grep "0 0 0 [0-9] :1 1" $v | while read m;do echo "-$m"; done
 		grep "[0-9] [0-9] [0-9] [0-9] :1 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "+$m"; done
+		grep "[0-9] [0-9] [0-9] [0-9] :0 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "=$m"; done
 	done
 }
 
