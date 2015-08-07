@@ -3,6 +3,9 @@
 BENCHMARK_HOME=${JS_HOME}/benchmarks
 jsaf=${JS_HOME}/bin/jsaf
 
+misscond="0 0 0 [0-9]"
+allcond="[0-9] [0-9] [0-9] [0-9]"
+
 color_code=(
 	"\033[1;35m" # text_s
        	"\033[37m"   # text
@@ -111,10 +114,10 @@ showstat () {
 	shift `expr $OPTIND - 1`
 
 	name=${1}
-	read miss <<< $(grep "0 0 0 [0-9] :1" $name | wc -l)
-	read all <<< $(grep "[0-9] [0-9] [0-9] [0-9] :1" $name | wc -l)
+	read miss <<< $(grep "$misscond :1" $name | wc -l)
+	read all <<< $(grep "$allcond :1" $name | wc -l)
 	let hit="$all - $miss"
-	read fa <<< $(grep "[0-9] [0-9] [0-9] [0-9] :0" $name | grep -v "0 0 0 [0-9]" | wc -l)
+	read fa <<< $(grep "$allcond :0" $name | grep -v "$misscond" | wc -l)
 	per=$(($hit * 100 / $all))
 	alarms=$(($hit + $fa))
 	prec=$(($hit * 100 / $alarms))
@@ -160,9 +163,9 @@ comparewala () {
 	msg info "========== -:worse, +:better, =:worse false alarms =========="
 	for v in `ls wala_*.out`;do
 		msg info "* $v"
-		grep "0 0 0 [0-9] :1 1" $v | while read m;do echo "-$m"; done
-		grep "[0-9] [0-9] [0-9] [0-9] :1 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "+$m"; done
-		grep "[0-9] [0-9] [0-9] [0-9] :0 0" $v | grep -v "0 0 0 [0-9] :" | while read m;do echo "=$m"; done
+		grep "$misscond :1 1" $v | while read m;do echo "-$m"; done
+		grep "$allcond :1 0" $v | grep -v "$misscond :" | while read m;do echo "+$m"; done
+		grep "$allcond :0 0" $v | grep -v "$misscond :" | while read m;do echo "=$m"; done
 	done
 }
 

@@ -30,14 +30,14 @@ object Classifier extends Features {
                   case _: FunExpr => 4
                   case _: InfixOpApp => 8
                   case _ =>
-                    System.out.println(s.getExpr)
+//                    System.out.println(s.getExpr)
                     9
                 }
               case _: FunExpr => 4
               case _: FunApp => 5
               case _: This => 6
               case _ =>
-                System.err.println(fun)
+//                System.err.println(fun)
                 7
             }
           case SNew(_, lhs) =>
@@ -50,14 +50,14 @@ object Classifier extends Features {
                   case _: FunExpr => 4
                   case _: InfixOpApp => 8
                   case _ =>
-                    System.out.println(s.getExpr)
+//                    System.out.println(s.getExpr)
                     9
                 }
               case _: FunExpr => 4
               case _: FunApp => 5
               case _: This => 6
               case _ =>
-                System.err.println(lhs)
+//                System.err.println(lhs)
                 7
             }
         }

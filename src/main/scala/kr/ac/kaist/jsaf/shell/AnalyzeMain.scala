@@ -76,11 +76,11 @@ object AnalyzeMain {
     eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
     if (Shell.params.opt_debug) {
-      eprintln("** Decls **")
-      decls.foreach (n => eprintln("- "+string(n)))
+//      eprintln("** Decls **")
+//      decls.foreach (n => eprintln("- "+string(n)))
 
-      eprintln("** Calls **")
-      calls.foreach (n => eprintln("- "+string(n)))
+//      eprintln("** Calls **")
+//      calls.foreach (n => eprintln("- "+string(n)))
     }
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()

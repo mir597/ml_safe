@@ -109,26 +109,26 @@ object CallHistoryParser {
       })
     })
 
-    val sloc: SLOC =
-      if (filename.endsWith(".jalangi.json")) new ColumnBase
-      else new OffsetBase
-
-    val spanmap =
-      (calls ++ decls).foldLeft(HashMap[sloc.T,Any]())((m, n) => {
-        n match {
-          case SFunDecl(info, _, _) => m + (sloc.span(info.getSpan) -> n)
-          case SFunExpr(info, _) => m + (sloc.span(info.getSpan) -> n)
-          case SFunApp(info, _, _) => m + (sloc.span(info.getSpan) -> n)
-          case SNew(info, _) => m + (sloc.span(info.getSpan) -> n)
-        }
-      })
-
-    val find: sloc.T => Option[Any] = sloc.findmap(spanmap)(_)
-
     // The file must contain all the function call histories for a given executions.
     // A function call consists of 8 integers which format is as follows:
     //  start_line_of_decl:start_column:end_line:end_column:start_line_of_callexpr:start_column:end_line_end_column
     if (filename != null) {
+      val sloc: SLOC =
+        if (filename != null && filename.endsWith(".jalangi.json")) new ColumnBase
+        else new OffsetBase
+
+      val spanmap =
+        (calls ++ decls).foldLeft(HashMap[sloc.T,Any]())((m, n) => {
+          n match {
+            case SFunDecl(info, _, _) => m + (sloc.span(info.getSpan) -> n)
+            case SFunExpr(info, _) => m + (sloc.span(info.getSpan) -> n)
+            case SFunApp(info, _, _) => m + (sloc.span(info.getSpan) -> n)
+            case SNew(info, _) => m + (sloc.span(info.getSpan) -> n)
+          }
+        })
+
+      val find: sloc.T => Option[Any] = sloc.findmap(spanmap)(_)
+
       val json = parse(Source.fromFile(filename) mkString)
 
       json.children.foreach {
@@ -152,7 +152,8 @@ object CallHistoryParser {
                     }
                   } else {
                     // TODO built-in function calls should be considered.
-                    System.err.println(name + " -> " + str)
+                    // FIXME
+//                    System.err.println(name + " -> " + str)
                   }
                 case _ =>
               }
