@@ -108,7 +108,7 @@ object AnalyzeMain {
     val feature_map: HashMap[(Any, Any), List[Int]] =
       init_set(init_map) >>
         Classifier.genFeature >>
-        SimpleName.genFeature >>
+        SimpleName.genFeature >>  // TODO
         PropName.genFeature(PropName.init(disambiguatedProgram)) >>
         OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
 

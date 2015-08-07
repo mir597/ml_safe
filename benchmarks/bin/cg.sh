@@ -15,6 +15,22 @@ color_code=(
 	"\033[0;31m" # warn
 	)
 
+colorize() {
+	read -r headers
+	echo -e "$headers"
+
+	printf '%*s\n' "${#headers}" ' ' | tr ' ' "="
+	declare -i i
+	while read line;do
+		i=$i+1
+		if (( $i%2 == 1 )); then
+			msg text_s "$line"
+		else
+			msg text "$line"
+		fi
+	done
+}
+
 msg() {
 	if [ -n "$NO_ANSI" ];then
 		shift
@@ -32,6 +48,36 @@ msg() {
 			*) echo -e "$@";;
 		esac
 	fi	
+}
+
+pp_number() {
+	if [[ -z "$1" ]];then
+		echo -n "_"
+	else
+		[[ -n "$2" ]] || echo -n "$1"
+		[[ -z "$2" ]] || echo -n "$(printf "%.$2f" $1)"
+	fi
+}
+
+pp_diffnumber() {
+	if [[ -z "$1" ]];then
+		echo -n "_"
+	else
+		[[ -n "$2" ]] || echo -n "$1"
+		[[ -z "$2" ]] || echo -n "$(printf "%+.$2f" $1)"
+	fi
+}
+
+pp_diff() {
+	if [ "$1" == "$2" ];then
+		return
+	fi
+	if [ "$1" == "NaN" ];then
+		r=$2
+	elif [[ -n "$2" ]];then
+		r=$(echo "$1 - $2" | bc 2> /dev/null)
+	fi
+	[[ -z $r ]] || echo -n "(`pp_diffnumber "$r" $3`)"
 }
 
 usage_run () {
@@ -106,13 +152,6 @@ runs () {
 }
 
 showstat () {
-	while getopts h OPT;do
-		case "$OPT" in
-#			h) usage_showstat;;
-		esac
-	done
-	shift `expr $OPTIND - 1`
-
 	name=${1}
 	read miss <<< $(grep "$misscond :1" $name | wc -l)
 	read all <<< $(grep "$allcond :1" $name | wc -l)
@@ -121,14 +160,20 @@ showstat () {
 	per=$(($hit * 100 / $all))
 	alarms=$(($hit + $fa))
 	prec=$(($hit * 100 / $alarms))
-	msg info "- $name"
-	msg info " recall: $hit / $all($per%), precision: $hit / $alarms($prec%)"
+	echo -n "$name"
+	echo -n ",`pp_number "${hit}"`"
+	echo -n ",`pp_number "${alarms}"`"
+	echo -n ",`pp_number "${all}"`"
+	echo -n ",`pp_number "${prec}" 2`"
+	echo -n ",`pp_number "${per}" 2`"
+	echo ""
 }
 
 showstats () {
-	for v in `ls result_*.out`;do
+	(echo "name,hit,alarms,all,precision(%),recall(%)";
+	(for v in `ls result_*.out`;do
 		showstat $v
-	done
+	done) | sort -t , -gk 1) | column -t -s , | colorize
 }
 
 walarun () {
