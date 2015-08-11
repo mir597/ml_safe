@@ -1,6 +1,5 @@
 package kr.ac.kaist.jsaf.features
 
-import kr.ac.kaist.jsaf.nodes.Functional
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.{HashMap, HashSet}
@@ -13,8 +12,9 @@ object PropName extends Features {
   type t = HashMap[Any, HashSet[String]]
 
   override def featureName: String = "Property Name"
-
   private val number_literal = "$*Number*$"
+
+  sealed private val useUniqueName = false // false: better recall and worse precision.
 
   private val empty_funs = HashSet[Any]()
   private def collectFuns(e: Any): HashSet[Any] = {
@@ -50,11 +50,13 @@ object PropName extends Features {
       case _ => nameOfLHS(e)
     }
   }
+
   // Find appropriate name string from 'lhs'
   private def nameOfLHS(lhs: Any): HashSet[String] = {
     lhs match {
       case SLiteral(_) => empty
-      case SVarRef(_, id) => HashSet(id.getUniqueName.unwrap())
+      case SVarRef(_, id) if useUniqueName => HashSet(id.getUniqueName.unwrap())
+      case SVarRef(_, id) if !useUniqueName => HashSet(id.getText)
       case SArrayExpr(_, list) => empty
       case SObjectExpr(_, list) => empty
       case SParenthesized(_, e) => nameOfExpr(e)
@@ -72,13 +74,17 @@ object PropName extends Features {
   }
 
   private def nameOfFun(fun: Any): String = fun match {
-    case SFunExpr(_, SFunctional(_, _, _, name, _)) => name.getUniqueName.unwrap()
+    case SFunExpr(_, SFunctional(_, _, _, name, _)) if useUniqueName => name.getUniqueName.unwrap()
+    case SFunExpr(_, SFunctional(_, _, _, name, _)) if !useUniqueName => name.getText
   }
 
   private def collectFunExprName(parent: Any, node: Any, map: HashMap[Any, HashSet[String]]) = {
     node match {
       case SFunDecl(_, f, _) =>
-        val name = f.getName.getUniqueName.unwrap()
+        val name =
+          if (useUniqueName) f.getName.getUniqueName.unwrap()
+          else f.getName.getText
+
         val i = map.getOrElse(node, empty) + name
         map + (node -> i)
       case SAssignOpApp(_, lhs, SOp(_, "="), expr) =>
@@ -151,7 +157,8 @@ object PropName extends Features {
     def name_(n: Any): HashSet[String] = {
       n match {
         case SThis(_) => empty
-        case SVarRef(_, id) => HashSet(id.getUniqueName.unwrap())
+        case SVarRef(_, id) if useUniqueName => HashSet(id.getUniqueName.unwrap())
+        case SVarRef(_, id) if !useUniqueName => HashSet(id.getText)
         case SArrayExpr(_, _) => empty
         case SArrayNumberExpr(_, _) => empty
         case SObjectExpr(_, _) => empty

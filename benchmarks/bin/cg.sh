@@ -2,6 +2,7 @@
 
 BENCHMARK_HOME=${JS_HOME}/benchmarks
 jsaf=${JS_HOME}/bin/jsaf
+RESULT_HOME=${BENCHMARK_HOME}/results
 
 misscond="\(0 \)\{3\}:"
 allcond="\([0-9] \)\{3\}:"
@@ -169,6 +170,22 @@ showstat () {
 	echo ""
 }
 
+createfolder () {
+	declare -i i
+	i=0
+	date=`date +'%Y-%m-%d'`
+	name=${RESULT_HOME}/$date
+
+	# create a folder for result data.
+	while [ -e $name ];do
+		name="${RESULT_HOME}/$date.$i"
+		i=$i+1
+	done
+	mkdir -p $name
+
+	echo $name
+}
+
 showstats () {
 	(echo "name,hit,alarms,all,precision(%),recall(%)";
 	(for v in `ls result_*.out`;do
@@ -198,20 +215,66 @@ walaruns () {
 	done
 }
 
+walastat () {
+	name=${1}
+	t=$(grep "# RESULT: " $name)
+
+	if [ -z "$t" ];then
+		miss=`grep -c "${misscond}1" $name`
+		all=`grep -c "${allcond}1" $name`
+		let hit="$all - $miss"
+		fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
+		per=$(($hit * 100 / $all))
+		alarms=$(($hit + $fa))
+		prec=$(($hit * 100 / $alarms))
+		walaonly=`grep -c "${misscond}1 1" $v`
+		safeonly=`grep "${allcond}1 0" $v | grep -c -v "${misscond}"`
+		safef=`grep "${allcond}0" $v | grep -c -v "${misscond}"`
+		walaf=`grep -c "${allcond}0 1" $v`
+		safewalaf=`grep "${allcond}0 1" $v | grep -c -v "${misscond}"`
+		union=$(($safef + $walaf - $safewalaf))
+		result=""
+		result="${result}${name}"
+		result="${result},`pp_number "${hit}"`"
+		result="${result},`pp_number "${alarms}"`"
+		result="${result},`pp_number "${all}"`"
+		result="${result},`pp_number "${prec}" 2`"
+		result="${result},`pp_number "${per}" 2`"
+		result="${result},`pp_number "${safeonly}"`"
+		result="${result},`pp_number "${walaonly}"`"
+		result="${result},`pp_number "${safef}"`"
+		result="${result},`pp_number "${walaf}"`"
+		result="${result},`pp_number "${safewalaf}"`"
+		result="${result},`pp_number "${union}"`"
+		echo "# RESULT: ${result}" >> $name
+		echo ${result}
+	else
+		echo ${t:10}
+	fi
+}
+
 comparewala () {
-	while getopts d OPT;do
+	while getopts dv OPT;do
 		case "$OPT" in
 			d) NO_ANSI=true;;
+			v) VERBOSE=true;;
 		esac
 	done
 
-	msg info "========== -:worse, +:better, =:worse false alarms =========="
-	for v in `ls wala_*.out`;do
-		msg info "* $v"
-		grep "${misscond}1 1" $v | while read m;do echo "-$m"; done
-		grep "${allcond}1 0" $v | grep -v "${misscond}" | while read m;do echo "+$m"; done
-		grep "${allcond}0 0" $v | grep -v "${misscond}" | while read m;do echo "=$m"; done
-	done
+	(echo "name,hit,alarms,all,precision(%),recall(%),SAFE(t),WALA(t),SAFE(f),WALA(f),SAFE(f)∩ WALA(f),SAFE(f)∪ WALA(f)";
+	(for v in `ls wala_*.out`;do
+		walastat $v
+	done) | sort -t , -gk 1) | column -t -s , | colorize
+#	msg info "========== -:worse, +:better, =:worse false alarms =========="
+#	for v in `ls wala_*.out`;do
+#		msg info "* $v"
+#		grep -c "${misscond}1 1" $v | while read m;do echo "- $m"; done
+#		grep "${allcond}1 0" $v | grep -c -v "${misscond}" | while read m;do echo "+ $m"; done
+#		grep "${allcond}0 0" $v | grep -c -v "${misscond}" | while read m;do echo "= $m"; done
+#		grep "${misscond}1 1" $v | while read m;do echo "-$m"; done
+#		grep "${allcond}1 0" $v | grep -v "${misscond}" | while read m;do echo "+$m"; done
+#		grep "${allcond}0 0" $v | grep -v "${misscond}" | while read m;do echo "=$m"; done
+#	done
 }
 
 cmd=`basename $0`

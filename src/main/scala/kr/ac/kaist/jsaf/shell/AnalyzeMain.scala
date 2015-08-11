@@ -17,7 +17,7 @@ import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.JavaConversions
-import scala.collection.immutable.HashMap
+import scala.collection.immutable.{HashSet, HashMap}
 import scala.collection.mutable.{ HashMap => MHashMap }
 import kr.ac.kaist.jsaf.compiler.{Disambiguator, Hoister, Parser}
 import kr.ac.kaist.jsaf.exceptions.UserError
@@ -55,23 +55,63 @@ object AnalyzeMain {
     eprintln("# Time for hoisting and disambiguation(s): %.2f\n".format(postTime))
 
     // Function Decl/Expr and Callsite Collector
+    var fid = 1
+    def newFid(): Int = {
+      fid = fid+1
+      fid
+    }
+    var stack: List[Int] = List(0)
+    def push(i: Int) = {
+      stack = i::stack
+    }
+    def pop() = stack match {
+      case i::rest =>
+        stack = rest
+        i
+      case _ => throw new InternalError("empty stack")
+    }
+    def current = stack match {
+      case i::rest => i
+      case _ => throw new InternalError("empty stack")
+    }
+
+    var callsite: MHashMap[Any, Int] = MHashMap()
     def collectDeclCallPair(parent: Any, node: Any, pair: (List[Any], List[Any])) = node match {
       case SFunDecl(info, ftn, strict) =>
+        val fid = newFid()
+        push(fid)
+        callsite += node -> fid
         (node::pair._1, pair._2)
       case SFunExpr(info, ftn) =>
+        val fid = newFid()
+        push(fid)
+        callsite += node -> fid
         (node::pair._1, pair._2)
       case SNew(info, lhs) =>
         lhs match {
           case SFunApp(_, _, _) => pair
-          case _ => (pair._1, node::pair._2) // case for 'new A'
+          case _ =>
+            callsite += node -> current
+            (pair._1, node::pair._2) // case for 'new A'
         }
       case SFunApp(info, fun, args) =>
+        callsite += node -> current
         (pair._1, node::pair._2)
       case _ => pair
     }
+    def after(parent: Any, node: Any)(pair: (List[Any], List[Any])) = node match {
+      case SFunDecl(_, _, _) =>
+        pop()
+        pair
+      case SFunExpr(_, _) =>
+        pop()
+        pair
+      case _ =>
+        pair
+    }
 
     val initstart = System.nanoTime
-    val (decls, calls) = walkAST(collectDeclCallPair)(null, disambiguatedProgram)(Nil, Nil)
+    val (decls, calls) = walkAST(collectDeclCallPair, after)(null, disambiguatedProgram)(Nil, Nil)
     val initTime = (System.nanoTime - initstart) / 1000000000.0
     eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
@@ -113,14 +153,32 @@ object AnalyzeMain {
         OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
 
     val outputstart = System.nanoTime
+
+//    var cg = MHashMap[Int, HashSet[Int]]()
+//    calls.foreach(call => {
+//      decls.foreach(decl => {
+//        val bitvectors: List[Int] = feature_map((decl, call))
+//        if (bitvectors.exists(v => v > 0)) {
+//          val cs = callsite(call)
+//          val ds = callsite(decl)
+//          cg += callsite(call) -> (cg.getOrElse(cs, HashSet()) + ds)
+//        }
+//      })
+//    })
+//    cg.foreach(c => {
+//      System.out.println(c._1 + " : "+ c._2)
+//    })
+
     if (Shell.params.opt_OutFileName != null) {
       val pw = new PrintWriter(new File(Shell.params.opt_OutFileName))
 
       calls.foreach(call => {
         decls.foreach(decl => {
           val bitvectors: List[Int] = feature_map((decl, call))
+          val cs = callsite(call)
+          val ds = callsite(decl)
           if (Shell.params.opt_debug) {
-            pw.write(string(call) + " => " + string(decl) + "\t")
+            pw.write("("+cs+")"+string(call) + " => (" + ds+")"+string(decl) + "\t")
           }
           bitvectors.foreach(v => pw.write(v + " "))
           pw.write(":")
