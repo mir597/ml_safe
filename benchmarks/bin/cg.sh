@@ -2,6 +2,10 @@
 
 BENCHMARK_HOME=${JS_HOME}/benchmarks
 jsaf=${JS_HOME}/bin/jsaf
+RESULT_HOME=${BENCHMARK_HOME}/results
+
+misscond="\(0 \)\{3\}:"
+allcond="\([0-9] \)\{3\}:"
 
 color_code=(
 	"\033[1;35m" # text_s
@@ -11,6 +15,22 @@ color_code=(
 	"\033[1;31m" # warn_s
 	"\033[0;31m" # warn
 	)
+
+colorize() {
+	read -r headers
+	echo -e "$headers"
+
+	printf '%*s\n' "${#headers}" ' ' | tr ' ' "="
+	declare -i i
+	while read line;do
+		i=$i+1
+		if (( $i%2 == 1 )); then
+			msg text_s "$line"
+		else
+			msg text "$line"
+		fi
+	done
+}
 
 msg() {
 	if [ -n "$NO_ANSI" ];then
@@ -29,6 +49,36 @@ msg() {
 			*) echo -e "$@";;
 		esac
 	fi	
+}
+
+pp_number() {
+	if [[ -z "$1" ]];then
+		echo -n "_"
+	else
+		[[ -n "$2" ]] || echo -n "$1"
+		[[ -z "$2" ]] || echo -n "$(printf "%.$2f" $1)"
+	fi
+}
+
+pp_diffnumber() {
+	if [[ -z "$1" ]];then
+		echo -n "_"
+	else
+		[[ -n "$2" ]] || echo -n "$1"
+		[[ -z "$2" ]] || echo -n "$(printf "%+.$2f" $1)"
+	fi
+}
+
+pp_diff() {
+	if [ "$1" == "$2" ];then
+		return
+	fi
+	if [ "$1" == "NaN" ];then
+		r=$2
+	elif [[ -n "$2" ]];then
+		r=$(echo "$1 - $2" | bc 2> /dev/null)
+	fi
+	[[ -z $r ]] || echo -n "(`pp_diffnumber "$r" $3`)"
 }
 
 usage_run () {
@@ -102,10 +152,135 @@ runs () {
 	done
 }
 
+showstat () {
+	name=${1}
+	miss=`grep -c "${misscond}1" $name`
+	all=`grep -c "${allcond}1" $name`
+	let hit="$all - $miss"
+	fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
+	per=$(($hit * 100 / $all))
+	alarms=$(($hit + $fa))
+	prec=$(($hit * 100 / $alarms))
+	echo -n "$name"
+	echo -n ",`pp_number "${hit}"`"
+	echo -n ",`pp_number "${alarms}"`"
+	echo -n ",`pp_number "${all}"`"
+	echo -n ",`pp_number "${prec}" 2`"
+	echo -n ",`pp_number "${per}" 2`"
+	echo ""
+}
+
+createfolder () {
+	declare -i i
+	i=0
+	date=`date +'%Y-%m-%d'`
+	name=${RESULT_HOME}/$date
+
+	# create a folder for result data.
+	while [ -e $name ];do
+		name="${RESULT_HOME}/$date.$i"
+		i=$i+1
+	done
+	mkdir -p $name
+
+	echo $name
+}
+
+showstats () {
+	(echo "name,hit,alarms,all,precision(%),recall(%)";
+	(for v in `ls result_*.out`;do
+		showstat $v
+	done) | sort -t , -gk 1) | column -t -s , | colorize
+}
+
+walarun () {
+	name=${1##*/}
+	out="wala_$name.out"
+
+	$jsaf analyze -result $1/dynamic-cg.fixed.json -wala $1/optimistic-cg.fixed.json -debug -out $out $1/*.js
+}
+
+walaruns () {
+	target=${BENCHMARK_HOME}/$1
+	[ ! -z $1 ] || target=${BENCHMARK_HOME}/cg.list
+	msg info_s "* Target: $target"
+	list=`cat $target | grep '^[^#]*' -o`
+
+	for v in $list;do
+		msg info " $v"
+	done
+
+	for v in $list;do
+		walarun $s_debug ${BENCHMARK_HOME}/$v
+	done
+}
+
+walastat () {
+	name=${1}
+	t=$(grep "# RESULT: " $name)
+
+	if [ -z "$t" ];then
+		miss=`grep -c "${misscond}1" $name`
+		all=`grep -c "${allcond}1" $name`
+		let hit="$all - $miss"
+		fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
+		per=$(($hit * 100 / $all))
+		alarms=$(($hit + $fa))
+		prec=$(($hit * 100 / $alarms))
+		walaonly=`grep -c "${misscond}1 1" $v`
+		safeonly=`grep "${allcond}1 0" $v | grep -c -v "${misscond}"`
+		safef=`grep "${allcond}0" $v | grep -c -v "${misscond}"`
+		walaf=`grep -c "${allcond}0 1" $v`
+		safewalaf=`grep "${allcond}0 1" $v | grep -c -v "${misscond}"`
+		union=$(($safef + $walaf - $safewalaf))
+		result=""
+		result="${result}${name}"
+		result="${result},`pp_number "${hit}"`"
+		result="${result},`pp_number "${alarms}"`"
+		result="${result},`pp_number "${all}"`"
+		result="${result},`pp_number "${prec}" 2`"
+		result="${result},`pp_number "${per}" 2`"
+		result="${result},`pp_number "${safeonly}"`"
+		result="${result},`pp_number "${walaonly}"`"
+		result="${result},`pp_number "${safef}"`"
+		result="${result},`pp_number "${walaf}"`"
+		result="${result},`pp_number "${safewalaf}"`"
+		result="${result},`pp_number "${union}"`"
+		echo "# RESULT: ${result}" >> $name
+		echo ${result}
+	else
+		echo ${t:10}
+	fi
+}
+
+comparewala () {
+	while getopts dv OPT;do
+		case "$OPT" in
+			d) NO_ANSI=true;;
+			v) VERBOSE=true;;
+		esac
+	done
+
+	(echo "name,hit,alarms,all,precision(%),recall(%),SAFE(t),WALA(t),SAFE(f),WALA(f),SAFE(f)∩ WALA(f),SAFE(f)∪ WALA(f)";
+	(for v in `ls wala_*.out`;do
+		walastat $v
+	done) | sort -t , -gk 1) | column -t -s , | colorize
+#	msg info "========== -:worse, +:better, =:worse false alarms =========="
+#	for v in `ls wala_*.out`;do
+#		msg info "* $v"
+#		grep -c "${misscond}1 1" $v | while read m;do echo "- $m"; done
+#		grep "${allcond}1 0" $v | grep -c -v "${misscond}" | while read m;do echo "+ $m"; done
+#		grep "${allcond}0 0" $v | grep -c -v "${misscond}" | while read m;do echo "= $m"; done
+#		grep "${misscond}1 1" $v | while read m;do echo "-$m"; done
+#		grep "${allcond}1 0" $v | grep -v "${misscond}" | while read m;do echo "+$m"; done
+#		grep "${allcond}0 0" $v | grep -v "${misscond}" | while read m;do echo "=$m"; done
+#	done
+}
+
 cmd=`basename $0`
 
 case $cmd in
-	"run" | "runs" )
+	"run" | "runs" | "showstat" | "showstats" | "walarun" | "walaruns" | "comparewala" )
 		$cmd $@;;
 	*) exit;;
 esac
