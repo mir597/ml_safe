@@ -29,6 +29,7 @@ import kr.ac.kaist.jsaf.features._
 // Analyze
 ////////////////////////////////////////////////////////////////////////////////
 object AnalyzeMain {
+  final private val usedOnly = true
 
   def eprintln(s: String) = System.err.println(s)
   def eprint(s: String) = System.err.print(s)
@@ -141,6 +142,8 @@ object AnalyzeMain {
       if (Shell.params.opt_WALAFileName != null) CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_WALAFileName)
       else MHashMap[(Any, Any), Int]()
 
+    val used_callsite = (HashSet[Any]() /: result_map.filter(p => p._2 > 0))((s, f) => s + f._1._2)
+
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
@@ -148,8 +151,9 @@ object AnalyzeMain {
     val feature_map: HashMap[(Any, Any), List[Int]] =
       init_set(init_map) >>
 //        Classifier.genFeature >>
-        SimpleName.genFeature >>  // TODO
+//        SimpleName.genFeature >>  // TODO
         PropName.genFeature(PropName.init(disambiguatedProgram)) >>
+        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram)) >>
         OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
 
     val outputstart = System.nanoTime
@@ -177,19 +181,21 @@ object AnalyzeMain {
           val bitvectors: List[Int] = feature_map((decl, call))
           val cs = callsite(call)
           val ds = callsite(decl)
-          if (Shell.params.opt_debug) {
-            pw.write("("+cs+")"+string(call) + " => (" + ds+")"+string(decl) + "\t")
+          if (!usedOnly || used_callsite.contains(call)) {
+            if (Shell.params.opt_debug) {
+              pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
+            }
+            bitvectors.foreach(v => pw.write(v + " "))
+            pw.write(":")
+            val answer = result_map((decl, call))
+            pw.write(answer.toString)
+            val wala = wala_map.get((decl, call)) match {
+              case Some(v) => v.toString
+              case _ => ""
+            }
+            pw.write(" " + wala)
+            pw.write("\r\n")
           }
-          bitvectors.foreach(v => pw.write(v + " "))
-          pw.write(":")
-          val answer = result_map((decl, call))
-          pw.write(answer.toString)
-          val wala = wala_map.get((decl, call)) match {
-            case Some(v) => v.toString
-            case _ => ""
-          }
-          pw.write(" "+wala)
-          pw.write("\r\n")
         })
       })
 

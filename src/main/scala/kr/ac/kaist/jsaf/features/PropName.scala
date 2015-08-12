@@ -78,25 +78,9 @@ object PropName extends Features {
     case SFunExpr(_, SFunctional(_, _, _, name, _)) if !useUniqueName => name.getText
   }
 
-  var stack: List[Any] = List(0)
-  def push(i: Any) = {
-    stack = i::stack
-  }
-  def pop() = stack match {
-    case i::rest =>
-      stack = rest
-      i
-    case _ => throw new InternalError("empty stack")
-  }
-  def current = stack match {
-    case i::rest => i
-    case _ => throw new InternalError("empty stack")
-  }
-
   private def collectFunExprName(parent: Any, node: Any, map: HashMap[Any, HashSet[String]]) = {
     node match {
       case SFunDecl(_, f, _) =>
-        push(node)
         val name =
           if (useUniqueName) f.getName.getUniqueName.unwrap()
           else f.getName.getText
@@ -104,7 +88,6 @@ object PropName extends Features {
         val i = map.getOrElse(node, empty) + name
         map + (node -> i)
       case SFunExpr(_, f) =>
-        push(node)
         val name =
           if (useUniqueName) f.getName.getUniqueName.unwrap()
           else f.getName.getText
@@ -133,16 +116,6 @@ object PropName extends Features {
       case _ =>
         map
     }
-  }
-  private def after(parent: Any, node: Any)(map: t): t = node match {
-    case SFunDecl(_, _, _) =>
-      pop()
-      map
-    case SFunExpr(_, _) =>
-      pop()
-      map
-    case _ =>
-      map
   }
 
   private val cache = mutable.HashMap[Any, HashSet[String]]()
@@ -217,7 +190,7 @@ object PropName extends Features {
     }
   }
 
-  def init(pgm: Any): t = walkAST(collectFunExprName, after)(null, pgm)(HashMap[Any, HashSet[String]]())
+  def init(pgm: Any): t = walkAST(collectFunExprName)(null, pgm)(HashMap[Any, HashSet[String]]())
 
   def genFeature(nameMap: t)(map: FeatureMap) = {
     genFeatureInit()

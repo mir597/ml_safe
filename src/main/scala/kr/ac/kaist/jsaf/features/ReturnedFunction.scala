@@ -1,5 +1,7 @@
 package kr.ac.kaist.jsaf.features
 
+import kr.ac.kaist.jsaf.nodes.ASTNode
+import kr.ac.kaist.jsaf.nodes_util.JSAstToConcrete
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.{HashMap, HashSet}
@@ -10,7 +12,9 @@ import scala.collection.mutable.{HashMap => MHashMap}
  */
 object ReturnedFunction extends Features {
   override def featureName: String = "Returned function calls"
-  type t = HashMap[Any, HashSet[String]]
+  type t = (HashMap[Any, HashSet[String]], HashMap[Any, Any])
+  val tv = (HashMap[Any, HashSet[String]](), HashMap[Any, Any]())
+
   private val number_literal = "$*Number*$"
 
   final private val useUniqueName = false // false: better recall and worse precision.
@@ -92,7 +96,9 @@ object ReturnedFunction extends Features {
     case _ => throw new InternalError("empty stack")
   }
 
-  private def collectFunExprName(parent: Any, node: Any, map: HashMap[Any, HashSet[String]]) = {
+  private def collectFunExprName(parent: Any, node: Any, maps: t): t = {
+    val map = maps._1
+    val nmap = maps._2
     node match {
       case SFunDecl(_, f, _) =>
         push(node)
@@ -101,7 +107,7 @@ object ReturnedFunction extends Features {
           else f.getName.getText
 
         val i = map.getOrElse(node, empty) + name
-        map + (node -> i)
+        (map + (node -> i), nmap)
       case SFunExpr(_, f) =>
         push(node)
         val name =
@@ -110,27 +116,38 @@ object ReturnedFunction extends Features {
 
         if (name != null) {
           val i = map.getOrElse(node, empty) + name
-          map + (node -> i)
-        } else map
+          (map + (node -> i), nmap)
+        } else maps
+
+      case SReturn(_, e) if e.isDefined =>
+        val expr = e.get
+        val funs = collectFuns(expr)
+        val f = current
+        val nmap_2 =
+          (nmap /: funs)((m, f_returned) => {
+            m + (f_returned -> f)
+          })
+
+        (map, nmap_2)
 
       case SAssignOpApp(_, lhs, SOp(_, "="), expr) =>
         val funs = collectFuns(expr)
         val name = nameOfLHS(lhs) ++ funs.map(nameOfFun)
-        (map /: funs)((m, f) => {
+        ((map /: funs)((m, f) => {
           val i = m.getOrElse(f, empty) ++ name
           if (i.nonEmpty) m + (f -> i)
           else m
-        })
+        }), nmap)
       case SField(_, prop, expr) =>
         val funs = collectFuns(expr)
         val name = funs.map(nameOfFun) + nameOfProp(prop)
-        (map /: funs)((m, f) => {
+        ((map /: funs)((m, f) => {
           val i = m.getOrElse(f, empty) ++ name
           if (i.nonEmpty) m + (f -> i)
           else m
-        })
+        }), nmap)
       case _ =>
-        map
+        maps
     }
   }
   private def after(parent: Any, node: Any)(map: t): t = node match {
@@ -175,6 +192,20 @@ object ReturnedFunction extends Features {
     }
   }
 
+  private def exprd(e: Any): HashSet[String] = {
+    e match {
+      case SFunExpr(_, _) => empty
+      case SExprList(_, list) if list.nonEmpty => exprd(list.last)
+      case SExprList(_, _) => throw new InternalError("impossible case")
+      case SCond(_, _, e1, e2) => exprd(e1) ++ exprd(e2)
+      case SInfixOpApp(_, e1, _, e2) => exprd(e1) ++ exprd(e2)
+      case SPrefixOpApp(_, _, _) => empty
+      case SUnaryAssignOpApp(_, _, _) => empty
+      case SAssignOpApp(_, lhs, _, e1) => exprd(e1) ++ named(lhs)
+      case _ => named(e)
+    }
+  }
+
   private def expr(e: Any): HashSet[String] = {
     e match {
       case SFunExpr(_, _) => empty
@@ -189,7 +220,7 @@ object ReturnedFunction extends Features {
     }
   }
 
-  private def name(n: Any): HashSet[String] = {
+  private def named(n: Any): HashSet[String] = {
     def name_(n: Any): HashSet[String] = {
       n match {
         case SThis(_) => empty
@@ -198,12 +229,31 @@ object ReturnedFunction extends Features {
         case SArrayExpr(_, _) => empty
         case SArrayNumberExpr(_, _) => empty
         case SObjectExpr(_, _) => empty
+        case SParenthesized(_, e) => exprd(e)
+        case SFunExpr(_, _) => empty
+        case SBracket(_, _, e) => empty
+        case SDot(_, _, id) => empty
+        case SNew(_, lhs) => empty
+        case SFunApp(_, call, args) => named(call)
+      }
+    }
+    name_(n)
+  }
+
+  private def name(n: Any): HashSet[String] = {
+    def name_(n: Any): HashSet[String] = {
+      n match {
+        case SThis(_) => empty
+        case SVarRef(_, id) => empty
+        case SArrayExpr(_, _) => empty
+        case SArrayNumberExpr(_, _) => empty
+        case SObjectExpr(_, _) => empty
         case SParenthesized(_, e) => expr(e)
         case SFunExpr(_, _) => empty
-        case SBracket(_, _, e) => value(e)
-        case SDot(_, _, id) => HashSet(id.getText)
+        case SBracket(_, _, e) => empty
+        case SDot(_, _, id) => empty
         case SNew(_, lhs) => empty
-        case SFunApp(_, call, args) => empty
+        case SFunApp(_, call, args) => named(call)
       }
     }
 
@@ -216,25 +266,34 @@ object ReturnedFunction extends Features {
     }
   }
 
-  def init(pgm: Any): t = walkAST(collectFunExprName, after)(null, pgm)(HashMap[Any, HashSet[String]]())
+  def init(pgm: Any): t = walkAST(collectFunExprName, after)(null, pgm)(tv)
 
   def genFeature(nameMap: t)(map: FeatureMap) = {
     genFeatureInit()
 
+    val nm = nameMap._1
+    val fm = nameMap._2
+
     val m = map.map(f => {
       val dc = f._1
       val vectors = f._2
+
       val callname = dc._2 match {
         case SFunApp(_, call, _) => name(call)
         case SNew(_, SFunApp(_, call, _)) => name(call)
         case SNew(_, lhs) => name(lhs)
       }
 
+
       val vec =
-        nameMap.get(dc._1) match {
-          case Some(xs) =>
-            if (xs.intersect(callname).nonEmpty) 1
-            else 0
+        fm.get(dc._1) match {
+          case Some(x) =>
+            nm.get(x) match {
+              case Some(xs) =>
+                if (xs.intersect(callname).nonEmpty) 1
+                else 0
+              case _ => 0
+            }
           case _ => 0
         }
 
