@@ -132,29 +132,31 @@ for (name, clf) in classifiers:
   true_hits = 0
   false_hits = 0
 
+  dynamic_cg = 0
+  ml_cg = 0
+
   for i in range(len(testFeatures)):
     pred = clf.predict(testFeatures[i])[0]
     solution = testSolutions[i]
-    if pred == solution:
-      correct = correct + 1
-    else:
-      incorrect = incorrect + 1
+    
     if solution == 1:
-      true_total = true_total + 1
-      if pred == 1:
-        true_hits = true_hits + 1
-    if solution == 0:
-      false_total = false_total + 1
-      if pred == 0:
-        false_hits = false_hits + 1
-  
+      dynamic_cg = dynamic_cg + 1
+
+    if pred == 1:
+      ml_cg = ml_cg + 1
+
+    if solution == 1 and pred == solution:
+      correct = correct + 1
+ 
   total = correct + incorrect
   
- 
-  
-  print "True  hits : %d / %d (%d%%)" % (true_hits, true_total, true_hits * 100 / true_total)
-  print "False hits : %d / %d (%d%%)" % (false_hits, false_total, false_hits * 100 / false_total)
-  print "Total      : %d / %d (%d%%)" % (correct,total,correct * 100 / total)
+  print correct 
+  print "#Edges in Dynamic Callgraph : %d" % (dynamic_cg)
+  print "#Edges determined by ML     : %d" % (ml_cg)
+  if ml_cg > 0:
+    print "Precision : %d%% (%d / %d)" % (correct*100/ml_cg, correct, ml_cg)
+  if dynamic_cg > 0:
+    print "Recall    : %d%% (%d / %d)" % (correct*100/dynamic_cg, correct, dynamic_cg)
 
   end_time = time.time()
 
