@@ -19,8 +19,10 @@ color_code=(
 colorize() {
 	read -r headers
 	echo -e "$headers"
+	read -r headers
+	echo -e "$headers"
 
-	printf '%*s\n' "${#headers}" ' ' | tr ' ' "="
+#	printf '%*s\n' "${#headers}" ' ' | tr ' ' "="
 	declare -i i
 	while read line;do
 		i=$i+1
@@ -253,6 +255,51 @@ walastat () {
 	fi
 }
 
+formatting () {
+	sep=","
+	declare -a list
+	let i=0
+	declare -a max
+	declare -a align
+	for v in `seq 0 20`;do
+		max[v]=0
+	done
+	for v in `seq 0 20`;do
+		align[v]=""
+	done
+	align[0]="-"
+	while IFS=$'\n' read -r line; do
+		list[i]=${line}
+		IFS=','
+		read -a v <<< "$line"
+		for idx in "${!v[@]}";do
+			if (( ${max[idx]} < ${#v[idx]} )); then
+				max[idx]=${#v[idx]}
+			fi
+		done
+		((++i))
+	done
+
+	for i in "${!list[@]}";do
+		read -a v <<< "${list[i]}"
+		for j in "${!v[@]}";do
+			printf "| %${align[j]}${max[j]}s " ${v[j]}
+		done
+		echo "|"
+		if ((i == 0));then
+			for j in "${!v[@]}";do
+				echo -n "|"
+				if ((j == 0));then echo -n ":";fi
+				s=$((${max[j]}+1))
+				printf '%*s' "${s}" ' ' | tr ' ' "-"
+				if ((j != 0));then echo -n ":";fi
+			done
+			echo "|"
+		fi
+	done
+
+}
+
 comparewala () {
 	while getopts dv OPT;do
 		case "$OPT" in
@@ -264,7 +311,9 @@ comparewala () {
 	(echo "name,hit,alarms,all,precision(%),recall(%),SAFE(t),WALA(t),SAFE(f),WALA(f),SAFE(f)∩ WALA(f),SAFE(f)∪ WALA(f)";
 	(for v in `ls wala_*.out`;do
 		walastat $v
-	done) | sort -t , -gk 1) | column -t -s , | colorize
+	done) | sort -t , -gk 1) | formatting | colorize
+#	done) | sort -t , -gk 1) | column -t -s , | colorize
+
 #	msg info "========== -:worse, +:better, =:worse false alarms =========="
 #	for v in `ls wala_*.out`;do
 #		msg info "* $v"

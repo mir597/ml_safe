@@ -3,15 +3,14 @@ package kr.ac.kaist.jsaf.features
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.{HashMap, HashSet}
-import scala.collection.mutable
+import scala.collection.mutable.{HashMap => MHashMap}
 
 /**
- * Created by ysko on 15. 7. 23..
+ * Created by ysko on 15. 8. 3.
  */
-object PropName extends Features {
+object ReturnedFunction extends Features {
+  override def featureName: String = "Returned function calls"
   type t = HashMap[Any, HashSet[String]]
-
-  override def featureName: String = "Property Name"
   private val number_literal = "$*Number*$"
 
   final private val useUniqueName = false // false: better recall and worse precision.
@@ -145,7 +144,7 @@ object PropName extends Features {
       map
   }
 
-  private val cache = mutable.HashMap[Any, HashSet[String]]()
+  private val cache = MHashMap[Any, HashSet[String]]()
   private val empty = HashSet[String]()
 
   private def value(e: Any): HashSet[String] = {
