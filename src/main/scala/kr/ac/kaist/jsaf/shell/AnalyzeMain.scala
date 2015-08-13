@@ -148,13 +148,15 @@ object AnalyzeMain {
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
     // Initialize features.
-    val feature_map: HashMap[(Any, Any), List[Int]] =
+    val feature_map: HashMap[(Any, Any), List[Int]] = {
+      val in = PropName.init(disambiguatedProgram)
       init_set(init_map) >>
-//        Classifier.genFeature >>
-//        SimpleName.genFeature >>  // TODO
-        PropName.genFeature(PropName.init(disambiguatedProgram)) >>
+        //        Classifier.genFeature >>
+        //        SimpleName.genFeature >>
+        PropName.genFeature(in) >>
         ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram)) >>
         OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
+    }
 
     val outputstart = System.nanoTime
 
@@ -182,19 +184,21 @@ object AnalyzeMain {
           val cs = callsite(call)
           val ds = callsite(decl)
           if (!usedOnly || used_callsite.contains(call)) {
-            if (Shell.params.opt_debug) {
-              pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
-            }
-            bitvectors.foreach(v => pw.write(v + " "))
-            pw.write(":")
             val answer = result_map((decl, call))
-            pw.write(answer.toString)
             val wala = wala_map.get((decl, call)) match {
               case Some(v) => v.toString
               case _ => ""
             }
-            pw.write(" " + wala)
-            pw.write("\r\n")
+            if (bitvectors.exists(p => p > 0) || answer > 0 || wala.equals("1")) {
+              if (Shell.params.opt_debug) {
+                pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
+              }
+              bitvectors.foreach(v => pw.write(v + " "))
+              pw.write(":")
+              pw.write(answer.toString)
+              pw.write(" " + wala)
+              pw.write("\r\n")
+            }
           }
         })
       })

@@ -4,8 +4,15 @@ BENCHMARK_HOME=${JS_HOME}/benchmarks
 jsaf=${JS_HOME}/bin/jsaf
 RESULT_HOME=${BENCHMARK_HOME}/results
 
-misscond="\(0 \)\{3\}:"
-allcond="\([0-9] \)\{3\}:"
+misscond=""
+allcond=""
+
+init_cond() {
+	c=`head -n 1 $1 | grep -o "\([0-9] \)\([0-9] \)*:" | grep -o "[0-9]* " | wc -l`
+	c=$(echo ${c})
+	misscond="\(0 \)\{$c\}:"
+	allcond="\([0-9] \)\{$c\}:"
+}
 
 color_code=(
 	"\033[1;35m" # text_s
@@ -156,6 +163,7 @@ runs () {
 
 showstat () {
 	name=${1}
+	init_cond ${1}
 	miss=`grep -c "${misscond}1" $name`
 	all=`grep -c "${allcond}1" $name`
 	let hit="$all - $miss"
@@ -220,6 +228,7 @@ walaruns () {
 walastat () {
 	name=${1}
 	t=$(grep "# RESULT: " $name)
+	init_cond ${1}
 
 	if [ -z "$t" ];then
 		miss=`grep -c "${misscond}1" $name`
@@ -255,6 +264,18 @@ walastat () {
 	fi
 }
 
+print_line () {
+	v=("$@")
+	for j in "${!v[@]}";do
+		case ${align[j]} in
+			"l") ali="-";;
+			*) ali="";;
+		esac
+		printf "| %$ali${max[j]}s " ${v[j]}
+	done
+	echo "|"
+}
+
 formatting () {
 	sep=","
 	declare -a list
@@ -285,7 +306,7 @@ formatting () {
 				form[idx]=0
 				align[idx]="l"
 			fi
-			avg[idx]=0
+			sum[idx]=0
 		done
 		((++i))
 	done
@@ -293,15 +314,9 @@ formatting () {
 
 	for i in "${!list[@]}";do
 		read -a v <<< "${list[i]}"
-		for j in "${!v[@]}";do
-			case ${align[j]} in
-				"l") ali="-";;
-				*) ali="";;
-			esac
-			printf "| %$ali${max[j]}s " ${v[j]}
-		done
-		echo "|"
+		print_line ${v[@]}
 		if ((i == 0));then
+# Print the second head line.
 			for j in "${!v[@]}";do
 				echo -n "|"
 				case ${align[j]} in
@@ -321,30 +336,27 @@ formatting () {
 				if [[ ${v[j]} =~ $numorfloat ]]; then
 					scale=$((${form[j]} - 1))
 					if (($scale >= 0));then
-						avg[j]=$(echo "scale=${scale};${avg[j]} + ${v[j]}" | bc)
+						sum[j]=$(echo "scale=${scale};${sum[j]} + ${v[j]}" | bc)
 					fi
 				fi
 			done
 		fi
 	done
 	for j in "${!v[@]}";do
-		if ((j == 0)); then
-			a="Average"
+		scale=$((${form[j]} - 1))
+		if (($scale >= 0));then
+			a=$(echo "scale=${scale};${sum[j]} / ($all - 1)" | bc)
 		else
-			scale=$((${form[j]} - 1))
-			if (($scale >= 0));then
-				a=$(echo "scale=${scale};${avg[j]} / ($all - 1)" | bc)
-			else
-				a="-"
-			fi
+			a="-"
 		fi
-		case ${align[j]} in
-			"l") ali="-";;
-			*) ali="";;
-		esac
-		printf "| %$ali${max[j]}s " ${a}
+		avg[j]=$a
 	done
-	echo "|"
+# Sum
+	sum[0]="Sum"
+	print_line ${sum[@]}
+# Average
+	avg[0]="Average"
+	print_line ${avg[@]}
 }
 
 comparewala () {
@@ -355,7 +367,7 @@ comparewala () {
 		esac
 	done
 
-	(echo "name,hit,alarms,all,precision(%),recall(%),SAFE(t),WALA(t),SAFE(f),WALA(f),SAFE(f)∩ WALA(f),SAFE(f)∪ WALA(f)";
+	(echo "name,hit,alarms,all,prec(%),recall(%),SAFE(t),WALA(t),SAFE(f),WALA(f),(f)∩ (f),(f)∪ (f)";
 	(for v in `ls wala_*.out`;do
 		walastat $v
 	done) | sort -t , -gk 1) | formatting | colorize
