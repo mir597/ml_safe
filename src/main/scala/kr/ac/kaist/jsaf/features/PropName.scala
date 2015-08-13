@@ -18,6 +18,7 @@ object PropName extends Features {
   private val number_literal = "$*Number*$"
 
   final private val useUniqueName = false // false: better recall and worse precision.
+  final private val unification = true // true: better recall and worse precision.
 
   private val empty_funs = HashSet[Any]()
   private def collectFuns(e: Any): HashSet[Any] = {
@@ -47,7 +48,8 @@ object PropName extends Features {
     lhs match {
       case SExprList(_, list) => nameOfExpr(list.last)
       case SCond(_, _, et, ef) => nameOfExpr(et) ++ nameOfExpr(ef)
-      case SInfixOpApp(_, el, _, er) => nameOfExpr(el) ++ nameOfExpr(er)
+      case SInfixOpApp(_, el, op, er) if op.getText.equals("||") => nameOfExpr(el) ++ nameOfExpr(er)
+      case SInfixOpApp(_, el, _, er) => empty
       case SPrefixOpApp(_, _, _) => empty
       case SUnaryAssignOpApp(_, _, _) => empty
       case SAssignOpApp(_, _, _, e1) => nameOfExpr(e1)
@@ -86,7 +88,7 @@ object PropName extends Features {
           if (useUniqueName) f.getName.getUniqueName.unwrap()
           else f.getName.getText
 
-        val i = map.getOrElse(node, empty) + name
+        val i = (map.getOrElse(node, empty) + name).filter(p => !p.equalsIgnoreCase(""))
         (map + (node -> i), tbl)
       case SFunExpr(_, f) =>
         val name =
@@ -94,34 +96,37 @@ object PropName extends Features {
           else f.getName.getText
 
         if (name != null) {
-          val i = map.getOrElse(node, empty) + name
+          val i = (map.getOrElse(node, empty) + name).filter(p => !p.equalsIgnoreCase(""))
           (map + (node -> i), tbl)
         } else (map, tbl)
 
       case SAssignOpApp(_, lhs, SOp(_, "="), expr) =>
         val funs = collectFuns(expr)
-        val names_lhs = nameOfExpr(lhs)
-        val names_rhs = nameOfExpr(expr)
+        val names_lhs = nameOfExpr(lhs).filter(p => !p.equalsIgnoreCase(""))
         val name = names_lhs ++ funs.map(nameOfFun)
         val map_2 =
           (map /: funs)((m, f) => {
-            val i = m.getOrElse(f, empty) ++ name
+            val i = (m.getOrElse(f, empty) ++ name).filter(p => !p.equalsIgnoreCase(""))
             if (i.nonEmpty) m + (f -> i)
             else m
           })
         val tbl_2 =
-          (tbl /: names_lhs)((tbl_i, n_lhs) => {
-            (tbl_i /: names_rhs)((tbl_i2, n_rhs) => {
-              UF.union(n_lhs, n_rhs, tbl_i2)
+          if (unification) {
+            val names_rhs = nameOfExpr(expr).filter(p => !p.equalsIgnoreCase(""))
+            (tbl /: names_lhs)((tbl_i, n_lhs) => {
+              (tbl_i /: names_rhs)((tbl_i2, n_rhs) => {
+                UF.union(n_lhs, n_rhs, tbl_i2)
+              })
             })
-          })
+          } else tbl
+
         (map_2, tbl_2)
       case SField(_, prop, expr) =>
         val funs = collectFuns(expr)
         val name = funs.map(nameOfFun) + nameOfProp(prop)
         val map_2 =
           (map /: funs)((m, f) => {
-            val i = m.getOrElse(f, empty) ++ name
+            val i = (m.getOrElse(f, empty) ++ name).filter(p => !p.equalsIgnoreCase(""))
             if (i.nonEmpty) m + (f -> i)
             else m
           })
@@ -220,11 +225,11 @@ object PropName extends Features {
             val b = xs.exists(x => {
               val (tbl_2, xr) = UF.get_representative(x, tbl)
               callname.exists(y => {
-                val (_, yr) = UF.get_representative(y, tbl_2)
+                val (_, yr) = UF.get_representative(y, tbl)
                 xr.equalsIgnoreCase(yr)
               })
             })
-            if (b || xs.intersect(callname).nonEmpty) 1
+            if (b) 1
             else 0
           case _ => 0
         }
