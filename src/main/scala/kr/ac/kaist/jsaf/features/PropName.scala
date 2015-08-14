@@ -16,6 +16,7 @@ object PropName extends Features {
     val uniqueID = _uniqueID
     def comptext(that: Name): Boolean = this.text.equals(that.text)
     def comp(that: Name): Int = this.uniqueID compare that.uniqueID
+
     def isEmpty: Boolean = text == null || text.equalsIgnoreCase("")
   }
   implicit object order_name extends Ordering[Name] {
@@ -27,7 +28,7 @@ object PropName extends Features {
   override def featureName: String = "Property Name"
   private val number_literal: String = "$*Number*$"
 
-//  final private val useUniqueName = true // false: better recall and worse precision.
+  final private val useUniqueName = false // false: better recall and worse precision.
   final private val unification = true // true: better recall and worse precision.
 
   private val empty_funs = HashSet[Any]()
@@ -53,18 +54,21 @@ object PropName extends Features {
     }
   }
 
-  var cacheid = mutable.HashMap[Id, Name]()
   var cachestr = mutable.HashMap[String, Name]()
 
   def nid(id: Id): Name = {
-    cacheid.get(id) match {
+    val u =
+      if (useUniqueName) id.getUniqueName.unwrap()
+      else id.getText
+    cachestr.get(u) match {
       case Some(v) => v
       case None =>
-        val v = new Name(id.getText, id.getUniqueName.unwrap())
-        cacheid += id -> v
+        val v = new Name(id.getText, u)
+        cachestr += u -> v
         v
     }
   }
+
   def nid(id: String): Name = {
     cachestr.get(id) match {
       case Some(v) => v
@@ -87,7 +91,6 @@ object PropName extends Features {
       case SAssignOpApp(_, _, _, e1) => nameOfExpr(e1)
       case SLiteral(_) => empty
       case SVarRef(_, id) => HashSet(nid(id))
-//      case SVarRef(_, id) if !useUniqueName => HashSet(id.getText)
       case SArrayExpr(_, list) => empty
       case SObjectExpr(_, list) => empty
       case SParenthesized(_, e) => nameOfExpr(e)
@@ -156,15 +159,6 @@ object PropName extends Features {
           val names_rhs = nameOfExpr(expr).filter(p => !p.isEmpty)
 
           names_lhs.foreach(n_lhs => names_rhs.foreach(n_rhs => tbl.union(n_lhs, n_rhs)))
-//          (tbl /: names_lhs)((tbl_i, n_lhs) => {
-//            (tbl_i /: names_rhs)((tbl_i2, n_rhs) => {
-//              System.out.println("union: "+n_lhs+" =:= "+n_rhs)
-//              tbl_i2.union(n_lhs, n_rhs)
-////                val tbl = UF.union(n_lhs, n_rhs, tbl_i2)
-////                System.out.println("unionrep: "+UF.get_representative(n_lhs, tbl)._2+" =:= "+UF.get_representative(n_rhs, tbl)._2)
-////                tbl
-//            })
-//          })
         }
 
         (map_2, tbl)
@@ -181,12 +175,6 @@ object PropName extends Features {
         if (unification) {
           val names_rhs = nameOfExpr(expr).filter(p => !p.isEmpty)
           names_rhs.foreach(n_rhs => tbl.union(prop_name, n_rhs))
-          //          (tbl /: names_rhs)((tbl_i, n_rhs) => {
-          //            System.out.println("union: "+prop_name+" =:= "+n_rhs)
-          //            val tbl = UF.union(prop_name, n_rhs, tbl_i)
-          //            System.out.println("unionrep: "+UF.get_representative(prop_name, tbl)._2+" =:= "+UF.get_representative(n_rhs, tbl)._2)
-          //            tbl
-          //          })
         }
         (map_2, tbl)
       case _ =>
@@ -248,7 +236,6 @@ object PropName extends Features {
         case SAssignOpApp(_, lhs, _, e1) => name_(e1)
         case SThis(_) => empty
         case SVarRef(_, id) => HashSet(nid(id))
-//        case SVarRef(_, id) if !useUniqueName => HashSet(id.getText)
         case SArrayExpr(_, _) => empty
         case SArrayNumberExpr(_, _) => empty
         case SObjectExpr(_, _) => empty
@@ -269,9 +256,6 @@ object PropName extends Features {
     }
   }
 
-//  private def assigns(e: Any): HashSet[Any] = {
-
-//  def init(pgm: Any): t = walkAST(collectFunExprName)(null, pgm)((HashMap[Any, HashSet[String]](), UF.empty))
   def init(pgm: Any): t = walkAST(collectFunExprName, after)(null, pgm)((HashMap[Any, HashSet[Name]](), new DisjointSets[Name]()))
 
   def genFeature(maps: t)(map: FeatureMap) = {

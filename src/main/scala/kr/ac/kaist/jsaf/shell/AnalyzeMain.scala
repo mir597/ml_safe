@@ -177,6 +177,12 @@ object AnalyzeMain {
 
     if (Shell.params.opt_OutFileName != null) {
       val pw = new PrintWriter(new File(Shell.params.opt_OutFileName))
+      if (Shell.params.opt_debug) {
+        pw.write("# Callsites: "+calls.size+"\n")
+        pw.write("# Used callsites: "+used_callsite.size+"\n")
+        val cov = used_callsite.size.toFloat / calls.size.toFloat * 100
+        pw.write("# Coverage(%%): %.2f\n".format(cov))
+      }
 
       calls.foreach(call => {
         decls.foreach(decl => {
