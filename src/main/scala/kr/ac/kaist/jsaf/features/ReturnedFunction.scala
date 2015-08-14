@@ -20,20 +20,20 @@ object ReturnedFunction extends Features {
   final private val useUniqueName = false // false: better recall and worse precision.
 
   private val empty_funs = HashSet[Any]()
-  private def collectFuns(e: Any): HashSet[Any] = {
+  private def collectFuns(e: Any, f: Any): HashSet[Any] = {
     e match {
-      case SExprList(_, list) if list.nonEmpty => collectFuns(list.last)
+      case SExprList(_, list) if list.nonEmpty => collectFuns(list.last, f)
       case SExprList(_, _) => throw new InternalError("impossible case")
-      case SCond(_, _, et, ef) => collectFuns(et) ++ collectFuns(ef)
-      case SInfixOpApp(_, el, _, er) => collectFuns(el) ++ collectFuns(er)
+      case SCond(_, _, et, ef) => collectFuns(et, f) ++ collectFuns(ef, f)
+      case SInfixOpApp(_, el, _, er) => collectFuns(el, f) ++ collectFuns(er, f)
       case SPrefixOpApp(_, _, _) => empty_funs
       case SUnaryAssignOpApp(_, _, _) => empty_funs
-      case SAssignOpApp(_, _, _, e1) => collectFuns(e1)
+      case SAssignOpApp(_, _, _, e1) => collectFuns(e1, f)
       case SLiteral(_) => empty_funs
       case SVarRef(_, _) => empty_funs
       case SArrayExpr(_, _) => empty_funs
       case SObjectExpr(_, _) => empty_funs
-      case SParenthesized(_, e1) => collectFuns(e1)
+      case SParenthesized(_, e1) => collectFuns(e1, f)
       case SFunExpr(_, _) => HashSet(e)
       case SBracket(_, _, _) => empty_funs
       case SDot(_, _, _) => empty_funs
@@ -121,8 +121,8 @@ object ReturnedFunction extends Features {
 
       case SReturn(_, e) if e.isDefined =>
         val expr = e.get
-        val funs = collectFuns(expr)
         val f = current
+        val funs = collectFuns(expr, f)
         val nmap_2 =
           (nmap /: funs)((m, f_returned) => {
             m + (f_returned -> f)
@@ -131,7 +131,8 @@ object ReturnedFunction extends Features {
         (map, nmap_2)
 
       case SAssignOpApp(_, lhs, SOp(_, "="), expr) =>
-        val funs = collectFuns(expr)
+        val f = current
+        val funs = collectFuns(expr, f)
         val name = nameOfLHS(lhs) ++ funs.map(nameOfFun)
         ((map /: funs)((m, f) => {
           val i = m.getOrElse(f, empty) ++ name
@@ -139,7 +140,8 @@ object ReturnedFunction extends Features {
           else m
         }), nmap)
       case SField(_, prop, expr) =>
-        val funs = collectFuns(expr)
+        val f = current
+        val funs = collectFuns(expr, f)
         val name = funs.map(nameOfFun) + nameOfProp(prop)
         ((map /: funs)((m, f) => {
           val i = m.getOrElse(f, empty) ++ name

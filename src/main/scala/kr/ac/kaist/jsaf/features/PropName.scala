@@ -2,7 +2,7 @@ package kr.ac.kaist.jsaf.features
 
 import kr.ac.kaist.jsaf.nodes.Id
 import kr.ac.kaist.jsaf.scala_src.nodes._
-import kr.ac.kaist.jsaf.utils.{DisjointSets, UnionFind}
+import kr.ac.kaist.jsaf.utils.DisjointSets
 
 import scala.collection.immutable.{HashMap, HashSet}
 import scala.collection.mutable
