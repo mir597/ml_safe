@@ -18,8 +18,6 @@ object OneshotCall extends Features {
     node match {
       case SNoOp(info, desc) => empty
       case SStmtUnit(info, stmts) => decls(stmts)
-//      case SFunDecl(info, ftn, strict) =>
-//        HashSet(node)
       case SBlock(info, stmts, internal) => decls(stmts)
       case SVarStmt(info, vds) => decls(vds)
       case SEmptyStmt(info) => empty
@@ -29,24 +27,6 @@ object OneshotCall extends Features {
           decls(falseBranch)
       case SDoWhile(info, body, cond) => decls(body)
       case SWhile(info, cond, body) => decls(body)
-//      case SFor(info, init, cond, action, body) =>
-//        decls(init) ++
-//          decls(cond) ++
-//          decls(action) ++
-//          decls(body)
-//      case SForIn(info, lhs, expr, body) =>
-//        decls(lhs) ++
-//          decls(expr) ++
-//          decls(body)
-//      case SForVar(info, vars, cond, action, body) =>
-//        decls(vars) ++
-//          decls(cond) ++
-//          decls(action) ++
-//          decls(body)
-//      case SForVarIn(info, _var, expr, body) =>
-//        decls(_var) ++
-//          decls(expr) ++
-//          decls(body)
       case SContinue(info, target) => empty
       case SBreak(info, target) => empty
       case SReturn(info, expr) => empty
@@ -108,8 +88,6 @@ object OneshotCall extends Features {
       case SComment(info, comment) => empty
 //      case STopLevel(fds, vds, stmts) => empty
 
-      case SFunctional(fds, vds, stmts, id, params) => HashSet(node)
-
       case list: List[_] => decls(list.last)
       case Some(n) => decls(n)
       case None => empty
@@ -138,8 +116,6 @@ object OneshotCall extends Features {
     val m = map.map(f => {
       val dc = f._1
       val vectors = f._2
-      val callname = name(dc._2)
-      val declname = name(dc._1)
 
       val vec =
         funMap.get(dc._2) match {

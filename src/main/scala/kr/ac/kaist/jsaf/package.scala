@@ -27,6 +27,12 @@ package object jsaf {
     fn + "@" + os
   }
 
+//  def span(i: Span): String = {
+//    val begin = i.getBegin
+//    val end = i.getEnd
+//    begin.getFileNameOnly + "@" + begin.getLine +":" + begin.column() + "~" + end.getLine + ":" + end.column()
+//  }
+
   def string(n: Any) = n match {
     case SFunDecl(info, ftn, strict) =>
       span(info.getSpan)+": "+ftn.getName.getText

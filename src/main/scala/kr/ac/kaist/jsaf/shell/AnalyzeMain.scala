@@ -29,6 +29,7 @@ import kr.ac.kaist.jsaf.features._
 // Analyze
 ////////////////////////////////////////////////////////////////////////////////
 object AnalyzeMain {
+  final private val usedOnly = true
 
   def eprintln(s: String) = System.err.println(s)
   def eprint(s: String) = System.err.print(s)
@@ -141,16 +142,21 @@ object AnalyzeMain {
       if (Shell.params.opt_WALAFileName != null) CallHistoryParser.parseFromFile(decls, calls, Shell.params.opt_WALAFileName)
       else MHashMap[(Any, Any), Int]()
 
+    val used_callsite = (HashSet[Any]() /: result_map.filter(p => p._2 > 0))((s, f) => s + f._1._2)
+
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
     // Initialize features.
-    val feature_map: HashMap[(Any, Any), List[Int]] =
+    val feature_map: HashMap[(Any, Any), List[Int]] = {
+      val in = PropName.init(disambiguatedProgram)
       init_set(init_map) >>
-//        Classifier.genFeature >>
-        SimpleName.genFeature >>  // TODO
-        PropName.genFeature(PropName.init(disambiguatedProgram)) >>
+        //        Classifier.genFeature >>
+        //        SimpleName.genFeature >>
+        PropName.genFeature(in) >>
+        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram)) >>
         OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
+    }
 
     val outputstart = System.nanoTime
 
@@ -171,25 +177,35 @@ object AnalyzeMain {
 
     if (Shell.params.opt_OutFileName != null) {
       val pw = new PrintWriter(new File(Shell.params.opt_OutFileName))
+      if (Shell.params.opt_debug) {
+        pw.write("# Callsites: "+calls.size+"\n")
+        pw.write("# Used callsites: "+used_callsite.size+"\n")
+        val cov = used_callsite.size.toFloat / calls.size.toFloat * 100
+        pw.write("# Coverage(%%): %.2f\n".format(cov))
+      }
 
       calls.foreach(call => {
         decls.foreach(decl => {
           val bitvectors: List[Int] = feature_map((decl, call))
           val cs = callsite(call)
           val ds = callsite(decl)
-          if (Shell.params.opt_debug) {
-            pw.write("("+cs+")"+string(call) + " => (" + ds+")"+string(decl) + "\t")
+          if (!usedOnly || used_callsite.contains(call)) {
+            val answer = result_map((decl, call))
+            val wala = wala_map.get((decl, call)) match {
+              case Some(v) => v.toString
+              case _ => ""
+            }
+            if (bitvectors.exists(p => p > 0) || answer > 0 || wala.equals("1")) {
+              if (Shell.params.opt_debug) {
+                pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
+              }
+              bitvectors.foreach(v => pw.write(v + " "))
+              pw.write(":")
+              pw.write(answer.toString)
+              pw.write(" " + wala)
+              pw.write("\r\n")
+            }
           }
-          bitvectors.foreach(v => pw.write(v + " "))
-          pw.write(":")
-          val answer = result_map((decl, call))
-          pw.write(answer.toString)
-          val wala = wala_map.get((decl, call)) match {
-            case Some(v) => v.toString
-            case _ => ""
-          }
-          pw.write(" "+wala)
-          pw.write("\r\n")
         })
       })
 

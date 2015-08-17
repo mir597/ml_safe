@@ -74,6 +74,7 @@ object CallHistoryParser {
       }
 
       def parse_span(s: String, decl: Boolean): T = {
+        val p = if (decl) 0 else 1
         val a1 = s.split("@")
         val filename = a1(0)
         val others = a1(1)
@@ -82,15 +83,15 @@ object CallHistoryParser {
         val start_column = a2(1)
         val end_line = a2(2)
         val end_column = a2(3)
-        (filename, line.toInt, start_column.toInt, end_line.toInt, end_column.toInt)
+        (filename, line.toInt, start_column.toInt, end_line.toInt, end_column.toInt - p)
       }
 
       def findmap(m: HashMap[T, Any])(s: T): Option[Any] = {
         m.get(s) match {
           case Some(v) => Some(v)
           case None =>
-            //          System.err.println("Cannot find a case for "+s)
-            //          throw new InternalError()
+            System.err.println("Cannot find a case for "+s)
+            throw new InternalError()
             val s2 = (s._1, s._2, s._3, s._4, s._5 - 1)
             m.get(s2) match {
               case Some(v) => Some(v)
@@ -114,7 +115,7 @@ object CallHistoryParser {
     //  start_line_of_decl:start_column:end_line:end_column:start_line_of_callexpr:start_column:end_line_end_column
     if (filename != null) {
       val sloc: SLOC =
-        if (filename != null && filename.endsWith(".jalangi.json")) new ColumnBase
+        if (filename != null && filename.endsWith(".pretty.json")) new ColumnBase
         else new OffsetBase
 
       val spanmap =
