@@ -1,0 +1,602 @@
+{
+    "gallery_orig_.js@117:22-117:60": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@129:18-129:45": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@142:13-142:29": [
+        "String_prototype_indexOf"
+    ],
+    "gallery_orig_.js@153:16-153:35": [
+        "gallery_orig_.js@136:41-148:2"
+    ],
+    "gallery_orig_.js@160:20-160:49": [
+        "Document_prototype_createElement"
+    ],
+    "gallery_orig_.js@163:9-163:42": [
+        "Node_prototype_appendChild"
+    ],
+    "gallery_orig_.js@166:22-166:54": [
+        "Document_prototype_createElement"
+    ],
+    "gallery_orig_.js@168:9-168:33": [
+        "Node_prototype_appendChild"
+    ],
+    "gallery_orig_.js@169:9-170:40": [
+        "image_orig_.js@150:34-181:2"
+    ],
+    "gallery_orig_.js@171:9-175:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@172:13-172:55": [
+        "gallery_orig_.js@115:42-134:2"
+    ],
+    "gallery_orig_.js@174:13-174:67": [
+        "main_orig_.js@180:38-192:2"
+    ],
+    "gallery_orig_.js@178:21-178:50": [
+        "Document_prototype_createElement"
+    ],
+    "gallery_orig_.js@180:9-180:32": [
+        "Node_prototype_appendChild"
+    ],
+    "gallery_orig_.js@181:9-183:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@186:25-186:54": [
+        "Document_prototype_createElement"
+    ],
+    "gallery_orig_.js@188:9-188:37": [
+        "Node_prototype_appendChild"
+    ],
+    "gallery_orig_.js@216:20-216:53": [
+        "gallery_orig_.js@11:1-16:2"
+    ],
+    "gallery_orig_.js@219:9-219:26": [
+        "gallery_orig_.js@70:39-83:2"
+    ],
+    "gallery_orig_.js@221:5-221:23": [
+        "gallery_orig_.js@150:40-197:2"
+    ],
+    "gallery_orig_.js@223:5-223:33": [
+        "gallery_orig_.js@228:44-250:2"
+    ],
+    "gallery_orig_.js@224:5-224:31": [
+        "gallery_orig_.js@115:42-134:2"
+    ],
+    "gallery_orig_.js@229:16-229:43": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@235:15-235:47": [
+        "Math_floor"
+    ],
+    "gallery_orig_.js@23:29-23:63": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@24:23-24:60": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@253:15-253:50": [
+        "parseInt"
+    ],
+    "gallery_orig_.js@25:25-25:64": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@260:15-260:50": [
+        "parseInt"
+    ],
+    "gallery_orig_.js@261:15-261:34": [
+        "Math_abs"
+    ],
+    "gallery_orig_.js@268:5-268:25": [
+        "gallery_orig_.js@115:42-134:2"
+    ],
+    "gallery_orig_.js@26:22-26:58": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@273:5-273:23": [
+        "gallery_orig_.js@150:40-197:2"
+    ],
+    "gallery_orig_.js@275:9-275:44": [
+        "gallery_orig_.js@228:44-250:2"
+    ],
+    "gallery_orig_.js@27:21-27:39": [
+        "image_orig_.js@11:1-148:2"
+    ],
+    "gallery_orig_.js@32:9-32:26": [
+        "gallery_orig_.js@55:39-68:2"
+    ],
+    "gallery_orig_.js@35:9-35:45": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@35:9-37:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@36:13-36:29": [
+        "gallery_orig_.js@252:38-257:2"
+    ],
+    "gallery_orig_.js@38:9-38:47": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@38:9-40:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@39:13-39:31": [
+        "gallery_orig_.js@259:40-265:2"
+    ],
+    "gallery_orig_.js@41:9-41:39": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@41:9-46:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@47:9-47:38": [
+        "Document_prototype_getElementById"
+    ],
+    "gallery_orig_.js@47:9-49:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "gallery_orig_.js@52:5-52:11": [
+        "gallery_orig_.js@30:5-50:6"
+    ],
+    "gallery_orig_.js@59:19-59:50": [
+        "Storage_prototype_getItem"
+    ],
+    "gallery_orig_.js@61:25-61:44": [
+        "JSON_parse"
+    ],
+    "gallery_orig_.js@63:24-64:50": [
+        "gallery_orig_.js@11:1-16:2"
+    ],
+    "gallery_orig_.js@82:37-82:62": [
+        "JSON_stringify"
+    ],
+    "gallery_orig_.js@82:5-82:63": [
+        "Storage_prototype_setItem"
+    ],
+    "image_orig_.js@130:15-130:26": [
+        "Image"
+    ],
+    "image_orig_.js@135:29-135:40": [
+        "Image"
+    ],
+    "image_orig_.js@140:29-140:40": [
+        "Image"
+    ],
+    "image_orig_.js@145:29-145:40": [
+        "Image"
+    ],
+    "image_orig_.js@156:19-156:42": [
+        "HTMLCanvasElement_prototype_getContext"
+    ],
+    "image_orig_.js@161:5-162:39": [
+        "CanvasRenderingContext2D_prototype_drawImage"
+    ],
+    "image_orig_.js@164:5-165:39": [
+        "CanvasRenderingContext2D_prototype_drawImage"
+    ],
+    "image_orig_.js@166:5-170:37": [
+        "CanvasRenderingContext2D_prototype_drawImage"
+    ],
+    "image_orig_.js@171:5-175:37": [
+        "CanvasRenderingContext2D_prototype_drawImage"
+    ],
+    "image_orig_.js@176:5-180:37": [
+        "CanvasRenderingContext2D_prototype_drawImage"
+    ],
+    "license_orig_.js@11:16-11:52": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@12:16-12:52": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@13:17-13:53": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@14:17-14:49": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@15:19-15:63": [
+        "webappcommon_orig_.js@78:24-80:6"
+    ],
+    "main_orig_.js@100:13-100:37": [
+        "main_orig_.js@246:44-273:2"
+    ],
+    "main_orig_.js@102:9-102:42": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@102:9-111:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@104:17-104:42": [
+        "webappcommon_orig_.js@71:15-77:6"
+    ],
+    "main_orig_.js@113:9-113:33": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@114:9-114:35": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@115:9-115:40": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@118:5-118:11": [
+        "main_orig_.js@35:5-116:6"
+    ],
+    "main_orig_.js@122:5-122:36": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@124:15-124:47": [
+        "parseInt"
+    ],
+    "main_orig_.js@124:24-124:46": [
+        "String_prototype_slice"
+    ],
+    "main_orig_.js@136:5-136:23": [
+        "main_orig_.js@175:38-178:2"
+    ],
+    "main_orig_.js@137:19-137:48": [
+        "Math_floor"
+    ],
+    "main_orig_.js@137:30-137:43": [
+        "Math_random"
+    ],
+    "main_orig_.js@138:19-138:48": [
+        "Math_floor"
+    ],
+    "main_orig_.js@138:30-138:43": [
+        "Math_random"
+    ],
+    "main_orig_.js@139:19-139:48": [
+        "Math_floor"
+    ],
+    "main_orig_.js@139:30-139:43": [
+        "Math_random"
+    ],
+    "main_orig_.js@154:13-154:39": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@157:13-157:90": [
+        "EventTarget_prototype_removeEventListener"
+    ],
+    "main_orig_.js@160:13-160:42": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@161:13-161:30": [
+        "main_orig_.js@170:37-173:2"
+    ],
+    "main_orig_.js@165:5-165:72": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@167:5-167:30": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@16:17-16:53": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@17:18-17:55": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@18:22-18:58": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@19:25-19:64": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@205:5-205:23": [
+        "main_orig_.js@175:38-178:2"
+    ],
+    "main_orig_.js@207:10-207:31": [
+        "gallery_orig_.js@280:35-282:2"
+    ],
+    "main_orig_.js@209:13-209:85": [
+        "EventTarget_prototype_removeEventListener"
+    ],
+    "main_orig_.js@20:23-20:60": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@212:13-212:33": [
+        "main_orig_.js@134:40-168:2"
+    ],
+    "main_orig_.js@216:9-216:71": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@219:9-219:36": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@21:24-21:62": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@222:9-222:29": [
+        "gallery_orig_.js@267:34-270:2"
+    ],
+    "main_orig_.js@22:21-22:56": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@231:13-231:30": [
+        "main_orig_.js@170:37-173:2"
+    ],
+    "main_orig_.js@23:25-23:64": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@240:5-240:34": [
+        "webappcommon_orig_.js@192:37-199:2"
+    ],
+    "main_orig_.js@241:5-241:34": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@242:5-242:25": [
+        "gallery_orig_.js@267:34-270:2"
+    ],
+    "main_orig_.js@243:5-243:25": [
+        "main_orig_.js@134:40-168:2"
+    ],
+    "main_orig_.js@249:9-249:30": [
+        "gallery_orig_.js@280:35-282:2"
+    ],
+    "main_orig_.js@265:9-265:28": [
+        "gallery_orig_.js@272:33-278:2"
+    ],
+    "main_orig_.js@279:16-279:71": [
+        "parseInt"
+    ],
+    "main_orig_.js@279:25-279:70": [
+        "String_prototype_substr"
+    ],
+    "main_orig_.js@280:16-280:71": [
+        "parseInt"
+    ],
+    "main_orig_.js@280:25-280:70": [
+        "String_prototype_substr"
+    ],
+    "main_orig_.js@281:16-281:71": [
+        "parseInt"
+    ],
+    "main_orig_.js@281:25-281:70": [
+        "String_prototype_substr"
+    ],
+    "main_orig_.js@284:9-284:44": [
+        "gallery_orig_.js@199:33-226:2"
+    ],
+    "main_orig_.js@285:9-285:38": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@288:10-288:31": [
+        "gallery_orig_.js@280:35-282:2"
+    ],
+    "main_orig_.js@289:9-289:33": [
+        "main_orig_.js@246:44-273:2"
+    ],
+    "main_orig_.js@293:1-298:3": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@295:16-295:34": [
+        "main_orig_.js@11:1-119:2"
+    ],
+    "main_orig_.js@297:15-297:52": [
+        "Document_prototype_getElementsByTagName"
+    ],
+    "main_orig_.js@297:5-297:61": [
+        "scaleBody_orig_.js@1:17-129:2"
+    ],
+    "main_orig_.js@29:33-29:75": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@30:33-30:75": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@31:33-31:75": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@32:20-32:44": [
+        "gallery_orig_.js@18:1-53:2"
+    ],
+    "main_orig_.js@36:9-36:38": [
+        "webappcommon_orig_.js@91:20-95:6"
+    ],
+    "main_orig_.js@37:9-37:45": [
+        "license_orig_.js@10:1-29:2"
+    ],
+    "main_orig_.js@38:31-38:75": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@39:36-39:85": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@40:32-40:81": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@41:29-41:71": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@42:34-42:79": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@43:34-43:79": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@44:30-44:77": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@45:31-45:79": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@46:30-46:77": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@47:38-47:85": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@48:38-48:85": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@49:38-49:85": [
+        "webappcommon_orig_.js@68:17-70:6"
+    ],
+    "main_orig_.js@51:9-51:47": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@51:9-53:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@52:13-52:44": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@54:9-54:48": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@54:9-56:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@55:13-55:45": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@57:9-57:47": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@57:9-59:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@58:13-58:44": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@60:9-60:48": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@60:9-62:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@61:13-61:45": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@63:9-63:47": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@63:9-65:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@64:13-64:44": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@66:9-66:48": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@66:9-68:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@67:13-67:45": [
+        "main_orig_.js@121:37-132:2"
+    ],
+    "main_orig_.js@70:9-78:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@71:13-71:38": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@73:17-73:38": [
+        "main_orig_.js@203:41-236:2"
+    ],
+    "main_orig_.js@76:17-76:40": [
+        "main_orig_.js@238:43-244:2"
+    ],
+    "main_orig_.js@79:9-87:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@80:13-80:38": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "main_orig_.js@85:17-85:38": [
+        "main_orig_.js@275:41-291:2"
+    ],
+    "main_orig_.js@88:9-97:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@89:17-89:38": [
+        "gallery_orig_.js@280:35-282:2"
+    ],
+    "main_orig_.js@91:21-91:42": [
+        "main_orig_.js@203:41-236:2"
+    ],
+    "main_orig_.js@98:9-101:11": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "main_orig_.js@98:9-98:47": [
+        "Document_prototype_getElementById"
+    ],
+    "main_orig_.js@99:13-99:38": [
+        "webappcommon_orig_.js@177:37-190:2"
+    ],
+    "scaleBody_orig_.js@107:17-107:33": [
+        "scaleBody_orig_.js@14:26-44:6"
+    ],
+    "scaleBody_orig_.js@119:5-119:56": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "scaleBody_orig_.js@122:5-122:12": [
+        "scaleBody_orig_.js@90:17-110:6"
+    ],
+    "scaleBody_orig_.js@125:5-127:10": [
+        "Window_prototype_setTimeout"
+    ],
+    "scaleBody_orig_.js@32:16-32:52": [
+        "parseInt"
+    ],
+    "scaleBody_orig_.js@35:15-35:50": [
+        "parseInt"
+    ],
+    "scaleBody_orig_.js@4:26-4:60": [
+        "Window_prototype_getComputedStyle"
+    ],
+    "scaleBody_orig_.js@5:26-5:78": [
+        "parseInt"
+    ],
+    "scaleBody_orig_.js@5:35-5:73": [
+        "String_prototype_replace"
+    ],
+    "scaleBody_orig_.js@6:27-6:80": [
+        "parseInt"
+    ],
+    "scaleBody_orig_.js@6:36-6:75": [
+        "String_prototype_replace"
+    ],
+    "webappcommon_orig_.js@143:5-143:35": [
+        "Array_prototype_push"
+    ],
+    "webappcommon_orig_.js@152:13-152:35": [
+        "String_prototype_indexOf"
+    ],
+    "webappcommon_orig_.js@153:32-153:60": [
+        "Document_prototype_querySelector"
+    ],
+    "webappcommon_orig_.js@155:32-155:47": [
+        "Audio"
+    ],
+    "webappcommon_orig_.js@173:5-173:56": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "webappcommon_orig_.js@174:5-174:54": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "webappcommon_orig_.js@188:5-188:35": [
+        "HTMLMediaElement_prototype_play"
+    ],
+    "webappcommon_orig_.js@272:22-272:52": [
+        "Document_prototype_getElementById"
+    ],
+    "webappcommon_orig_.js@273:21-273:48": [
+        "Document_prototype_getElementById"
+    ],
+    "webappcommon_orig_.js@69:16-69:51": [
+        "webappcommon_orig_.js@131:22-175:2"
+    ],
+    "webappcommon_orig_.js@74:17-74:51": [
+        "webappcommon_orig_.js@222:39-226:2"
+    ],
+    "webappcommon_orig_.js@79:16-79:52": [
+        "webappcommon_orig_.js@268:29-274:2"
+    ],
+    "webappcommon_orig_.js@92:13-92:42": [
+        "webappcommon_orig_.js@81:20-90:6"
+    ]
+}

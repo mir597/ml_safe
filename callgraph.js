@@ -34,7 +34,12 @@ J$.analysis = {
               var cs_ce = callsite_arr[4].split(")")[0];
               var cs_pos = callsite_filename + "@" + cs_lb + ":" + cs_cb + "-" + cs_le + ":" + cs_ce;
 
-              var fun_pos = f["*$NAMEOFFUN$*"];
+              var fun_pos = f["*$NAMEOFFUN$*"]; // TODO : replace . by _
+              var a = fun_pos.split ("");
+              for (i=0;i<a.length;i++)
+                if (a[i] === '.') 
+                  a[i] = '_';
+              fun_pos = a.join("");
               add (cs_pos, fun_pos);
           } else {
               console.log(base);

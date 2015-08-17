@@ -14,9 +14,6 @@
     "annex_orig_.js@105:21-105:73": [
         "jquery-1.6.2.min_orig_.js@1063:22-1081:10"
     ],
-    "annex_orig_.js@107:21-107:40": [
-        "annex_orig_.js@111:23-115:10"
-    ],
     "annex_orig_.js@10:13-601:5": [
         "annex_orig_.js@10:14-601:2"
     ],
@@ -69,7 +66,7 @@
         "parseInt"
     ],
     "annex_orig_.js@140:23-140:51": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "annex_orig_.js@141:56-141:70": [
         "Audio"
@@ -78,10 +75,10 @@
         "annex_orig_.js@130:25-145:10"
     ],
     "annex_orig_.js@149:17-149:30": [
-        "HTMLMediaElement.prototype.pause"
+        "HTMLMediaElement_prototype_pause"
     ],
     "annex_orig_.js@152:13-152:25": [
-        "HTMLMediaElement.prototype.play"
+        "HTMLMediaElement_prototype_play"
     ],
     "annex_orig_.js@156:48-156:64": [
         "String"
@@ -102,7 +99,7 @@
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
     ],
     "annex_orig_.js@165:33-165:56": [
-        "Math.floor"
+        "Math_floor"
     ],
     "annex_orig_.js@173:13-173:44": [
         "annex_orig_.js@146:20-153:10"
@@ -138,10 +135,10 @@
         "jquery-1.6.2.min_orig_.js@1024:15-1026:10"
     ],
     "annex_orig_.js@191:17-191:43": [
-        "Window.prototype.setTimeout"
+        "Window_prototype_setTimeout"
     ],
     "annex_orig_.js@193:13-193:67": [
-        "Window.prototype.setTimeout"
+        "Window_prototype_setTimeout"
     ],
     "annex_orig_.js@197:17-197:55": [
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
@@ -251,8 +248,11 @@
     "annex_orig_.js@328:21-328:47": [
         "annex_orig_.js@146:20-153:10"
     ],
+    "annex_orig_.js@332:17-332:36": [
+        "annex_orig_.js@111:23-115:10"
+    ],
     "annex_orig_.js@337:17-337:56": [
-        "Window.prototype.setTimeout"
+        "Window_prototype_setTimeout"
     ],
     "annex_orig_.js@349:28-349:55": [
         "annex_orig_.js@367:24-389:10"
@@ -276,7 +276,7 @@
         "annex_orig_.js@357:20-366:10"
     ],
     "annex_orig_.js@380:37-380:75": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "annex_orig_.js@380:47-380:59": [
         "parseInt"
@@ -309,7 +309,7 @@
         "parseInt"
     ],
     "annex_orig_.js@432:21-432:41": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "annex_orig_.js@433:27-433:55": [
         "parseInt"
@@ -384,13 +384,13 @@
         "annex_orig_.js@469:19-555:10"
     ],
     "annex_orig_.js@550:27-550:60": [
-        "Math.round"
+        "Math_round"
     ],
     "annex_orig_.js@561:25-561:51": [
         "annex_orig_.js@452:19-468:10"
     ],
     "annex_orig_.js@565:21-565:45": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "annex_orig_.js@581:24-581:54": [
         "annex_orig_.js@556:26-577:10"
@@ -683,9 +683,6 @@
     "annex_orig_.js@672:5-679:73": [
         "jquery-1.6.2.min_orig_.js@2664:15-2678:10"
     ],
-    "annex_orig_.js@673:9-673:23": [
-        "Window.prototype.close"
-    ],
     "annex_orig_.js@675:13-675:20": [
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
     ],
@@ -828,10 +825,10 @@
         "jquery-1.6.2.min_orig_.js@510:29-512:18"
     ],
     "jquery-1.6.2.min_orig_.js@1049:21-1049:31": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1056:68-1056:95": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1057:43-1057:52": [
         "jquery-1.6.2.min_orig_.js@580:27-582:18"
@@ -840,22 +837,22 @@
         "jquery-1.6.2.min_orig_.js@510:29-512:18"
     ],
     "jquery-1.6.2.min_orig_.js@1069:21-1069:39": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1074:33-1074:74": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@1075:71-1075:103": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@1076:43-1076:52": [
         "jquery-1.6.2.min_orig_.js@580:27-582:18"
     ],
     "jquery-1.6.2.min_orig_.js@1101:21-1101:68": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@1101:21-1101:79": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1127:9-1249:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
@@ -864,13 +861,13 @@
         "jquery-1.6.2.min_orig_.js@2372:26-2375:14"
     ],
     "jquery-1.6.2.min_orig_.js@1181:68-1181:77": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@1188:17-1188:42": [
-        "Element.prototype.setAttribute"
+        "Element_prototype_setAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@121:27-121:39": [
-        "Array.prototype.unshift"
+        "Array_prototype_unshift"
     ],
     "jquery-1.6.2.min_orig_.js@1305:9-1311:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -882,49 +879,49 @@
         "jquery-1.6.2.min_orig_.js@895:16-897:10"
     ],
     "jquery-1.6.2.min_orig_.js@1332:94-1332:133": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@1333:37-1333:49": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1340:24-1340:38": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1345:41-1345:65": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@1345:95-1345:123": [
-        "EventTarget.prototype.addEventListener"
+        "EventTarget_prototype_addEventListener"
     ],
     "jquery-1.6.2.min_orig_.js@1347:95-1347:104": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "jquery-1.6.2.min_orig_.js@1357:46-1357:58": [
         "jquery-1.6.2.min_orig_.js@854:18-857:10"
     ],
     "jquery-1.6.2.min_orig_.js@1402:13-1402:27": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1402:66-1402:80": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1404:142-1404:153": [
-        "Array.prototype.join"
+        "Array_prototype_join"
     ],
     "jquery-1.6.2.min_orig_.js@1404:172-1404:231": [
         "RegExp"
     ],
     "jquery-1.6.2.min_orig_.js@1404:195-1404:218": [
-        "Array.prototype.join"
+        "Array_prototype_join"
     ],
     "jquery-1.6.2.min_orig_.js@1404:83-1404:97": [
         "jquery-1.6.2.min_orig_.js@1498:18-1501:6"
     ],
     "jquery-1.6.2.min_orig_.js@1415:82-1415:94": [
-        "Array.prototype.unshift"
+        "Array_prototype_unshift"
     ],
     "jquery-1.6.2.min_orig_.js@1417:25-1417:39": [
-        "String.prototype.indexOf"
+        "String_prototype_indexOf"
     ],
     "jquery-1.6.2.min_orig_.js@1419:29-1419:49": [
         "jquery-1.6.2.min_orig_.js@895:16-897:10"
@@ -946,25 +943,25 @@
         "jquery-1.6.2.min_orig_.js@1452:14-1466:10"
     ],
     "jquery-1.6.2.min_orig_.js@1436:21-1436:77": [
-        "Array.prototype.slice"
+        "Array_prototype_slice"
     ],
     "jquery-1.6.2.min_orig_.js@1436:23-1436:46": [
         "jquery-1.6.2.min_orig_.js@895:16-897:10"
     ],
     "jquery-1.6.2.min_orig_.js@1438:21-1438:61": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@143:38-143:60": [
         "jquery-1.6.2.min_orig_.js@135:5-145:6"
     ],
     "jquery-1.6.2.min_orig_.js@1444:29-1444:53": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@1446:25-1446:58": [
         "jquery-1.6.2.min_orig_.js@306:5-308:6"
     ],
     "jquery-1.6.2.min_orig_.js@1451:16-1451:349": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1455:17-1455:27": [
         "jquery-1.6.2.min_orig_.js@1498:18-1501:6"
@@ -979,16 +976,16 @@
         "jquery-1.6.2.min_orig_.js@510:29-512:18"
     ],
     "jquery-1.6.2.min_orig_.js@151:25-151:40": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@151:25-151:50": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1523:51-1523:70": [
         "jquery-1.6.2.min_orig_.js@2366:64-2368:14"
     ],
     "jquery-1.6.2.min_orig_.js@1523:79-1523:116": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@1527:5-1539:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -997,10 +994,10 @@
         "jquery-1.6.2.min_orig_.js@1321:14-1351:10"
     ],
     "jquery-1.6.2.min_orig_.js@155:119-155:147": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "jquery-1.6.2.min_orig_.js@155:50-155:63": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@1603:33-1620:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -1036,7 +1033,7 @@
         "jquery-1.6.2.min_orig_.js@16:2-3688:2"
     ],
     "jquery-1.6.2.min_orig_.js@1717:16-1717:216": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@1717:9-1722:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -1048,129 +1045,129 @@
         "jquery-1.6.2.min_orig_.js@1723:9-2386:10"
     ],
     "jquery-1.6.2.min_orig_.js@1783:13-1786:15": [
-        "Array.prototype.sort"
+        "Array_prototype_sort"
     ],
     "jquery-1.6.2.min_orig_.js@2196:133-2196:213": [
         "RegExp"
     ],
     "jquery-1.6.2.min_orig_.js@2196:172-2196:212": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@2196:49-2196:114": [
         "RegExp"
     ],
     "jquery-1.6.2.min_orig_.js@2198:21-2198:53": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@2200:21-2200:39": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@2206:17-2206:76": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@2262:17-2275:20": [
         "jquery-1.6.2.min_orig_.js@2262:17-2275:18"
     ],
     "jquery-1.6.2.min_orig_.js@2263:29-2263:51": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@2264:40-2264:60": [
-        "Date.prototype.getTime"
+        "Date_prototype_getTime"
     ],
     "jquery-1.6.2.min_orig_.js@2264:41-2264:49": [
         "Date"
     ],
     "jquery-1.6.2.min_orig_.js@2266:60-2266:91": [
-        "Node.prototype.insertBefore"
+        "Node_prototype_insertBefore"
     ],
     "jquery-1.6.2.min_orig_.js@2266:93-2266:112": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "jquery-1.6.2.min_orig_.js@2274:25-2274:41": [
-        "Node.prototype.removeChild"
+        "Node_prototype_removeChild"
     ],
     "jquery-1.6.2.min_orig_.js@2276:17-2289:20": [
         "jquery-1.6.2.min_orig_.js@2276:17-2289:18"
     ],
     "jquery-1.6.2.min_orig_.js@2277:29-2277:51": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@2278:21-2278:55": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@2278:35-2278:54": [
-        "Document.prototype.createComment"
+        "Document_prototype_createComment"
     ],
     "jquery-1.6.2.min_orig_.js@2278:57-2278:84": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@2286:126-2286:159": [
-        "Element.prototype.getAttribute"
+        "Element_prototype_getAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@2289:44-2332:16": [
         "jquery-1.6.2.min_orig_.js@2289:44-2332:14"
     ],
     "jquery-1.6.2.min_orig_.js@2291:25-2291:47": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@2294:44-2294:71": [
-        "Element.prototype.querySelectorAll"
+        "Element_prototype_querySelectorAll"
     ],
     "jquery-1.6.2.min_orig_.js@2297:36-2297:46": [
         "jquery-1.6.2.min_orig_.js@2372:26-2375:14"
     ],
     "jquery-1.6.2.min_orig_.js@2298:37-2298:81": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@2300:50-2300:81": [
         "jquery-1.6.2.min_orig_.js@2197:21-2204:14"
     ],
     "jquery-1.6.2.min_orig_.js@2300:52-2300:77": [
-        "Document.prototype.getElementsByTagName",
-        "Element.prototype.getElementsByTagName"
+        "Document_prototype_getElementsByTagName",
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@2301:94-2301:130": [
         "jquery-1.6.2.min_orig_.js@2197:21-2204:14"
     ],
     "jquery-1.6.2.min_orig_.js@2301:96-2301:126": [
-        "Document.prototype.getElementsByClassName",
-        "Element.prototype.getElementsByClassName"
+        "Document_prototype_getElementsByClassName",
+        "Element_prototype_getElementsByClassName"
     ],
     "jquery-1.6.2.min_orig_.js@2311:44-2311:71": [
         "jquery-1.6.2.min_orig_.js@2197:21-2204:14"
     ],
     "jquery-1.6.2.min_orig_.js@2311:46-2311:67": [
-        "Document.prototype.querySelectorAll"
+        "Document_prototype_querySelectorAll"
     ],
     "jquery-1.6.2.min_orig_.js@2333:17-2355:20": [
         "jquery-1.6.2.min_orig_.js@2333:17-2355:18"
     ],
     "jquery-1.6.2.min_orig_.js@2337:34-2337:71": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@2337:41-2337:63": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@2340:29-2340:75": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@2356:17-2366:20": [
         "jquery-1.6.2.min_orig_.js@2356:17-2366:18"
     ],
     "jquery-1.6.2.min_orig_.js@2357:29-2357:51": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@2359:57-2359:86": [
-        "Element.prototype.getElementsByClassName"
+        "Element_prototype_getElementsByClassName"
     ],
     "jquery-1.6.2.min_orig_.js@2361:29-2361:58": [
-        "Element.prototype.getElementsByClassName"
+        "Element_prototype_getElementsByClassName"
     ],
     "jquery-1.6.2.min_orig_.js@2362:25-2362:54": [
-        "Array.prototype.splice"
+        "Array_prototype_splice"
     ],
     "jquery-1.6.2.min_orig_.js@2367:49-2367:62": [
-        "Node.prototype.contains"
+        "Node_prototype_contains"
     ],
     "jquery-1.6.2.min_orig_.js@2399:5-2482:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
@@ -1194,31 +1191,31 @@
         "jquery-1.6.2.min_orig_.js@2698:19-2719:10"
     ],
     "jquery-1.6.2.min_orig_.js@2616:40-2616:59": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@2653:37-2653:77": [
         "jquery-1.6.2.min_orig_.js@2814:20-2832:10"
     ],
     "jquery-1.6.2.min_orig_.js@2653:49-2653:76": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@2654:38-2654:65": [
-        "Node.prototype.removeChild"
+        "Node_prototype_removeChild"
     ],
     "jquery-1.6.2.min_orig_.js@2666:107-2666:147": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@2666:108-2666:117": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@2666:42-2666:52": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@2667:21-2667:46": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@2669:105-2669:138": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@2669:93-2669:139": [
         "jquery-1.6.2.min_orig_.js@2814:20-2832:10"
@@ -1242,10 +1239,10 @@
         "jquery-1.6.2.min_orig_.js@559:27-561:18"
     ],
     "jquery-1.6.2.min_orig_.js@2714:77-2714:169": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@2722:326-2722:352": [
-        "Document.prototype.createDocumentFragment"
+        "Document_prototype_createDocumentFragment"
     ],
     "jquery-1.6.2.min_orig_.js@2722:354-2722:373": [
         "jquery-1.6.2.min_orig_.js@2766:16-2813:10"
@@ -1257,22 +1254,22 @@
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "jquery-1.6.2.min_orig_.js@2776:26-2776:36": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@2776:42-2776:61": [
-        "Document.prototype.createTextNode"
+        "Document_prototype_createTextNode"
     ],
     "jquery-1.6.2.min_orig_.js@2796:30-2796:39": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "jquery-1.6.2.min_orig_.js@2803:30-2803:56": [
         "jquery-1.6.2.min_orig_.js@559:27-561:18"
     ],
     "jquery-1.6.2.min_orig_.js@2809:25-2809:44": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@2821:44-2821:68": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@2850:16-2852:11": [
         "jquery-1.6.2.min_orig_.js@641:25-653:18"
@@ -1287,7 +1284,7 @@
         "jquery-1.6.2.min_orig_.js@556:28-558:18"
     ],
     "jquery-1.6.2.min_orig_.js@2890:35-2890:45": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@2908:27-2926:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -1296,16 +1293,16 @@
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
     ],
     "jquery-1.6.2.min_orig_.js@2991:10-2991:35": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@2991:18-2991:34": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@2991:43-3037:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "jquery-1.6.2.min_orig_.js@3037:16-3037:91": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@3037:9-3041:7": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
@@ -1332,7 +1329,7 @@
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "jquery-1.6.2.min_orig_.js@3069:22-3069:36": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@3098:24-3098:30": [
         "jquery-1.6.2.min_orig_.js@147:5-158:6"
@@ -1374,7 +1371,7 @@
         "jquery-1.6.2.min_orig_.js@689:20-726:10"
     ],
     "jquery-1.6.2.min_orig_.js@3135:37-3135:52": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@3163:13-3163:25": [
         "jquery-1.6.2.min_orig_.js@758:26-766:18"
@@ -1386,22 +1383,22 @@
         "jquery-1.6.2.min_orig_.js@580:27-582:18"
     ],
     "jquery-1.6.2.min_orig_.js@3171:101-3171:140": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@3171:101-3171:150": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@3171:182-3171:210": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@3171:190-3171:209": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@3171:24-3171:59": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@3171:24-3171:85": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@3171:457-3171:472": [
         "jquery-1.6.2.min_orig_.js@135:5-145:6"
@@ -1410,10 +1407,10 @@
         "jquery-1.6.2.min_orig_.js@1398:18-1433:10"
     ],
     "jquery-1.6.2.min_orig_.js@3173:36-3173:56": [
-        "String.prototype.toUpperCase"
+        "String_prototype_toUpperCase"
     ],
     "jquery-1.6.2.min_orig_.js@3173:74-3173:89": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@3181:310-3181:478": [
         "jquery-1.6.2.min_orig_.js@3133:39-3139:22"
@@ -1443,7 +1440,7 @@
         "jquery-1.6.2.min_orig_.js@148:16-157:10"
     ],
     "jquery-1.6.2.min_orig_.js@3233:62-3233:76": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@3249:9-3262:7": [
         "jquery-1.6.2.min_orig_.js@3059:20-3066:10"
@@ -1470,16 +1467,16 @@
         "jquery-1.6.2.min_orig_.js@60:5-64:6"
     ],
     "jquery-1.6.2.min_orig_.js@3299:91-3299:121": [
-        "XMLHttpRequest.prototype.open"
+        "XMLHttpRequest_prototype_open"
     ],
     "jquery-1.6.2.min_orig_.js@3304:38-3304:65": [
-        "XMLHttpRequest.prototype.setRequestHeader"
+        "XMLHttpRequest_prototype_setRequestHeader"
     ],
     "jquery-1.6.2.min_orig_.js@3306:21-3306:59": [
-        "XMLHttpRequest.prototype.send"
+        "XMLHttpRequest_prototype_send"
     ],
     "jquery-1.6.2.min_orig_.js@3313:55-3313:80": [
-        "XMLHttpRequest.prototype.getAllResponseHeaders"
+        "XMLHttpRequest_prototype_getAllResponseHeaders"
     ],
     "jquery-1.6.2.min_orig_.js@3324:30-3324:43": [
         "jquery-1.6.2.min_orig_.js@3101:13-3123:14"
@@ -1521,28 +1518,28 @@
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
     ],
     "jquery-1.6.2.min_orig_.js@3661:17-3661:32": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@374:28-374:43": [
-        "String.prototype.toUpperCase"
+        "String_prototype_toUpperCase"
     ],
     "jquery-1.6.2.min_orig_.js@397:101-397:110": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@397:25-397:36": [
-        "String.prototype.charAt"
+        "String_prototype_charAt"
     ],
     "jquery-1.6.2.min_orig_.js@39:16-39:51": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@39:36-39:50": [
-        "Array.prototype.slice"
+        "Array_prototype_slice"
     ],
     "jquery-1.6.2.min_orig_.js@39:9-41:11": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
     ],
     "jquery-1.6.2.min_orig_.js@403:33-403:55": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "jquery-1.6.2.min_orig_.js@411:49-411:65": [
         "jquery-1.6.2.min_orig_.js@2400:15-2420:10"
@@ -1557,7 +1554,7 @@
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
     ],
     "jquery-1.6.2.min_orig_.js@431:21-431:33": [
-        "Array.isArray"
+        "Array_isArray"
     ],
     "jquery-1.6.2.min_orig_.js@431:52-431:65": [
         "jquery-1.6.2.min_orig_.js@599:24-608:18"
@@ -1584,7 +1581,7 @@
         "jquery-1.6.2.min_orig_.js@525:32-531:18"
     ],
     "jquery-1.6.2.min_orig_.js@474:67-474:79": [
-        "Array.isArray"
+        "Array_isArray"
     ],
     "jquery-1.6.2.min_orig_.js@477:16-677:15": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
@@ -1605,10 +1602,10 @@
         "jquery-1.6.2.min_orig_.js@689:20-726:10"
     ],
     "jquery-1.6.2.min_orig_.js@499:49-499:94": [
-        "EventTarget.prototype.addEventListener"
+        "EventTarget_prototype_addEventListener"
     ],
     "jquery-1.6.2.min_orig_.js@499:96-499:135": [
-        "EventTarget.prototype.addEventListener"
+        "EventTarget_prototype_addEventListener"
     ],
     "jquery-1.6.2.min_orig_.js@511:28-511:37": [
         "jquery-1.6.2.min_orig_.js@522:23-524:18"
@@ -1617,7 +1614,7 @@
         "String"
     ],
     "jquery-1.6.2.min_orig_.js@523:54-523:63": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@526:31-526:40": [
         "jquery-1.6.2.min_orig_.js@522:23-524:18"
@@ -1626,40 +1623,40 @@
         "jquery-1.6.2.min_orig_.js@516:27-518:18"
     ],
     "jquery-1.6.2.min_orig_.js@527:43-527:67": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@527:72-527:120": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@530:39-530:51": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@541:25-541:34": [
         "jquery-1.6.2.min_orig_.js@580:27-582:18"
     ],
     "jquery-1.6.2.min_orig_.js@542:56-542:71": [
-        "JSON.parse"
+        "JSON_parse"
     ],
     "jquery-1.6.2.min_orig_.js@557:28-557:43": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@560:42-560:66": [
-        "String.prototype.toUpperCase"
+        "String_prototype_toUpperCase"
     ],
     "jquery-1.6.2.min_orig_.js@560:71-560:86": [
-        "String.prototype.toUpperCase"
+        "String_prototype_toUpperCase"
     ],
     "jquery-1.6.2.min_orig_.js@565:40-565:55": [
         "jquery-1.6.2.min_orig_.js@510:29-512:18"
     ],
     "jquery-1.6.2.min_orig_.js@575:33-575:54": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@578:33-578:56": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@581:45-581:54": [
-        "Function.prototype.call"
+        "Function_prototype_call"
     ],
     "jquery-1.6.2.min_orig_.js@62:20-62:40": [
         "XMLHttpRequest"
@@ -1672,28 +1669,28 @@
         "jquery-1.6.2.min_orig_.js@2850:41-2852:10"
     ],
     "jquery-1.6.2.min_orig_.js@655:28-655:48": [
-        "Date.prototype.getTime"
+        "Date_prototype_getTime"
     ],
     "jquery-1.6.2.min_orig_.js@655:29-655:37": [
         "Date"
     ],
     "jquery-1.6.2.min_orig_.js@658:25-658:40": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@659:29-659:38": [
-        "RegExp.prototype.exec"
+        "RegExp_prototype_exec"
     ],
     "jquery-1.6.2.min_orig_.js@677:17-679:15": [
         "jquery-1.6.2.min_orig_.js@562:23-579:18"
     ],
     "jquery-1.6.2.min_orig_.js@677:24-677:92": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@678:43-678:58": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@679:153-679:164": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@679:21-679:33": [
         "jquery-1.6.2.min_orig_.js@657:26-664:18"
@@ -1702,19 +1699,19 @@
         "jquery-1.6.2.min_orig_.js@354:21-356:18"
     ],
     "jquery-1.6.2.min_orig_.js@680:17-680:65": [
-        "EventTarget.prototype.removeEventListener"
+        "EventTarget_prototype_removeEventListener"
     ],
     "jquery-1.6.2.min_orig_.js@680:67-680:76": [
         "jquery-1.6.2.min_orig_.js@487:24-494:18"
     ],
     "jquery-1.6.2.min_orig_.js@686:13-686:82": [
-        "String.prototype.split"
+        "String_prototype_split"
     ],
     "jquery-1.6.2.min_orig_.js@688:5-787:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "jquery-1.6.2.min_orig_.js@697:149-697:158": [
-        "Array.prototype.push"
+        "Array_prototype_push"
     ],
     "jquery-1.6.2.min_orig_.js@697:81-697:90": [
         "jquery-1.6.2.min_orig_.js@522:23-524:18"
@@ -1723,10 +1720,10 @@
         "jquery-1.6.2.min_orig_.js@702:34-712:22"
     ],
     "jquery-1.6.2.min_orig_.js@706:46-706:55": [
-        "Array.prototype.shift"
+        "Array_prototype_shift"
     ],
     "jquery-1.6.2.min_orig_.js@706:46-706:67": [
-        "Function.prototype.apply"
+        "Function_prototype_apply"
     ],
     "jquery-1.6.2.min_orig_.js@728:21-728:34": [
         "jquery-1.6.2.min_orig_.js@689:20-726:10"
@@ -1744,7 +1741,7 @@
         "jquery-1.6.2.min_orig_.js@692:27-701:22"
     ],
     "jquery-1.6.2.min_orig_.js@74:68-74:83": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@767:17-767:33": [
         "jquery-1.6.2.min_orig_.js@692:27-701:22"
@@ -1756,112 +1753,112 @@
         "jquery-1.6.2.min_orig_.js@787:21-842:6"
     ],
     "jquery-1.6.2.min_orig_.js@788:17-788:39": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@791:172-791:199": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@791:205-791:232": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@791:9-791:41": [
-        "Element.prototype.setAttribute"
+        "Element_prototype_setAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@793:13-793:38": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@793:44-793:84": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@793:58-793:83": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@793:90-793:121": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@795:21-795:52": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@796:31-796:61": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@797:20-797:55": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@797:31-797:54": [
-        "Element.prototype.getAttribute"
+        "Element_prototype_getAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@798:29-798:51": [
-        "Element.prototype.getAttribute"
+        "Element_prototype_getAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@799:22-799:52": [
-        "RegExp.prototype.test"
+        "RegExp_prototype_test"
     ],
     "jquery-1.6.2.min_orig_.js@812:47-812:62": [
-        "Node.prototype.cloneNode"
+        "Node_prototype_cloneNode"
     ],
     "jquery-1.6.2.min_orig_.js@819:162-819:198": [
-        "Element.prototype.setAttribute"
+        "Element_prototype_setAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@819:200-819:216": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@819:222-819:248": [
-        "Document.prototype.createDocumentFragment"
+        "Document_prototype_createDocumentFragment"
     ],
     "jquery-1.6.2.min_orig_.js@819:250-819:277": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@819:294-819:309": [
-        "Node.prototype.cloneNode"
+        "Node_prototype_cloneNode"
     ],
     "jquery-1.6.2.min_orig_.js@819:294-819:323": [
-        "Node.prototype.cloneNode"
+        "Node_prototype_cloneNode"
     ],
     "jquery-1.6.2.min_orig_.js@819:410-819:440": [
-        "Document.prototype.getElementsByTagName"
+        "Document_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@819:449-819:484": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@819:56-819:80": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@819:97-819:128": [
-        "Element.prototype.setAttribute"
+        "Element_prototype_setAttribute"
     ],
     "jquery-1.6.2.min_orig_.js@831:39-831:70": [
-        "Node.prototype.insertBefore"
+        "Node_prototype_insertBefore"
     ],
     "jquery-1.6.2.min_orig_.js@831:469-831:497": [
-        "Element.prototype.getElementsByTagName"
+        "Element_prototype_getElementsByTagName"
     ],
     "jquery-1.6.2.min_orig_.js@831:712-831:734": [
-        "Document.prototype.createElement"
+        "Document_prototype_createElement"
     ],
     "jquery-1.6.2.min_orig_.js@831:784-831:800": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@831:827-833:28": [
         "parseInt"
     ],
     "jquery-1.6.2.min_orig_.js@831:837-831:876": [
-        "Window.prototype.getComputedStyle"
+        "Window_prototype_getComputedStyle"
     ],
     "jquery-1.6.2.min_orig_.js@831:9-831:25": [
-        "Node.prototype.appendChild"
+        "Node_prototype_appendChild"
     ],
     "jquery-1.6.2.min_orig_.js@833:61-833:77": [
-        "Node.prototype.removeChild"
+        "Node_prototype_removeChild"
     ],
     "jquery-1.6.2.min_orig_.js@845:5-905:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "jquery-1.6.2.min_orig_.js@848:29-848:77": [
-        "String.prototype.replace"
+        "String_prototype_replace"
     ],
     "jquery-1.6.2.min_orig_.js@848:44-848:57": [
-        "Math.random"
+        "Math_random"
     ],
     "jquery-1.6.2.min_orig_.js@859:21-859:36": [
         "jquery-1.6.2.min_orig_.js@898:21-904:10"
@@ -1873,7 +1870,7 @@
         "jquery-1.6.2.min_orig_.js@858:15-872:10"
     ],
     "jquery-1.6.2.min_orig_.js@900:34-900:58": [
-        "String.prototype.toLowerCase"
+        "String_prototype_toLowerCase"
     ],
     "jquery-1.6.2.min_orig_.js@905:9-939:7": [
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
@@ -1888,27 +1885,27 @@
         "jquery-1.6.2.min_orig_.js@464:69-477:14"
     ],
     "license_orig_.js@12:16-12:50": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@13:16-13:50": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@14:17-14:51": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@15:17-15:49": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@16:17-16:51": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@17:19-17:55": [
-        "Document.prototype.getElementById"
+        "Document_prototype_getElementById"
     ],
     "license_orig_.js@20:19-20:39": [
         "XMLHttpRequest"
     ],
     "license_orig_.js@21:5-21:45": [
-        "XMLHttpRequest.prototype.open"
+        "XMLHttpRequest_prototype_open"
     ]
 }

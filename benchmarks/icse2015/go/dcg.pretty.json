@@ -1,0 +1,1957 @@
+{
+    "go_orig_.js@108:2-108:18": [
+        "go_orig_.js@317:16-335:2"
+    ],
+    "go_orig_.js@109:2-109:20": [
+        "go_orig_.js@628:18-632:2"
+    ],
+    "go_orig_.js@110:2-110:35": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@111:2-111:35": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@112:2-112:37": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@113:2-113:34": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@114:2-114:30": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@117:2-117:27": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@117:2-117:64": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@117:2-118:42": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@117:2-119:37": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@126:4-126:17": [
+        "HTMLMediaElement_prototype_pause"
+    ],
+    "go_orig_.js@129:3-129:15": [
+        "HTMLMediaElement_prototype_play",
+        "sound_orig_.js@36:17-40:6"
+    ],
+    "go_orig_.js@136:2-136:18": [
+        "go_orig_.js@189:16-194:2"
+    ],
+    "go_orig_.js@137:19-137:50": [
+        "go_orig_.js@738:18-740:3"
+    ],
+    "go_orig_.js@138:19-138:50": [
+        "go_orig_.js@738:18-740:3"
+    ],
+    "go_orig_.js@140:29-140:53": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@140:3-140:19": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@140:3-140:54": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@141:25-141:50": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@141:3-141:19": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@141:3-141:51": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@150:3-150:24": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@151:3-151:35": [
+        "go_orig_.js@200:13-202:2"
+    ],
+    "go_orig_.js@165:4-165:15": [
+        "go_orig_.js@133:11-154:2"
+    ],
+    "go_orig_.js@174:16-174:50": [
+        "Window_prototype_setTimeout"
+    ],
+    "go_orig_.js@175:3-175:26": [
+        "go_orig_.js@719:18-722:3"
+    ],
+    "go_orig_.js@180:3-180:25": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@191:3-191:27": [
+        "Window_prototype_clearTimeout"
+    ],
+    "go_orig_.js@197:2-197:10": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@197:2-197:35": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@201:2-201:10": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@201:2-201:38": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@205:6-205:28": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@205:6-205:53": [
+        "jquery-1.7.1.min_orig_.js@2:26763-2:26922"
+    ],
+    "go_orig_.js@207:4-207:22": [
+        "go_orig_.js@223:18-231:2"
+    ],
+    "go_orig_.js@209:4-209:22": [
+        "go_orig_.js@215:18-221:2"
+    ],
+    "go_orig_.js@211:3-211:31": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@216:2-216:31": [
+        "go_orig_.js@200:13-202:2"
+    ],
+    "go_orig_.js@217:2-217:69": [
+        "Window_prototype_setTimeout"
+    ],
+    "go_orig_.js@219:2-219:18": [
+        "go_orig_.js@189:16-194:2"
+    ],
+    "go_orig_.js@220:2-220:29": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@224:2-224:32": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@225:2-225:23": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@225:2-225:48": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@226:2-226:21": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@226:2-226:53": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@228:2-228:13": [
+        "go_orig_.js@156:11-160:2"
+    ],
+    "go_orig_.js@229:2-229:16": [
+        "go_orig_.js@162:14-170:2"
+    ],
+    "go_orig_.js@230:2-230:19": [
+        "go_orig_.js@172:17-187:2"
+    ],
+    "go_orig_.js@234:12-234:35": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@241:3-241:43": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@242:3-242:40": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@243:3-243:41": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@246:2-246:29": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@250:12-250:35": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@257:3-257:43": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@258:3-258:40": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@259:3-259:41": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@262:2-262:29": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@268:13-268:38": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@275:4-275:44": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@276:4-276:43": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@277:4-277:44": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@285:4-285:31": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@334:2-334:23": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@334:2-334:33": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@343:15-343:35": [
+        "go_orig_.js@431:14-452:2"
+    ],
+    "go_orig_.js@356:28-356:70": [
+        "go_orig_.js@454:18-480:2"
+    ],
+    "go_orig_.js@360:4-360:30": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@371:4-371:28": [
+        "go_orig_.js@698:19-702:3"
+    ],
+    "go_orig_.js@376:18-376:35": [
+        "go_orig_.js@482:17-519:2"
+    ],
+    "go_orig_.js@386:4-386:28": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@387:4-387:20": [
+        "go_orig_.js@317:16-335:2"
+    ],
+    "go_orig_.js@388:4-388:22": [
+        "go_orig_.js@628:18-632:2"
+    ],
+    "go_orig_.js@395:16-395:33": [
+        "Array_prototype_pop"
+    ],
+    "go_orig_.js@402:5-402:23": [
+        "go_orig_.js@688:19-696:3"
+    ],
+    "go_orig_.js@420:5-420:21": [
+        "go_orig_.js@317:16-335:2"
+    ],
+    "go_orig_.js@426:4-426:22": [
+        "go_orig_.js@628:18-632:2"
+    ],
+    "go_orig_.js@436:11-436:25": [
+        "parseInt"
+    ],
+    "go_orig_.js@436:26-436:54": [
+        "parseInt"
+    ],
+    "go_orig_.js@437:11-437:25": [
+        "parseInt"
+    ],
+    "go_orig_.js@437:26-437:54": [
+        "parseInt"
+    ],
+    "go_orig_.js@441:8-441:45": [
+        "go_orig_.js@454:18-480:2"
+    ],
+    "go_orig_.js@459:15-459:27": [
+        "parseInt"
+    ],
+    "go_orig_.js@459:2-459:42": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@459:28-459:40": [
+        "parseInt"
+    ],
+    "go_orig_.js@464:11-464:23": [
+        "parseInt"
+    ],
+    "go_orig_.js@464:24-464:52": [
+        "parseInt"
+    ],
+    "go_orig_.js@465:11-465:23": [
+        "parseInt"
+    ],
+    "go_orig_.js@465:24-465:52": [
+        "parseInt"
+    ],
+    "go_orig_.js@467:8-467:37": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@490:40-490:69": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@492:19-492:49": [
+        "go_orig_.js@521:19-616:2"
+    ],
+    "go_orig_.js@493:10-493:40": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@495:10-495:41": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@503:13-503:56": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@504:9-504:41": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@510:11-510:45": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@511:7-511:30": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@523:2-523:22": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@525:7-525:33": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@527:11-527:23": [
+        "parseInt"
+    ],
+    "go_orig_.js@527:24-527:52": [
+        "parseInt"
+    ],
+    "go_orig_.js@528:11-528:23": [
+        "parseInt"
+    ],
+    "go_orig_.js@528:24-528:52": [
+        "parseInt"
+    ],
+    "go_orig_.js@529:61-529:90": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@531:19-531:48": [
+        "go_orig_.js@521:19-616:2"
+    ],
+    "go_orig_.js@532:9-532:39": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@535:16-535:47": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@536:10-536:37": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@540:12-540:39": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@543:13-543:62": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@544:9-544:47": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@548:16-548:47": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@549:10-549:37": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@553:12-553:39": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@556:13-556:62": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@557:9-557:47": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@561:16-561:49": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@562:11-562:40": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@565:12-565:65": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@566:8-566:50": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@571:9-571:36": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@574:17-574:44": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@578:9-578:36": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@57:12-57:23": [
+        "Array"
+    ],
+    "go_orig_.js@581:17-581:44": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@587:7-587:33": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@588:7-588:34": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@589:9-589:46": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@590:5-590:31": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@591:8-591:37": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@592:18-592:40": [
+        "Array_prototype_shift"
+    ],
+    "go_orig_.js@592:71-592:93": [
+        "Array_prototype_shift"
+    ],
+    "go_orig_.js@593:11-593:42": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@594:7-594:27": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@598:14-598:41": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@599:9-599:46": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@600:5-600:31": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@601:8-601:37": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@602:18-602:40": [
+        "Array_prototype_shift"
+    ],
+    "go_orig_.js@602:71-602:93": [
+        "Array_prototype_shift"
+    ],
+    "go_orig_.js@603:11-603:42": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@604:7-604:27": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@609:9-609:38": [
+        "Object_prototype_hasOwnProperty"
+    ],
+    "go_orig_.js@611:9-611:48": [
+        "go_orig_.js@618:16-626:2"
+    ],
+    "go_orig_.js@612:5-612:33": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@629:2-629:21": [
+        "go_orig_.js@712:14-717:3"
+    ],
+    "go_orig_.js@631:2-631:22": [
+        "go_orig_.js@704:15-710:3"
+    ],
+    "go_orig_.js@637:3-637:31": [
+        "go_orig_.js@122:16-131:2"
+    ],
+    "go_orig_.js@647:4-647:28": [
+        "Array_prototype_push"
+    ],
+    "go_orig_.js@648:4-648:22": [
+        "go_orig_.js@628:18-632:2"
+    ],
+    "go_orig_.js@660:18-660:51": [
+        "Math_floor"
+    ],
+    "go_orig_.js@674:2-674:29": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@674:2-674:39": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@676:11-676:39": [
+        "Math_floor"
+    ],
+    "go_orig_.js@676:22-676:35": [
+        "Math_random"
+    ],
+    "go_orig_.js@677:11-677:40": [
+        "Math_floor"
+    ],
+    "go_orig_.js@677:22-677:35": [
+        "Math_random"
+    ],
+    "go_orig_.js@678:13-678:41": [
+        "Math_floor"
+    ],
+    "go_orig_.js@678:24-678:37": [
+        "Math_random"
+    ],
+    "go_orig_.js@682:2-682:29": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@682:2-682:39": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@684:2-684:39": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@684:2-684:53": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@689:11-689:39": [
+        "Math_floor"
+    ],
+    "go_orig_.js@689:22-689:35": [
+        "Math_random"
+    ],
+    "go_orig_.js@690:11-690:40": [
+        "Math_floor"
+    ],
+    "go_orig_.js@690:22-690:35": [
+        "Math_random"
+    ],
+    "go_orig_.js@693:13-693:41": [
+        "Math_floor"
+    ],
+    "go_orig_.js@693:24-693:37": [
+        "Math_random"
+    ],
+    "go_orig_.js@695:3-695:114": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@695:3-695:142": [
+        "jquery-1.7.1.min_orig_.js@2:25844-2:26256"
+    ],
+    "go_orig_.js@695:3-695:31": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@695:3-695:74": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@69:2-69:18": [
+        "go_orig_.js@317:16-335:2"
+    ],
+    "go_orig_.js@701:3-701:31": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@701:3-701:56": [
+        "jquery-1.7.1.min_orig_.js@2:25431-2:25831"
+    ],
+    "go_orig_.js@705:3-705:39": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@705:3-705:77": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@706:3-706:21": [
+        "go_orig_.js@742:21-750:3"
+    ],
+    "go_orig_.js@707:3-707:21": [
+        "go_orig_.js@724:21-736:3"
+    ],
+    "go_orig_.js@708:3-708:18": [
+        "go_orig_.js@172:17-187:2"
+    ],
+    "go_orig_.js@713:3-713:39": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@713:3-713:74": [
+        "jquery-1.7.1.min_orig_.js@2:25128-2:25178"
+    ],
+    "go_orig_.js@714:3-714:21": [
+        "go_orig_.js@742:21-750:3"
+    ],
+    "go_orig_.js@715:3-715:17": [
+        "go_orig_.js@189:16-194:2"
+    ],
+    "go_orig_.js@716:3-716:21": [
+        "go_orig_.js@724:21-736:3"
+    ],
+    "go_orig_.js@721:3-721:21": [
+        "go_orig_.js@724:21-736:3"
+    ],
+    "go_orig_.js@727:12-727:40": [
+        "Math_floor"
+    ],
+    "go_orig_.js@729:13-729:29": [
+        "Math_floor"
+    ],
+    "go_orig_.js@731:13-731:29": [
+        "Math_floor"
+    ],
+    "go_orig_.js@734:4-734:41": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@734:4-734:49": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@744:11-744:26": [
+        "go_orig_.js@738:18-740:3"
+    ],
+    "go_orig_.js@747:8-747:24": [
+        "Math_floor"
+    ],
+    "go_orig_.js@749:3-749:32": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@749:3-749:42": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@764:4-766:6": [
+        "jquery-1.7.1.min_orig_.js@4:10269-4:10312"
+    ],
+    "go_orig_.js@764:4-768:6": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "go_orig_.js@777:1-777:12": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@777:1-811:3": [
+        "jquery-1.7.1.min_orig_.js@2:8505-2:8552"
+    ],
+    "go_orig_.js@778:9-778:44": [
+        "license_orig_.js@10:1-98:2"
+    ],
+    "go_orig_.js@779:18-779:42": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@779:2-779:12": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@779:2-779:43": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@780:2-780:17": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@780:2-780:83": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@780:23-780:53": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@780:58-780:82": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@781:2-781:17": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@781:2-781:83": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@781:23-781:53": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@781:58-781:82": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@782:2-782:37": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@782:2-782:72": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@782:43-782:71": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@783:2-783:38": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@783:2-783:73": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@783:44-783:72": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@784:2-784:17": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@784:2-784:50": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@784:23-784:49": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@785:2-785:18": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@785:2-785:51": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@785:24-785:50": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@786:2-786:24": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@786:2-786:57": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@786:30-786:56": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@787:2-787:26": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@787:2-787:67": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@787:32-787:66": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@788:2-788:26": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@788:2-788:76": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@788:32-788:75": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@789:2-789:26": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@789:2-789:80": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@789:32-789:79": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@790:2-790:28": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@790:2-790:67": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@790:34-790:66": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@791:2-791:25": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@791:2-791:58": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@791:31-791:57": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@792:2-792:22": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@792:2-792:59": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@792:28-792:58": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@793:2-793:18": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@793:2-793:53": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@793:24-793:52": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@794:2-794:14": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@794:2-794:54": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@794:20-794:53": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@795:2-795:26": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@795:2-795:63": [
+        "jquery-1.7.1.min_orig_.js@4:265-4:798"
+    ],
+    "go_orig_.js@795:32-795:62": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@796:13-796:31": [
+        "go_orig_.js@758:1-775:2"
+    ],
+    "go_orig_.js@802:2-802:17": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@802:2-804:4": [
+        "jquery-1.7.1.min_orig_.js@3:11183-3:11281"
+    ],
+    "go_orig_.js@803:3-803:19": [
+        "go_orig_.js@634:11-652:2"
+    ],
+    "go_orig_.js@806:2-806:18": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "go_orig_.js@806:2-808:4": [
+        "jquery-1.7.1.min_orig_.js@3:11183-3:11281"
+    ],
+    "go_orig_.js@807:3-807:19": [
+        "go_orig_.js@634:11-652:2"
+    ],
+    "go_orig_.js@810:2-810:11": [
+        "go_orig_.js@44:11-90:2"
+    ],
+    "go_orig_.js@82:22-82:49": [
+        "Audio"
+    ],
+    "go_orig_.js@85:24-85:45": [
+        "sound_orig_.js@10:1-45:2"
+    ],
+    "go_orig_.js@87:2-87:35": [
+        "go_orig_.js@196:14-198:2"
+    ],
+    "go_orig_.js@88:2-88:34": [
+        "go_orig_.js@200:13-202:2"
+    ],
+    "go_orig_.js@98:25-98:44": [
+        "go_orig_.js@654:1-751:2"
+    ],
+    "go_orig_.js@99:25-99:44": [
+        "go_orig_.js@654:1-751:2"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:1-4:28640": [
+        "jquery-1.7.1.min_orig_.js@2:2-4:28631"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10021-2:10058": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10266-2:10275": [
+        "jquery-1.7.1.min_orig_.js@2:10492-2:10552"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10519-2:10528": [
+        "String"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10531-2:10540": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10586-2:10595": [
+        "jquery-1.7.1.min_orig_.js@2:10492-2:10552"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10620-2:10633": [
+        "jquery-1.7.1.min_orig_.js@2:10362-2:10422"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10666-2:10689": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10692-2:10739": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:1070-2:1085": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10799-2:10810": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:10972-2:10981": [
+        "jquery-1.7.1.min_orig_.js@2:11985-2:12025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:11013-2:11028": [
+        "JSON_parse"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:11745-2:11760": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:11886-2:11905": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:11935-2:11956": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:12015-2:12024": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13336-2:13351": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13372-2:13412": [
+        "jquery-1.7.1.min_orig_.js@2:28272-2:28742"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13465-2:13485": [
+        "Date_prototype_getTime"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13466-2:13474": [
+        "Date"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13509-2:13524": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13531-2:13540": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:1382-2:1386": [
+        "jquery-1.7.1.min_orig_.js@2:10920-2:11150"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13967-2:14094": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:13974-2:14042": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14077-2:14092": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14097-2:14109": [
+        "jquery-1.7.1.min_orig_.js@2:13495-2:13648"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14215-2:14226": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14262-2:14266": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14299-2:14345": [
+        "EventTarget_prototype_removeEventListener"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14346-2:14355": [
+        "jquery-1.7.1.min_orig_.js@2:9625-2:9839"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14516-2:14520": [
+        "jquery-1.7.1.min_orig_.js@2:6061-2:6157"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14612-2:14621": [
+        "jquery-1.7.1.min_orig_.js@2:10492-2:10552"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14679-2:14688": [
+        "Array_prototype_push"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14779-2:14794": [
+        "Function_prototype_apply"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14957-2:14969": [
+        "jquery-1.7.1.min_orig_.js@2:14550-2:14689"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:14999-2:15011": [
+        "jquery-1.7.1.min_orig_.js@2:14692-2:14917"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15434-2:15445": [
+        "jquery-1.7.1.min_orig_.js@2:15338-2:15369"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15553-2:15559": [
+        "jquery-1.7.1.min_orig_.js@2:14692-2:14917"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15684-2:17235": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15721-2:15747": [
+        "jquery-1.7.1.min_orig_.js@2:14494-2:15668"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15750-2:15776": [
+        "jquery-1.7.1.min_orig_.js@2:14494-2:15668"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15779-2:15800": [
+        "jquery-1.7.1.min_orig_.js@2:14494-2:15668"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15971-2:15980": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15971-2:15988": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:15971-2:16000": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:16518-2:16531": [
+        "jquery-1.7.1.min_orig_.js@2:16448-2:16514"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:16586-2:16635": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:16586-2:16683": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17246-2:20986": [
+        "jquery-1.7.1.min_orig_.js@2:17246-2:20984"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17289-2:17311": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17332-2:17363": [
+        "Element_prototype_setAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17488-2:17515": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17518-2:17545": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17581-2:17606": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17609-2:17649": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17623-2:17648": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17652-2:17683": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17741-2:17772": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:1775-2:1787": [
+        "Array_prototype_unshift"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17796-2:17826": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17840-2:17875": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17851-2:17874": [
+        "Element_prototype_getAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17891-2:17913": [
+        "Element_prototype_getAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:17929-2:17958": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18077-2:18100": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18120-2:18142": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18120-2:18156": [
+        "Node_prototype_cloneNode"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18370-2:18385": [
+        "Node_prototype_cloneNode"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18625-2:18649": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18662-2:18692": [
+        "Element_prototype_setAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18720-2:18755": [
+        "Element_prototype_setAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18756-2:18772": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18775-2:18801": [
+        "Document_prototype_createDocumentFragment"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18802-2:18828": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18842-2:18857": [
+        "Node_prototype_cloneNode"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18842-2:18871": [
+        "Node_prototype_cloneNode"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18916-2:18932": [
+        "Node_prototype_removeChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18933-2:18949": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:18988-2:19010": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19073-2:19089": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19113-2:19183": [
+        "parseInt"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19123-2:19149": [
+        "Window_prototype_getComputedStyle"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19342-2:19358": [
+        "Node_prototype_removeChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19376-2:20974": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19417-2:19447": [
+        "Document_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19720-2:19742": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19821-2:19851": [
+        "Node_prototype_insertBefore"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19854-2:19876": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19877-2:19893": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:19994-2:20022": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:20932-2:20948": [
+        "Node_prototype_removeChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:20958-2:20971": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:21028-2:22501": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:21071-2:21116": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:21084-2:21097": [
+        "Math_random"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:21311-2:21326": [
+        "jquery-1.7.1.min_orig_.js@2:22372-2:22499"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2147-2:2163": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:22343-2:22359": [
+        "jquery-1.7.1.min_orig_.js@2:21288-2:21805"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:22414-2:22438": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:22502-2:23340": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2290-2:2301": [
+        "jquery-1.7.1.min_orig_.js@4:14555-4:15208",
+        "jquery-1.7.1.min_orig_.js@4:16351-4:17366"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:23341-2:24003": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:24004-2:24825": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2401-2:2418": [
+        "jquery-1.7.1.min_orig_.js@2:2164-2:2429"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2500-2:2515": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25110-2:27513": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25149-2:25177": [
+        "jquery-1.7.1.min_orig_.js@2:13208-2:13443"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2523-2:2538": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2523-2:2548": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25464-2:25479": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25587-2:25597": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25756-2:25779": [
+        "String_prototype_indexOf"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25807-2:25816": [
+        "jquery-1.7.1.min_orig_.js@2:11985-2:12025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:25877-2:25892": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2592-2:2605": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26010-2:26026": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26107-2:26143": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26173-2:26200": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26213-2:26222": [
+        "jquery-1.7.1.min_orig_.js@2:11985-2:12025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:2646-2:2670": [
+        "Array_prototype_push"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26847-2:26889": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:26847-2:26900": [
+        "String_prototype_indexOf"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:27514-2:30069": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:28449-2:28462": [
+        "jquery-1.7.1.min_orig_.js@3:25959-3:26050"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:28469-2:28484": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:28504-2:28513": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:28618-2:28640": [
+        "Element_prototype_setAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:31652-2:31817": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:31708-2:31815": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:32045-2:32054": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:32064-2:32088": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:32362-2:32402": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:4864-2:4876": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:4879-2:4905": [
+        "Document_prototype_createDocumentFragment"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:605-2:668": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:6095-2:6109": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:612-2:645": [
+        "Function_prototype_apply"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:6203-2:14476": [
+        "jquery-1.7.1.min_orig_.js@2:6203-2:14474"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:631-2:644": [
+        "Array_prototype_slice"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:6351-2:6371": [
+        "jquery-1.7.1.min_orig_.js@2:7060-2:8013"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7292-2:7303": [
+        "String_prototype_charAt"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7352-2:7361": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7679-2:7701": [
+        "Document_prototype_getElementById"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7840-2:7854": [
+        "jquery-1.7.1.min_orig_.js@3:26624-3:26962"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7886-2:7901": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:7909-2:7919": [
+        "jquery-1.7.1.min_orig_.js@2:8505-2:8552"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8239-2:8257": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8258-2:8270": [
+        "Array_isArray"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8284-2:8296": [
+        "jquery-1.7.1.min_orig_.js@2:12424-2:12579"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:848-2:868": [
+        "XMLHttpRequest"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8481-2:8497": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8517-2:8530": [
+        "jquery-1.7.1.min_orig_.js@2:9850-2:10235"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:8531-2:8539": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9173-2:9188": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9307-2:9325": [
+        "jquery-1.7.1.min_orig_.js@2:10567-2:10811"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9330-2:9342": [
+        "Array_isArray"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9383-2:9401": [
+        "jquery-1.7.1.min_orig_.js@2:10567-2:10811"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9412-2:9427": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9455-2:13966": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9771-2:9788": [
+        "jquery-1.7.1.min_orig_.js@2:15496-2:15573"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9803-2:9807": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9803-2:9824": [
+        "jquery-1.7.1.min_orig_.js@3:10447-3:10517"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9803-2:9837": [
+        "jquery-1.7.1.min_orig_.js@3:9700-3:10051"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9870-2:9896": [
+        "jquery-1.7.1.min_orig_.js@2:14494-2:15668"
+    ],
+    "jquery-1.7.1.min_orig_.js@2:9977-2:10020": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10001-3:10050": [
+        "jquery-1.7.1.min_orig_.js@2:8460-2:8498"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10022-3:10048": [
+        "jquery-1.7.1.min_orig_.js@3:990-3:1826"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:1016-3:1028": [
+        "jquery-1.7.1.min_orig_.js@2:21205-2:21282"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10468-3:10516": [
+        "jquery-1.7.1.min_orig_.js@2:8460-2:8498"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10489-3:10514": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10941-3:11412": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:10948-3:11160": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:111-3:121": [
+        "jquery-1.7.1.min_orig_.js@2:22320-2:22360"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:11245-3:11264": [
+        "jquery-1.7.1.min_orig_.js@3:9231-3:9636"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:11309-3:11318": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:11359-3:11368": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:11413-3:26443": [
+        "jquery-1.7.1.min_orig_.js@3:11413-3:26441"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:12086-3:12120": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:12087-3:12100": [
+        "Math_random"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:12188-3:12225": [
+        "Array_prototype_sort"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:1986-3:2013": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2021-3:2035": [
+        "String_prototype_indexOf"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2063-3:2077": [
+        "String_prototype_indexOf"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21407-3:21470": [
+        "RegExp"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21486-3:21563": [
+        "RegExp"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21523-3:21562": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21586-3:21617": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21624-3:21641": [
+        "Function_prototype_apply"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:21665-3:21723": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2232-3:2246": [
+        "jquery-1.7.1.min_orig_.js@3:6397-3:6716"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22707-3:23268": [
+        "jquery-1.7.1.min_orig_.js@3:22707-3:23266"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22724-3:22746": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22758-3:22778": [
+        "Date_prototype_getTime"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22759-3:22767": [
+        "Date"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22831-3:22861": [
+        "Node_prototype_insertBefore"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:22862-3:22881": [
+        "Document_prototype_getElementById"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2297-3:2308": [
+        "Array_prototype_join"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23240-3:23256": [
+        "Node_prototype_removeChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23269-3:23742": [
+        "jquery-1.7.1.min_orig_.js@3:23269-3:23740"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23286-3:23308": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23309-3:23343": [
+        "Node_prototype_appendChild"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23323-3:23342": [
+        "Document_prototype_createComment"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23344-3:23371": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23627-3:23660": [
+        "Element_prototype_getAttribute"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23763-3:24787": [
+        "jquery-1.7.1.min_orig_.js@3:23763-3:24785"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23784-3:23806": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23881-3:23908": [
+        "Element_prototype_querySelectorAll"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23956-3:23966": [
+        "jquery-1.7.1.min_orig_.js@3:25959-3:26050"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:23974-3:24018": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2399-3:2413": [
+        "String_prototype_indexOf"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24074-3:24104": [
+        "jquery-1.7.1.min_orig_.js@3:21570-3:21660"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24076-3:24101": [
+        "Document_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24160-3:24195": [
+        "jquery-1.7.1.min_orig_.js@3:21570-3:21660"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24162-3:24192": [
+        "Document_prototype_getElementsByClassName"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24377-3:24403": [
+        "jquery-1.7.1.min_orig_.js@3:21570-3:21660"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24379-3:24400": [
+        "Document_prototype_querySelectorAll"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24788-3:25297": [
+        "jquery-1.7.1.min_orig_.js@3:24788-3:25295"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24924-3:24960": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24931-3:24953": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:24970-3:25015": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:25298-3:25711": [
+        "jquery-1.7.1.min_orig_.js@3:25298-3:25709"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:25315-3:25337": [
+        "Document_prototype_createElement"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:25434-3:25463": [
+        "Element_prototype_getElementsByClassName"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:25505-3:25534": [
+        "Element_prototype_getElementsByClassName"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:25553-3:25580": [
+        "Array_prototype_splice"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2593-3:2605": [
+        "Array_prototype_unshift"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:26606-3:28269": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:26772-3:26799": [
+        "jquery-1.7.1.min_orig_.js@2:8217-2:8454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:26848-3:26867": [
+        "jquery-1.7.1.min_orig_.js@3:23923-3:24751"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2721-3:2734": [
+        "jquery-1.7.1.min_orig_.js@2:10362-2:10422"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2758-3:2769": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:28270-3:29300": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2922-3:2946": [
+        "jquery-1.7.1.min_orig_.js@2:5424-2:5446"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:29301-3:29770": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:2979-3:2998": [
+        "jquery-1.7.1.min_orig_.js@2:22320-2:22360"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:30152-3:30180": [
+        "RegExp"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:30612-3:30616": [
+        "jquery-1.7.1.min_orig_.js@2:4844-2:4974"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:30764-4:1945": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:311-3:351": [
+        "Function_prototype_apply"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3131-3:3153": [
+        "jquery-1.7.1.min_orig_.js@2:5424-2:5446"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3247-3:3262": [
+        "jquery-1.7.1.min_orig_.js@2:22372-2:22499"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3466-3:3489": [
+        "jquery-1.7.1.min_orig_.js@3:5385-3:5723"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3497-3:3519": [
+        "jquery-1.7.1.min_orig_.js@2:22320-2:22360"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3557-3:3583": [
+        "Function_prototype_call"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:367-3:379": [
+        "jquery-1.7.1.min_orig_.js@2:11985-2:12025"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:367-3:390": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:374-3:378": [
+        "jquery-1.7.1.min_orig_.js@2:32319-2:32403"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:3981-3:4019": [
+        "Array_prototype_push"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4007-3:4017": [
+        "Array_prototype_slice"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4041-3:4065": [
+        "jquery-1.7.1.min_orig_.js@2:5424-2:5446"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4130-3:4163": [
+        "jquery-1.7.1.min_orig_.js@2:5424-2:5446"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:417-3:429": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4297-3:4366": [
+        "Function_prototype_apply"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:443-3:464": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:443-3:471": [
+        "Array_prototype_sort"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4460-3:4633": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4662-3:4700": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:4814-3:4923": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:5475-3:5501": [
+        "Array_prototype_concat"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:5515-3:5525": [
+        "jquery-1.7.1.min_orig_.js@3:6397-3:6716"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:559-3:666": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:5707-3:5720": [
+        "jquery-1.7.1.min_orig_.js@3:4931-3:5379"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:636-3:640": [
+        "jquery-1.7.1.min_orig_.js@2:32027-2:32151"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:6448-3:6464": [
+        "jquery-1.7.1.min_orig_.js@3:6397-3:6716"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:651-3:662": [
+        "Array_prototype_join"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:6689-3:6696": [
+        "jquery-1.7.1.min_orig_.js@2:13448-2:13486"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:7191-3:7486": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:768-3:794": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:8953-3:9214": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:9215-3:10940": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:933-3:942": [
+        "Array_prototype_push"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:9587-3:9635": [
+        "jquery-1.7.1.min_orig_.js@2:8460-2:8498"
+    ],
+    "jquery-1.7.1.min_orig_.js@3:9608-3:9633": [
+        "jquery-1.7.1.min_orig_.js@3:14-3:972"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10043-4:10196": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10102-4:10117": [
+        "jquery-1.7.1.min_orig_.js@2:10247-2:10289"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10143-4:10193": [
+        "jquery-1.7.1.min_orig_.js@4:10935-4:14024"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10197-4:14358": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10292-4:10311": [
+        "jquery-1.7.1.min_orig_.js@4:10084-4:10194"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10339-4:10359": [
+        "jquery-1.7.1.min_orig_.js@2:2036-2:2164"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10383-4:10390": [
+        "jquery-1.7.1.min_orig_.js@2:2036-2:2164"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10430-4:10444": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10902-4:10908": [
+        "jquery-1.7.1.min_orig_.js@2:2429-2:2673"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:10923-4:10929": [
+        "jquery-1.7.1.min_orig_.js@2:2429-2:2673"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11053-4:11062": [
+        "jquery-1.7.1.min_orig_.js@2:1406-2:1801"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11263-4:11270": [
+        "jquery-1.7.1.min_orig_.js@2:880-2:1406"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11393-4:11417": [
+        "jquery-1.7.1.min_orig_.js@2:15496-2:15573"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11442-4:11457": [
+        "jquery-1.7.1.min_orig_.js@4:12348-4:12450"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11465-4:11516": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11517-4:11536": [
+        "jquery-1.7.1.min_orig_.js@2:15496-2:15573"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11541-4:11572": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11585-4:11612": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11659-4:11676": [
+        "jquery-1.7.1.min_orig_.js@4:10323-4:10400"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11745-4:11757": [
+        "jquery-1.7.1.min_orig_.js@2:15703-2:16708"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11760-4:11786": [
+        "jquery-1.7.1.min_orig_.js@2:14494-2:15668"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:11896-4:11911": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12273-4:12285": [
+        "jquery-1.7.1.min_orig_.js@2:16448-2:16514"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12426-4:12437": [
+        "jquery-1.7.1.min_orig_.js@2:15955-2:16013"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12457-4:12487": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12457-4:12510": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12523-4:12546": [
+        "jquery-1.7.1.min_orig_.js@2:11985-2:12025"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12523-4:12560": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12523-4:12570": [
+        "String_prototype_split"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12595-4:12623": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12603-4:12622": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12826-4:12838": [
+        "jquery-1.7.1.min_orig_.js@2:2164-2:2429"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12875-4:12895": [
+        "String_prototype_toUpperCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12910-4:12925": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:12945-4:12973": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:13448-4:13604": [
+        "jquery-1.7.1.min_orig_.js@4:11869-4:11946"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:13774-4:13784": [
+        "jquery-1.7.1.min_orig_.js@2:14925-2:15025"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:13787-4:13799": [
+        "jquery-1.7.1.min_orig_.js@2:2164-2:2429"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:13850-4:13877": [
+        "jquery-1.7.1.min_orig_.js@3:1885-3:3442"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:13965-4:13976": [
+        "jquery-1.7.1.min_orig_.js@4:16416-4:17335"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:14359-4:14403": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:14411-4:14418": [
+        "jquery-1.7.1.min_orig_.js@2:13448-2:13486"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:14442-4:14525": [
+        "jquery-1.7.1.min_orig_.js@4:10323-4:10400"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:14526-4:15209": [
+        "jquery-1.7.1.min_orig_.js@2:2451-2:2672"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:14698-4:14712": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:15210-4:15440": [
+        "jquery-1.7.1.min_orig_.js@4:10323-4:10400"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:15441-4:15547": [
+        "jquery-1.7.1.min_orig_.js@2:2451-2:2672"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:15548-4:16065": [
+        "jquery-1.7.1.min_orig_.js@2:2451-2:2672"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16221-4:16318": [
+        "jquery-1.7.1.min_orig_.js@4:16221-4:16296"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16233-4:16295": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16297-4:16317": [
+        "jquery-1.7.1.min_orig_.js@2:823-2:880"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16335-4:17367": [
+        "jquery-1.7.1.min_orig_.js@2:2451-2:2672"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16436-4:16443": [
+        "jquery-1.7.1.min_orig_.js@2:823-2:880"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16510-4:16538": [
+        "XMLHttpRequest_prototype_open"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16754-4:16780": [
+        "XMLHttpRequest_prototype_setRequestHeader"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16791-4:16825": [
+        "XMLHttpRequest_prototype_send"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:16994-4:17019": [
+        "XMLHttpRequest_prototype_getAllResponseHeaders"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:17218-4:17228": [
+        "jquery-1.7.1.min_orig_.js@4:10949-4:11615"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:17606-4:20584": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:20585-4:20813": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:20603-4:20615": [
+        "jquery-1.7.1.min_orig_.js@2:579-2:678"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:20624-4:20636": [
+        "jquery-1.7.1.min_orig_.js@2:579-2:678"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:20649-4:20663": [
+        "jquery-1.7.1.min_orig_.js@2:579-2:678"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:20814-4:21496": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:23544-4:23952": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:2392-4:2820": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:23953-4:24063": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:26697-4:27268": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:27269-4:27641": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:27642-4:28516": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:27688-4:27703": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:2821-4:4964": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:384-4:394": [
+        "RegExp_prototype_test"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:443-4:480": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:444-4:453": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:4693-4:4717": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:485-4:509": [
+        "String_prototype_replace"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:5350-4:6399": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:571-4:617": [
+        "jquery-1.7.1.min_orig_.js@4:4561-4:4962"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:583-4:616": [
+        "Element_prototype_getElementsByTagName"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:6415-4:6671": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:7117-4:7331": [
+        "jquery-1.7.1.min_orig_.js@2:6330-2:6372"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:8860-4:8885": [
+        "RegExp_prototype_exec"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:8868-4:8884": [
+        "String_prototype_toLowerCase"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:8890-4:9902": [
+        "jquery-1.7.1.min_orig_.js@2:9028-2:9454"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:9903-4:10042": [
+        "jquery-1.7.1.min_orig_.js@2:11699-2:11977"
+    ],
+    "jquery-1.7.1.min_orig_.js@4:9910-4:9985": [
+        "String_prototype_split"
+    ],
+    "license_orig_.js@12:16-12:50": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@13:16-13:50": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@14:17-14:51": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@15:17-15:49": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@16:17-16:51": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@17:19-17:55": [
+        "Document_prototype_getElementById"
+    ],
+    "license_orig_.js@20:19-20:39": [
+        "XMLHttpRequest"
+    ],
+    "license_orig_.js@21:5-21:45": [
+        "XMLHttpRequest_prototype_open"
+    ],
+    "license_orig_.js@24:16-24:41": [
+        "String_prototype_replace"
+    ],
+    "license_orig_.js@25:16-25:41": [
+        "String_prototype_replace"
+    ],
+    "license_orig_.js@26:21-26:37": [
+        "String_prototype_split"
+    ],
+    "license_orig_.js@30:16-30:54": [
+        "String_prototype_match"
+    ],
+    "license_orig_.js@39:29-39:45": [
+        "Array_prototype_join"
+    ],
+    "license_orig_.js@41:5-41:19": [
+        "XMLHttpRequest_prototype_send"
+    ],
+    "sound_orig_.js@13:21-13:48": [
+        "Document_prototype_getElementById"
+    ],
+    "sound_orig_.js@33:5-33:54": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "sound_orig_.js@34:5-34:52": [
+        "EventTarget_prototype_addEventListener"
+    ],
+    "sound_orig_.js@39:13-39:33": [
+        "HTMLMediaElement_prototype_play"
+    ]
+}
