@@ -90,8 +90,8 @@ object CallHistoryParser {
         m.get(s) match {
           case Some(v) => Some(v)
           case None =>
-            System.err.println("Cannot find a case for "+s)
-            throw new InternalError()
+//            System.err.println("Cannot find a case for "+s)
+//            throw new InternalError()
             val s2 = (s._1, s._2, s._3, s._4, s._5 - 1)
             m.get(s2) match {
               case Some(v) => Some(v)
