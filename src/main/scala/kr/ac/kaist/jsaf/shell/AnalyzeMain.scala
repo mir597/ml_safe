@@ -147,15 +147,19 @@ object AnalyzeMain {
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
+    // returned exprs = expr -> P(expr)
+    // callgraph x identifier groups x returned exprs
+    val oneshot = OneshotCall.init(disambiguatedProgram)
+
     // Initialize features.
     val feature_map: HashMap[(Any, Any), List[Int]] = {
-      val in = PropName.init(disambiguatedProgram)
+      val oneshot = OneshotCall.init(disambiguatedProgram)
+      val in = PropName.init(disambiguatedProgram, oneshot)
       init_set(init_map) >>
-        //        Classifier.genFeature >>
-        //        SimpleName.genFeature >>
+        OneshotCall.genFeature(oneshot) >>
         PropName.genFeature(in) >>
-        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram)) >>
-        OneshotCall.genFeature(OneshotCall.init(disambiguatedProgram))
+        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram))
+
     }
 
     val outputstart = System.nanoTime

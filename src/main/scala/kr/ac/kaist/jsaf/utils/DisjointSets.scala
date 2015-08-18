@@ -1,6 +1,7 @@
 package kr.ac.kaist.jsaf.utils
 
 import scala.annotation.tailrec
+import scala.collection.immutable.{HashMap, HashSet}
 
 /**
  * This class implements a disjoint-sets algorithm with
@@ -91,6 +92,21 @@ class DisjointSets[T](initialElements : Seq[T] = Nil) {
    */
   def size : Int = synchronized {
     nodes.values.count(_.parent == None)
+  }
+
+  def foreach(f: T => Unit) = nodes.foreach(v => f(v._1))
+  def foldLeft[A](s: A)(f: (A, T) => A) = (s /: nodes)((a, t) => f(a, t._1))
+  def /:[B](z: B)(op: (B, T) => B): B = foldLeft(z)(op)
+  def groups: List[Set[T]] = {
+    val map = HashMap[T, HashSet[T]]()
+    val emptyset = HashSet[T]()
+    val nmap =
+      (map /: this)((map_i, e) => {
+        val r = this.find(e).get
+        map_i + (r -> (map_i.getOrElse(r, emptyset) + e))
+      })
+
+    (List[Set[T]]() /: nmap)((list, s) => s._2::list)
   }
 
   ////
