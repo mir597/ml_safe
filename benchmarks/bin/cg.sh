@@ -117,31 +117,37 @@ EOF
 }
 
 run () {
-	while getopts hd OPT;do
+	while getopts hod OPT;do
 		case "$OPT" in
 			h) usage_run;;
 			d) s_debug=true;;
+			o) s_ours=true;;
 		esac
 	done
 	shift `expr $OPTIND - 1`
 
 	name=${1##*/}
 	out="result_$name.out"
+	dcg="dynamic-cg.fixed.json"
+	if [[ ! -z $s_ours ]];then
+		dcg="dcg.pretty.json"
+	fi
 
 	msg info "- $name"
 	if [[ -z $s_debug ]];then
-		$jsaf analyze -result $1/dynamic-cg.fixed.json -out $out $1/*.js
+		$jsaf analyze -result $1/$dcg -out $out $1/*.js
 	else
 		msg info "* Debug mode"
-		$jsaf analyze -result $1/dynamic-cg.fixed.json -debug -out $out $1/*.js
+		$jsaf analyze -result $1/$dcg -debug -out $out $1/*.js
 	fi
 	echo "Generated outputs: $out"
 }
 
 runs () {
-	while getopts hd OPT;do
+	while getopts hod OPT;do
 		case "$OPT" in
 			h) usage_runs;;
+			o) s_ours="-o";;
 			d) s_debug="-d";;
 		esac
 	done
@@ -157,7 +163,7 @@ runs () {
 	done
 
 	for v in $list;do
-		run $s_debug ${BENCHMARK_HOME}/$v
+		run $s_debug $s_ours ${BENCHMARK_HOME}/$v
 	done
 }
 
@@ -168,9 +174,17 @@ showstat () {
 	all=`grep -c "${allcond}1" $name`
 	let hit="$all - $miss"
 	fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
-	per=$(($hit * 100 / $all))
+	if (( $all == 0 ));then
+		per="NaN"
+	else
+		per=$(($hit * 100 / $all))
+	fi
 	alarms=$(($hit + $fa))
-	prec=$(($hit * 100 / $alarms))
+	if (( $alarms == 0 ));then
+		perc="NaN"
+	else
+		prec=$(($hit * 100 / $alarms))
+	fi
 	echo -n "$name"
 	echo -n ",`pp_number "${hit}"`"
 	echo -n ",`pp_number "${alarms}"`"
@@ -200,7 +214,7 @@ showstats () {
 	(echo "name,hit,alarms,all,precision(%),recall(%)";
 	(for v in `ls result_*.out`;do
 		showstat $v
-	done) | sort -t , -gk 1) | column -t -s , | colorize
+	done) | sort -t , -gk 1) | formatting | colorize
 }
 
 walarun () {
