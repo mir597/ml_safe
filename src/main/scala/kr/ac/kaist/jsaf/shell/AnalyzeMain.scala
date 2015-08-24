@@ -11,7 +11,6 @@ package kr.ac.kaist.jsaf.shell
 
 import java.io.{PrintWriter, File}
 
-import kr.ac.kaist.jsaf.features.SimpleName
 import kr.ac.kaist.jsaf.ml.CallHistoryParser
 import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.scala_src.nodes._
@@ -131,14 +130,14 @@ object AnalyzeMain {
     // calls and decls *without* oneshots
     val oneshotStart = System.nanoTime
     val calls = calls_all.filter(c => !oneshot.contains(c))
-    var decls : List[Any] = 
+    val decls: List[Any] =
       (decls_all.toSet --
-      (oneshot.foldLeft(HashSet[Any]())((acc,call) =>
-        oneshot.get(call) match {
-          case Some(s) => acc ++ s
-          case _ => acc
-        }
-      ))).toList
+        oneshot.foldLeft(HashSet[Any]())((acc, call) =>
+          oneshot.get(call) match {
+            case Some(s) => acc ++ s
+            case _ => acc
+          }
+        )).toList
     val timeToEliminateOneshot = (System.nanoTime - oneshotStart)  / 1000000000.0
     eprintln("# Time for filtering out oneshot calls from calls and decls: %.2f\n".format(timeToEliminateOneshot))
 
@@ -168,9 +167,8 @@ object AnalyzeMain {
       val in = PropName.init(disambiguatedProgram, oneshot)
       init_set(init_map) >>
         OneshotCall.genFeature(oneshot) >>
-        PropName.genFeature(in) >>
-        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram))
-
+        PropName.genFeature(in)// >>
+//        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram))
     }
 
     val outputstart = System.nanoTime

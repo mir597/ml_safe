@@ -187,6 +187,7 @@ showstat () {
 	fi
 	echo -n "$name"
 	echo -n ",`pp_number "${hit}"`"
+	echo -n ",`pp_number "${miss}"`"
 	echo -n ",`pp_number "${alarms}"`"
 	echo -n ",`pp_number "${all}"`"
 	echo -n ",`pp_number "${prec}" 2`"
@@ -211,7 +212,7 @@ createfolder () {
 }
 
 showstats () {
-	(echo "name,hit,alarms,all,precision(%),recall(%)";
+	(echo "name,hit,miss,alarms,all,precision(%),recall(%)";
 	(for v in `ls result_*.out`;do
 		showstat $v
 	done) | sort -t , -gk 1) | formatting | colorize
