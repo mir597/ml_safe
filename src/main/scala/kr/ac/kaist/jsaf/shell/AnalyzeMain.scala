@@ -112,7 +112,7 @@ object AnalyzeMain {
     }
 
     val initstart = System.nanoTime
-    val (decls, calls) = walkAST(collectDeclCallPair, after)(null, disambiguatedProgram)(Nil, Nil)
+    val (decls_all, calls_all) = walkAST(collectDeclCallPair, after)(null, disambiguatedProgram)(Nil, Nil)
     val initTime = (System.nanoTime - initstart) / 1000000000.0
     eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
@@ -125,6 +125,22 @@ object AnalyzeMain {
     }
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
+      
+    val oneshot = OneshotCall.init(disambiguatedProgram)
+
+    // calls and decls *without* oneshots
+    val oneshotStart = System.nanoTime
+    val calls = calls_all.filter(c => !oneshot.contains(c))
+    var decls : List[Any] = 
+      (decls_all.toSet --
+      (oneshot.foldLeft(HashSet[Any]())((acc,call) =>
+        oneshot.get(call) match {
+          case Some(s) => acc ++ s
+          case _ => acc
+        }
+      ))).toList
+    val timeToEliminateOneshot = (System.nanoTime - oneshotStart)  / 1000000000.0
+    eprintln("# Time for filtering out oneshot calls from calls and decls: %.2f\n".format(timeToEliminateOneshot))
 
     def init_set(map: HashMap[(Any, Any), List[Int]]) = {
       decls.foldLeft(map)((map_1, decl) => {
@@ -147,13 +163,8 @@ object AnalyzeMain {
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
-    // returned exprs = expr -> P(expr)
-    // callgraph x identifier groups x returned exprs
-    val oneshot = OneshotCall.init(disambiguatedProgram)
-
     // Initialize features.
     val feature_map: HashMap[(Any, Any), List[Int]] = {
-      val oneshot = OneshotCall.init(disambiguatedProgram)
       val in = PropName.init(disambiguatedProgram, oneshot)
       init_set(init_map) >>
         OneshotCall.genFeature(oneshot) >>

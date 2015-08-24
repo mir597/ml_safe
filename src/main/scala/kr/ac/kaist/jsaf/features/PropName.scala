@@ -468,7 +468,7 @@ object PropName extends Features {
 
     val v = walkAST(collectFunExprName, after)(null, pgm)((name_binding, binding))
 
-    binding.groups.foreach(System.out.println)
+//    binding.groups.foreach(System.out.println)
 
     v
   }
