@@ -8,7 +8,9 @@ misscond=""
 allcond=""
 
 init_cond() {
-	c=`head -n 4 $1 | grep -o "\([0-9] \)\([0-9] \)*:" | grep -o "[0-9]* " | wc -l`
+	h=`grep -c "^#" $1`
+	nh=$(( $h + 1 ))
+	c=`head -n $nh $1 | grep -o "\([0-9] \)\([0-9] \)*:" | grep -o "[0-9]* " | wc -l`
 	c=$(echo ${c})
 	misscond="\(0 \)\{$c\}:"
 	allcond="\([0-9] \)\{$c\}:"
