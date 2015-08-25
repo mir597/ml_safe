@@ -22,6 +22,7 @@ from sklearn.lda import LDA
 from sklearn.qda import QDA
 from sklearn.linear_model import SGDRegressor
 from sklearn import linear_model
+from sklearn.multiclass import OneVsRestClassifier
 
 #
 # Checking command line arguments
@@ -107,8 +108,8 @@ classifiers = [#('Nearest Neighbors', KNeighborsClassifier(5)),
                ('Logistic Regression (l2)', LogisticRegression(C=C, penalty='l2')),
                ('Linear SVM', SVC(kernel='linear',C=C,probability=True,random_state=0)),
                ('RBF SVM', SVC(gamma=2,C=C,probability=True,random_state=0)),
-               ('Decision Tree', DecisionTreeClassifier(max_depth=10)),
-               ('Random Forest', RandomForestClassifier(max_depth=10,n_estimators=10,max_features=1)),
+#               ('Decision Tree', DecisionTreeClassifier(max_depth=10)),
+#               ('Random Forest', RandomForestClassifier(max_depth=10,n_estimators=10,max_features=1)),
 #               ('AdaBoost', AdaBoostClassifier()),
                ('Naive Bayes', GaussianNB())]
 
@@ -119,12 +120,13 @@ for (name, clf) in classifiers:
   start_time = time.time()
 
   index = index + 1
-  clf.fit (features,solutions)
+  mclf = OneVsRestClassifier(clf)
+  mclf.fit (features,solutions)
 
   print ""
   print "%d" % index, 
   print ".", name
-  print clf
+  print mclf
 
   correct = 0
   incorrect = 0
@@ -137,7 +139,7 @@ for (name, clf) in classifiers:
   ml_cg = 0
 
   for i in range(len(testFeatures)):
-    pred = clf.predict(testFeatures[i])[0]
+    pred = mclf.predict(testFeatures[i])[0]
     solution = testSolutions[i]
     
     if solution == 1:
@@ -163,9 +165,3 @@ for (name, clf) in classifiers:
 
   print "%.2f" % (end_time - start_time),
   print "sec"
-
-#  if hasattr(clf, "feature_importances_"):
-#    importances = clf.feature_importances_
-#    print importances
-
-
