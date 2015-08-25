@@ -70,7 +70,7 @@ print ""
 
 for i in range(len(traindata)):
   (f,s) = traindata[i]
-  print s, f
+#  print s, f
   features.append(f)
   solutions.append(s)
 
