@@ -189,7 +189,7 @@ object AnalyzeMain {
               case Some(v) => v.toString
               case _ => ""
             }
-            if (bitvectors.exists(p => p > 0) || answer > 0 || wala.equals("1")) {
+//            if (bitvectors.exists(p => p > 0) || answer > 0 || wala.equals("1")) {
               if (Shell.params.opt_debug) {
                 pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
               }
@@ -198,7 +198,7 @@ object AnalyzeMain {
               pw.write(answer.toString)
               pw.write(" " + wala)
               pw.write("\r\n")
-            }
+//            }
           }
         })
       })
