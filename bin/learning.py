@@ -58,10 +58,11 @@ with open(f_train) as f:
     wv = re.split(r' |\t|\n', wv)
     wv = filter(lambda x:x.strip() != '', wv)
     wv = map(lambda x:int(x),wv)
-    if (wv,proved) not in traindata:
-      traindata.append((wv,proved))
-    else:
-      num_dups = num_dups + 1
+    traindata.append((wv,proved))
+    #if (wv,proved) not in traindata:
+    #  traindata.append((wv,proved))
+    #else:
+    #  num_dups = num_dups + 1
     num_data = num_data + 1
 
 print "Data without duplicates:"
