@@ -6,6 +6,7 @@ import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.{HashMap, HashSet}
 import scala.collection.mutable.{HashMap => MHashMap}
+import kr.ac.kaist.jsaf.walkAST
 
 /**
  * Created by ysko on 15. 8. 3.

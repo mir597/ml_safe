@@ -174,6 +174,13 @@ showstat () {
 	all=`grep -c "${allcond}1" $name`
 	let hit="$all - $miss"
 	fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
+	dync=`grep -o "([0-9][0-9]*)" $name | sort | uniq | wc -l`
+	allct=`grep "Functions(#)" $name`
+	if (( ${#allct} == 0 ));then
+		allc=0
+	else
+		allc=${allct:16}
+	fi
 	if (( $all == 0 ));then
 		per="NaN"
 	else
@@ -181,9 +188,14 @@ showstat () {
 	fi
 	alarms=$(($hit + $fa))
 	if (( $alarms == 0 ));then
-		perc="NaN"
+		prec="NaN"
 	else
 		prec=$(($hit * 100 / $alarms))
+	fi
+	if (( ${allc} == 0 ));then
+		dyn="NaN"
+	else
+		dyn=$(($dync * 100 / $allc))
 	fi
 	echo -n "$name"
 	echo -n ",`pp_number "${hit}"`"
@@ -192,6 +204,7 @@ showstat () {
 	echo -n ",`pp_number "${all}"`"
 	echo -n ",`pp_number "${prec}" 2`"
 	echo -n ",`pp_number "${per}" 2`"
+	echo -n ",`pp_number "${dyn}" 2`"
 	echo ""
 }
 
@@ -212,7 +225,7 @@ createfolder () {
 }
 
 showstats () {
-	(echo "name,hit,miss,alarms,all,precision(%),recall(%)";
+	(echo "name,hit,miss,alarms,all,precision(%),recall(%),dyn-cov(%)";
 	(for v in `ls result_*.out`;do
 		showstat $v
 	done) | sort -t , -gk 1) | formatting | colorize

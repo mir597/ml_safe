@@ -1,17 +1,17 @@
-package kr.ac.kaist.jsaf.features
+package kr.ac.kaist.jsaf.syntactic
 
-import kr.ac.kaist.jsaf.nodes.{Expr, Id}
+import kr.ac.kaist.jsaf.nodes.Id
 import kr.ac.kaist.jsaf.scala_src.nodes._
 import kr.ac.kaist.jsaf.utils.DisjointSets
-import kr.ac.kaist.jsaf.walkAST
 
 import scala.collection.immutable.{HashMap, HashSet}
 import scala.collection.mutable
+import kr.ac.kaist.jsaf.walkAST
 
 /**
  * Created by ysko on 15. 7. 23..
  */
-object PropName extends Features {
+object IdentifierMatcher extends PreAnalysis {
   type t = (HashMap[Any, HashSet[Entity]], DisjointSets[Entity])
 
   override def featureName: String = "Property Name"
@@ -238,70 +238,103 @@ object PropName extends Features {
     name_(n)
   }
 
-  def init(pgm: Any): t = {
+  def process(pgm: Any)(decls: List[Any], calls: List[Any], cg: Callgraph): (List[Any], List[Any], Callgraph) = {
     val name_binding = HashMap[Any, HashSet[Entity]]()
     val binding = new DisjointSets[Entity]()
 
     val v = walkAST(collectFunExprName)(null, pgm)((name_binding, binding))
 
-    v
+    val new_map =
+      (emptyGraph /: calls)((map, c) => {
+        val callname = c match {
+          case SFunApp(_, call, _) => name(call)
+          case SNew(_, SFunApp(_, call, _)) => name(call)
+          case SNew(_, lhs) => name(lhs)
+        }
+        (map /: decls)((map_i, d) => {
+          v._1.get(d) match {
+            case Some(xs) =>
+              val b = xs.exists(x => {
+                val xr = v._2.find(x)
+                callname.exists(y => {
+                  val yr = v._2.find(y)
+                  (xr, yr) match {
+                    case (Some(xx), Some(yy)) => xx.comp(yy) == 0 || x.comptext(y)
+                    case _ =>
+                      x.comptext(y)
+                  }
+                })
+              })
+              if (b) map_i + (c -> (map_i.getOrElse(c, HashSet[Any]()) + d))
+              else map_i
+            case None => map_i
+          }
+        })
+      })
+
+    val new_map_2 = new_map.filter(f => f._2.size == 1)
+    val ncg = mergeCG(cg, new_map_2)
+
+    val ncalls = calls.filter(!new_map_2.keySet.contains(_))
+
+    (decls, ncalls, ncg)
   }
 
   var debug: Boolean = true
 
-  def genFeature(maps: t)(map: FeatureMap) = {
-    genFeatureInit()
-    val nameMap = maps._1
-    val tbl = maps._2
-
-    val m = map.map(f => {
-      val dc = f._1
-      val callname = dc._2 match {
-        case SFunApp(_, call, _) => name(call)
-        case SNew(_, SFunApp(_, call, _)) => name(call)
-        case SNew(_, lhs) => name(lhs)
-      }
-
-      val vec =
-        nameMap.get(dc._1) match {
-          case Some(xs) =>
-            val b = xs.exists(x => {
-              val xr = tbl.find(x)
-              callname.exists(y => {
-                val yr = tbl.find(y)
-                (xr, yr) match {
-                  case (Some(xx), Some(yy)) => xx.comp(yy) == 0 || x.comptext(y)
-                  case _ => x.comptext(y)
-                }
-              })
-            })
-            if (b) 1
-            else 0
-          case _ => 0
-        }
-
-      (dc, vec)
-    })
-
-    val c = (HashMap[Any, Int]() /: m)((c_i, i) => {
-      i._2 match {
-        case 1 => c_i + (i._1._2 -> (c_i.getOrElse(i._1._2, 0) + 1))
-        case _ => c_i
-      }
-    })
-
-    val m_2 = map.map(f => {
-      val dc = f._1
-      val vectors = f._2
-      c.get(dc._2) match {
-        case Some(v) if v > 1 =>
-          (dc, 0::vectors)
-        case _ => (dc, m(dc)::vectors)
-      }
-    })
-
-    genFeatureFinish()
-
-    m_2
-  }
+//  def genFeature(maps: t)(map: FeatureMap) = {
+//    genFeatureInit()
+//    val nameMap = maps._1
+//    val tbl = maps._2
+//
+//    val m = map.map(f => {
+//      val dc = f._1
+//      val callname = dc._2 match {
+//        case SFunApp(_, call, _) => name(call)
+//        case SNew(_, SFunApp(_, call, _)) => name(call)
+//        case SNew(_, lhs) => name(lhs)
+//      }
+//
+//      val vec =
+//        nameMap.get(dc._1) match {
+//          case Some(xs) =>
+//            val b = xs.exists(x => {
+//              val xr = tbl.find(x)
+//              callname.exists(y => {
+//                val yr = tbl.find(y)
+//                (xr, yr) match {
+//                  case (Some(xx), Some(yy)) => xx.comp(yy) == 0 || x.comptext(y)
+//                  case _ => x.comptext(y)
+//                }
+//              })
+//            })
+//            if (b) 1
+//            else 0
+//          case _ => 0
+//        }
+//
+//      (dc, vec)
+//    })
+//
+//    val c = (HashMap[Any, Int]() /: m)((c_i, i) => {
+//      i._2 match {
+//        case 1 => c_i + (i._1._2 -> (c_i.getOrElse(i._1._2, 0) + 1))
+//        case _ => c_i
+//      }
+//    })
+//
+//    val m_2 = map.map(f => {
+//      val dc = f._1
+//      val vectors = f._2
+//      c.get(dc._2) match {
+//        case Some(v) if v > 1 =>
+//          (dc, 0::vectors)
+//        case _ => (dc, m(dc)::vectors)
+//      }
+//    })
+//
+//    genFeatureFinish()
+//
+//    m_2
+//  }
 }

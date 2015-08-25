@@ -1,17 +1,16 @@
-package kr.ac.kaist.jsaf.features
+package kr.ac.kaist.jsaf.syntactic
 
-import kr.ac.kaist.jsaf.nodes._
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
-import scala.collection.immutable.{HashSet, HashMap}
-import kr.ac.kaist.jsaf.walkAST
+import scala.collection.immutable.{HashMap, HashSet}
+import kr.ac.kaist.jsaf.string
 
 /**
  * Created by ysko on 15. 8. 3.
  */
-object OneshotCall extends Features {
+object OneshotCallMatcher extends PreAnalysis {
   override def featureName: String = "One-shot call"
-  type t = HashMap[Any, HashSet[Any]]
+  type t = Callgraph
 
   val empty = HashSet[Any]()
 
@@ -95,40 +94,27 @@ object OneshotCall extends Features {
     }
   }
 
-  private def collectOneshotCalls(parent: Any, node: Any, map: HashMap[Any, HashSet[Any]]) = {
-    node match {
-      case SFunApp(info, fun, args) =>
-        val set = decls(fun)
-        if (set.nonEmpty) map + (node -> set)
-        else map
-      case SNew(_, lhs) =>
-        val set = decls(lhs)
-        if (set.nonEmpty) map + (node -> set)
-        else map
-      case _ => map
+  def process(decllist: List[Any], calllist: List[Any], cg: Callgraph): (List[Any], List[Any], Callgraph) = {
+    def process_(declset: HashSet[Any], callset: HashSet[Any], calls: List[Any], cg: t): (HashSet[Any], HashSet[Any], t) = {
+      calls match {
+        case h::t =>
+          val set =
+            h match {
+              case SFunApp(_, fun, _) => decls(fun)
+              case SNew(_, lhs) => decls(lhs)
+            }
+          val (ndeclset, ncallset, ncg) =
+            if (set.nonEmpty) (declset ++ set, callset + h, cg + (h -> set))
+            else (declset, callset, cg)
+          process_(ndeclset, ncallset, t, ncg)
+        case Nil => (declset, callset, cg)
+      }
     }
-  }
 
-  def init(pgm: Any): t = walkAST(collectOneshotCalls)(null, pgm)(HashMap[Any, HashSet[Any]]())
+    val (usedDecls, usedCalls, ncg) = process_(HashSet[Any](), HashSet[Any](), calllist, cg)
 
-  def genFeature(funMap: t)(map: FeatureMap) = {
-    genFeatureInit()
-
-    val m = map.map(f => {
-      val dc = f._1
-      val vectors = f._2
-
-      val vec =
-        funMap.get(dc._2) match {
-          case Some(set) if set.contains(dc._1) => 1
-          case _ => 0
-        }
-
-      (dc, vec::vectors)
-    })
-
-    genFeatureFinish()
-
-    m
+    val ncalls = calllist.filter(!usedCalls.contains(_))
+    (decllist, calllist, ncg)
+//    (decllist, ncalls, ncg)
   }
 }

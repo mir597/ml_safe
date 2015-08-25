@@ -14,6 +14,7 @@ import java.io.{PrintWriter, File}
 import kr.ac.kaist.jsaf.ml.CallHistoryParser
 import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.scala_src.nodes._
+import kr.ac.kaist.jsaf.syntactic.{IdentifierMatcher, OneshotCallMatcher}
 
 import scala.collection.JavaConversions
 import scala.collection.immutable.{HashSet, HashMap}
@@ -115,31 +116,13 @@ object AnalyzeMain {
     val initTime = (System.nanoTime - initstart) / 1000000000.0
     eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
 
-    if (Shell.params.opt_debug) {
-//      eprintln("** Decls **")
-//      decls.foreach (n => eprintln("- "+string(n)))
-
-//      eprintln("** Calls **")
-//      calls.foreach (n => eprintln("- "+string(n)))
-    }
-
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
-      
-    val oneshot = OneshotCall.init(disambiguatedProgram)
 
-    // calls and decls *without* oneshots
-    val oneshotStart = System.nanoTime
-    val calls = calls_all.filter(c => !oneshot.contains(c))
-    val decls: List[Any] =
-      (decls_all.toSet --
-        oneshot.foldLeft(HashSet[Any]())((acc, call) =>
-          oneshot.get(call) match {
-            case Some(s) => acc ++ s
-            case _ => acc
-          }
-        )).toList
-    val timeToEliminateOneshot = (System.nanoTime - oneshotStart)  / 1000000000.0
-    eprintln("# Time for filtering out oneshot calls from calls and decls: %.2f\n".format(timeToEliminateOneshot))
+//    val (decls_1, calls_1, cg_1) = OneshotCallMatcher.process(decls_all, calls_all, OneshotCallMatcher.emptyGraph)
+//    val (decls, calls, cg) = IdentifierMatcher.process(disambiguatedProgram)(decls_1, calls_1, cg_1)
+
+    val decls = decls_all
+    val calls = calls_all
 
     def init_set(map: HashMap[(Any, Any), List[Int]]) = {
       decls.foldLeft(map)((map_1, decl) => {
@@ -149,6 +132,17 @@ object AnalyzeMain {
         })
       })
     }
+
+    if (Shell.params.opt_debug) {
+//      eprintln("** Decls **")
+//      decls.foreach (n => eprintln("- "+JSAstToConcrete.doit(n.asInstanceOf[ASTNode])))
+//      decls.foreach (n => eprintln("- "+string(n)))
+
+//      eprintln("** Calls **")
+//      calls.foreach (n => eprintln("- "+JSAstToConcrete.doit(n.asInstanceOf[ASTNode])))
+//      calls.foreach (n => eprintln("- "+string(n)))
+    }
+
 
     // Parse the result.
     val inputstart = System.nanoTime
@@ -162,31 +156,17 @@ object AnalyzeMain {
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
 
+    val oneshot = OneshotCall.init(disambiguatedProgram)
     // Initialize features.
     val feature_map: HashMap[(Any, Any), List[Int]] = {
-      val in = PropName.init(disambiguatedProgram, oneshot)
+      val in = PropName.init(disambiguatedProgram)
       init_set(init_map) >>
-        OneshotCall.genFeature(oneshot) >>
-        PropName.genFeature(in)// >>
+        PropName.genFeature(in) >>
+        OneshotCall.genFeature(oneshot)
 //        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram))
     }
 
     val outputstart = System.nanoTime
-
-//    var cg = MHashMap[Int, HashSet[Int]]()
-//    calls.foreach(call => {
-//      decls.foreach(decl => {
-//        val bitvectors: List[Int] = feature_map((decl, call))
-//        if (bitvectors.exists(v => v > 0)) {
-//          val cs = callsite(call)
-//          val ds = callsite(decl)
-//          cg += callsite(call) -> (cg.getOrElse(cs, HashSet()) + ds)
-//        }
-//      })
-//    })
-//    cg.foreach(c => {
-//      System.out.println(c._1 + " : "+ c._2)
-//    })
 
     if (Shell.params.opt_OutFileName != null) {
       val pw = new PrintWriter(new File(Shell.params.opt_OutFileName))
@@ -195,6 +175,7 @@ object AnalyzeMain {
         pw.write("# Used callsites: "+used_callsite.size+"\n")
         val cov = used_callsite.size.toFloat / calls.size.toFloat * 100
         pw.write("# Coverage(%%): %.2f\n".format(cov))
+        pw.write("# Functions(#): "+fid+"\n")
       }
 
       calls.foreach(call => {
