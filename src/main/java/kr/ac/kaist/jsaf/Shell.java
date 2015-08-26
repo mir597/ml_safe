@@ -115,6 +115,9 @@ public final class Shell {
             case ShellParameters.CMD_ANALYZE :
                 return_code = AnalyzeMain.analyze();
                 break;
+            case ShellParameters.CMD_IDENTIFIER:
+                return_code = IdentifierMain.analyze();
+                break;
             case ShellParameters.CMD_HELP :
                 printHelpMessage();
                 break;

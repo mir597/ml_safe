@@ -26,6 +26,7 @@ public class ShellParameters
     public static final int                        CMD_DISAMBIGUATE = 10;
     public static final int                        CMD_COMPILE = 11;
     public static final int                        CMD_ANALYZE = 14;
+    public static final int                        CMD_IDENTIFIER = 15;
     public static final int                        CMD_HELP = 99;
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +35,7 @@ public class ShellParameters
     public int                                     command;
     public String                                  opt_OutFileName;
     public String                                  opt_ResultFileName;
+    public String                                  opt_LoadFileName;
     public String                                  opt_WALAFileName;
     public String                                  opt_PrettyFileName;
     public String                                  opt_Dir;
@@ -202,11 +204,16 @@ public class ShellParameters
         }
         else if(cmd.compareTo("analyze") == 0)
         {
-            if(cmd.compareTo("analyze") == 0) command = CMD_ANALYZE;
+            command = CMD_ANALYZE;
             feasibleOptions.add("-out");
             feasibleOptions.add("-result");
             feasibleOptions.add("-wala");
             feasibleOptions.add("-debug");
+        }
+        else if(cmd.compareTo("id") == 0) {
+            command = CMD_IDENTIFIER;
+            feasibleOptions.add("-load");
+            feasibleOptions.add("-out");
         }
         else if(cmd.compareTo("help") == 0)
         {
@@ -250,8 +257,9 @@ public class ShellParameters
         int ConsumedParameterCount = 0;
 
         String opt = args[index];
-        if(opt.compareTo("-out") == 0 ||
-           opt.compareTo("-result") == 0 ||
+        if(opt.compareTo("-load") == 0 ||
+                opt.compareTo("-out") == 0 ||
+                opt.compareTo("-result") == 0 ||
                 opt.compareTo("-wala") == 0)
         {
             if(index + 1 >= args.length)
@@ -260,6 +268,7 @@ public class ShellParameters
             } else {
                 if(opt.compareTo("-out") == 0) opt_OutFileName = args[index + 1];
                 else if(opt.compareTo("-result") == 0) {opt_ResultFileName = args[index + 1];}
+                else if(opt.compareTo("-load") == 0) {opt_LoadFileName = args[index + 1];}
                 else if(opt.compareTo("-wala") == 0) {opt_WALAFileName = args[index + 1];}
                 ConsumedParameterCount = 1;
             }
