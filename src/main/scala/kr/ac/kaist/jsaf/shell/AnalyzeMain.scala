@@ -47,13 +47,13 @@ object AnalyzeMain {
     val program: Program = Parser.fileToAST(fileNames)
 
     val parseTime = (System.nanoTime - start) / 1000000000.0
-    eprintln("# Time for parsing(s): %.2f\n".format(parseTime))
+    eprintln("# Time for parsing(s): %.2f".format(parseTime))
 
     val poststart = System.nanoTime
     val hoistedProgram = new Hoister(program).doit().asInstanceOf[Program]
     val disambiguatedProgram = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
     val postTime = (System.nanoTime - poststart) / 1000000000.0
-    eprintln("# Time for hoisting and disambiguation(s): %.2f\n".format(postTime))
+    eprintln("# Time for hoisting and disambiguation(s): %.2f".format(postTime))
 
     // Function Decl/Expr and Callsite Collector
     var fid = 1
@@ -114,7 +114,7 @@ object AnalyzeMain {
     val initstart = System.nanoTime
     val (decls_all, calls_all) = walkAST(collectDeclCallPair, after)(null, disambiguatedProgram)(Nil, Nil)
     val initTime = (System.nanoTime - initstart) / 1000000000.0
-    eprintln("# Time for extracting function decl and call exprs(s): %.2f\n".format(initTime))
+    eprintln("# Time for extracting function decl and call exprs(s): %.2f".format(initTime))
 
     val init_map: HashMap[(Any, Any), List[Int]] = HashMap()
 
@@ -154,7 +154,7 @@ object AnalyzeMain {
     val used_callsite = (HashSet[Any]() /: result_map.filter(p => p._2 > 0))((s, f) => s + f._1._2)
 
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
-    eprintln("# Time for parse the call history information(s): %.2f\n".format(inputTime))
+    eprintln("# Time for parse the call history information(s): %.2f".format(inputTime))
 
     val oneshot = OneshotCall.init(disambiguatedProgram)
     // Initialize features.
@@ -225,9 +225,9 @@ object AnalyzeMain {
       })
     }
     val outputTime = (System.nanoTime - outputstart) / 1000000000.0
-    eprintln("# Time for printing out the result(s): %.2f\n".format(outputTime))
+    eprintln("# Time for printing out the result(s): %.2f".format(outputTime))
     val totalTime = (System.nanoTime - start) / 1000000000.0
-    eprintln("# Total time(s): %.2f\n".format(totalTime))
+    eprintln("# Total time(s): %.2f".format(totalTime))
 
     return_code
   }

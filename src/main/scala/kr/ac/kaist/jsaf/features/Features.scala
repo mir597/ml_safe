@@ -16,6 +16,6 @@ trait Features {
 
   def genFeatureFinish() = {
     val time = (System.nanoTime - start) / 1000000000.0
-    System.err.println("# Time for "+ featureName +"(s): %.2f\n".format(time))
+    System.err.println("# Time for "+ featureName +"(s): %.2f".format(time))
   }
 }

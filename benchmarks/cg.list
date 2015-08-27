@@ -9,4 +9,12 @@ icse2013/callgraphs/htmledit
 icse2013/callgraphs/markitup
 icse2013/callgraphs/pdfjs
 icse2013/callgraphs/pong
+# our benchmarks
+icse2015/annex
+icse2015/calculator
+icse2015/go
+icse2015/makeamonster
+icse2015/shoppinglist
+icse2015/tenframe
+# icse2015/todolist # should be fixed(hakjoo?)
 

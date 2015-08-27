@@ -119,19 +119,19 @@ EOF
 }
 
 run () {
-	while getopts hod OPT;do
+	while getopts hd OPT;do
 		case "$OPT" in
 			h) usage_run;;
 			d) s_debug=true;;
-			o) s_ours=true;;
 		esac
 	done
 	shift `expr $OPTIND - 1`
 
-	name=${1##*/}
+	name=${1%/}
+	name=${name##*/}
 	out="result_$name.out"
 	dcg="dynamic-cg.fixed.json"
-	if [[ ! -z $s_ours ]];then
+	if [ ! -f $1/$dcg ];then
 		dcg="dcg.pretty.json"
 	fi
 
@@ -146,10 +146,9 @@ run () {
 }
 
 runs () {
-	while getopts hod OPT;do
+	while getopts hd OPT;do
 		case "$OPT" in
 			h) usage_runs;;
-			o) s_ours="-o";;
 			d) s_debug="-d";;
 		esac
 	done
@@ -165,7 +164,7 @@ runs () {
 	done
 
 	for v in $list;do
-		run $s_debug $s_ours ${BENCHMARK_HOME}/$v
+		run $s_debug ${BENCHMARK_HOME}/$v
 	done
 }
 
@@ -176,7 +175,7 @@ showstat () {
 	all=`grep -c "${allcond}1" $name`
 	let hit="$all - $miss"
 	fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
-	dync=`grep -o "([0-9][0-9]*)" $name | sort | uniq | wc -l`
+	dync=`grep ":1" $name | grep -o "([0-9][0-9]*)" | sort | uniq | wc -l`
 	allct=`grep "Functions(#)" $name`
 	if (( ${#allct} == 0 ));then
 		allc=0
