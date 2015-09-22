@@ -185,18 +185,18 @@ showstat () {
 	if (( $all == 0 ));then
 		per="NaN"
 	else
-		per=$(($hit * 100 / $all))
+		per=$(echo "scale=2; $hit *100 / $all" | bc)
 	fi
 	alarms=$(($hit + $fa))
 	if (( $alarms == 0 ));then
 		prec="NaN"
 	else
-		prec=$(($hit * 100 / $alarms))
+		prec=$(echo "scale=2; $hit * 100 / $alarms" | bc)
 	fi
 	if (( ${allc} == 0 ));then
 		dyn="NaN"
 	else
-		dyn=$(($dync * 100 / $allc))
+		dyn=$(echo "scale=2; $dync * 100 / $allc" | bc)
 	fi
 	echo -n "$name"
 	echo -n ",`pp_number "${hit}"`"
@@ -264,9 +264,9 @@ walastat () {
 		all=`grep -c "${allcond}1" $name`
 		let hit="$all - $miss"
 		fa=`grep "${allcond}0" $name | grep -c -v "${misscond}"`
-		per=$(($hit * 100 / $all))
+		per=$(echo "scale=2; $hit / $all * 100" | bc)
 		alarms=$(($hit + $fa))
-		prec=$(($hit * 100 / $alarms))
+		prec=$(echo "scale=2; $hit / $alarms * 100" | bc)
 		walaonly=`grep -c "${misscond}1 1" $v`
 		safeonly=`grep "${allcond}1 0" $v | grep -c -v "${misscond}"`
 		safef=`grep "${allcond}0" $v | grep -c -v "${misscond}"`

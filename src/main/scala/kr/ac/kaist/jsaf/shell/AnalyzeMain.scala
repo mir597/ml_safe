@@ -15,6 +15,7 @@ import kr.ac.kaist.jsaf.ml.CallHistoryParser
 import kr.ac.kaist.jsaf.nodes.Program
 import kr.ac.kaist.jsaf.scala_src.nodes._
 import kr.ac.kaist.jsaf.syntactic.{IdentifierMatcher, OneshotCallMatcher}
+import kr.ac.kaist.jsaf.utils.IDCollector
 
 import scala.collection.JavaConversions
 import scala.collection.immutable.{HashSet, HashMap}
@@ -51,7 +52,7 @@ object AnalyzeMain {
 
     val poststart = System.nanoTime
     val hoistedProgram = new Hoister(program).doit().asInstanceOf[Program]
-    val disambiguatedProgram = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
+    val pgm = new Disambiguator(hoistedProgram, disambiguateOnly = false).doit().asInstanceOf[Program]
     val postTime = (System.nanoTime - poststart) / 1000000000.0
     eprintln("# Time for hoisting and disambiguation(s): %.2f".format(postTime))
 
@@ -112,7 +113,7 @@ object AnalyzeMain {
     }
 
     val initstart = System.nanoTime
-    val (decls_all, calls_all) = walkAST(collectDeclCallPair, after)(null, disambiguatedProgram)(Nil, Nil)
+    val (decls_all, calls_all) = walkAST(collectDeclCallPair, after)(null, pgm)(Nil, Nil)
     val initTime = (System.nanoTime - initstart) / 1000000000.0
     eprintln("# Time for extracting function decl and call exprs(s): %.2f".format(initTime))
 
@@ -133,7 +134,7 @@ object AnalyzeMain {
       })
     }
 
-    if (Shell.params.opt_debug) {
+//    if (Shell.params.opt_debug) {
 //      eprintln("** Decls **")
 //      decls.foreach (n => eprintln("- "+JSAstToConcrete.doit(n.asInstanceOf[ASTNode])))
 //      decls.foreach (n => eprintln("- "+string(n)))
@@ -141,7 +142,7 @@ object AnalyzeMain {
 //      eprintln("** Calls **")
 //      calls.foreach (n => eprintln("- "+JSAstToConcrete.doit(n.asInstanceOf[ASTNode])))
 //      calls.foreach (n => eprintln("- "+string(n)))
-    }
+//    }
 
 
     // Parse the result.
@@ -156,14 +157,40 @@ object AnalyzeMain {
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f".format(inputTime))
 
-    val oneshot = OneshotCall.init(disambiguatedProgram)
+    // generate ID features
+    val idf = IDFeatures.genFeatures(pgm)
+    val empty = HashMap[Any, List[Int]]()
+
+    if (Shell.params.opt_debug) {
+      eprintln("* ID features")
+      idf.foreach(f => eprintln(f._1 + " : " + f._2.toString))
+    }
+
+    // generate decl features
+    val nm = SimpleName.declFeature(pgm)
+    val df: HashMap[Any, List[Int]] = (empty /: decls)((m, d) => m + (d -> Nil)) >>
+      // Simple name feature
+      (dec => (empty /: dec)((m, d) => {
+        m + (d._1 -> (IDFeatures.find(idf, nm.get(d._1)) ++ dec(d._1)))
+      }))
+
+
+    // generate call features
+    val cf: HashMap[Any, List[Int]] = (empty /: calls)((m, d) => m + (d -> Nil)) >>
+      // Simple call name feature
+      (cal => (empty /: cal)((m, d) => {
+        m + (d._1 -> (IDFeatures.find(idf, SimpleName.callname(d._1)) ++ cal(d._1)))
+      }))
+    // TODO
+
     // Initialize features.
     val feature_map: HashMap[(Any, Any), List[Int]] = {
-      val in = PropName.init(disambiguatedProgram)
+      val oneshot = OneshotCall.init(pgm)
+      val in = PropName.init(pgm)
+
       init_set(init_map) >>
-        PropName.genFeature(in) >>
-        OneshotCall.genFeature(oneshot)
-//        ReturnedFunction.genFeature(ReturnedFunction.init(disambiguatedProgram))
+//        Syntactic.genFeature(oneshot)(in) >>
+        CodingPattern.genFeature(df, cf)
     }
 
     val outputstart = System.nanoTime
@@ -189,7 +216,8 @@ object AnalyzeMain {
               case Some(v) => v.toString
               case _ => ""
             }
-//            if (bitvectors.exists(p => p > 0) || answer > 0 || wala.equals("1")) {
+//            if (bitvectors.exists(p => p > 0) || answer > 0) {
+//            if (bitvectors.exists(p => p > 0)) {
               if (Shell.params.opt_debug) {
                 pw.write("(" + cs + ")" + string(call) + " => (" + ds + ")" + string(decl) + "\t")
               }

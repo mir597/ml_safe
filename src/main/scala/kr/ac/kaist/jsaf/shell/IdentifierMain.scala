@@ -81,7 +81,7 @@ object IdentifierMain {
       override def compare(x: Entity, y: Entity): Int = x.comp(y)
     }
 
-    def nid_(id: Id): Entity = new Name(id.getText, id.getText)
+    def nid_(id: Id): Entity = new Name(id.getText, id.getUniqueName.unwrap)
     def nid(id: String): Entity = new Name(id, id)
 
     val number_literal: String = "$*Number*$"
@@ -94,7 +94,7 @@ object IdentifierMain {
         case SPropStr(_, str) => set + nid(str)
         case SPropNum(_, _) => set + nid(number_literal)
         case SStringLiteral(_, _, s) => set + nid(s)
-        case SIntLiteral(_, i, _) => set + nid(number_literal)
+        case SIntLiteral(_, _, _) => set + nid(number_literal)
         case SDoubleLiteral(_, s, _) => set + nid(number_literal)
         case SBool(_, tf) => set + nid(tf.toString)
         case SNull(_) => set + nid("null")
@@ -125,10 +125,10 @@ object IdentifierMain {
       eprintln("# Total time(s): %.2f\n".format(totalTime))
     } else if (Shell.params.opt_LoadFileName != null) {
 
-      val map = (HashMap[Entity, Int]() /: Source.fromFile(Shell.params.opt_LoadFileName).getLines())((m, line) => {
-        val Array(i, id) = line.split(' ')
-        m + (nid(id) -> i.toInt)
-      })
+//      val map = (HashMap[Entity, Int]() /: Source.fromFile(Shell.params.opt_LoadFileName).getLines())((m, line) => {
+//        val Array(i, id) = line.split(' ')
+//        m + (nid(id) -> i.toInt)
+//      })
 
       class IDFeature {
         val map = MHashMap[String, Int]()
@@ -178,7 +178,6 @@ object IdentifierMain {
         }
       }
 
-      val initStart = System.nanoTime()
       val features = walkAST(collectIDFeatures)(null, pgm)(HashMap[Entity, IDFeature]())
       features.foreach(f => System.out.println(f._1+" - "+f._2))
     }

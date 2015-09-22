@@ -111,6 +111,13 @@ object OneshotCall extends Features {
 
   def init(pgm: Any): t = walkAST(collectOneshotCalls)(null, pgm)(HashMap[Any, HashSet[Any]]())
 
+  def feature(funMap: t)(decl: Any, call: Any): Int = {
+    funMap.get(call) match {
+      case Some(set) if set.contains(decl) => 1
+      case _ => 0
+    }
+  }
+
   def genFeature(funMap: t)(map: FeatureMap) = {
     genFeatureInit()
 
@@ -118,12 +125,7 @@ object OneshotCall extends Features {
       val dc = f._1
       val vectors = f._2
 
-      val vec =
-        funMap.get(dc._2) match {
-          case Some(set) if set.contains(dc._1) => 1
-          case _ => 0
-        }
-
+      val vec = feature(funMap)(dc._1, dc._2)
       (dc, vec::vectors)
     })
 

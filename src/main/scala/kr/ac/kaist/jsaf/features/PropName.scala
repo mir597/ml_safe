@@ -12,12 +12,13 @@ import scala.collection.mutable
  * Created by ysko on 15. 7. 23..
  */
 object PropName extends Features {
-  type t = (HashMap[Any, HashSet[Entity]], DisjointSets[Entity])
+  type t = HashMap[Any, HashSet[Entity]]
 
   override def featureName: String = "Property Name"
   private val number_literal: String = "$*Number*$"
 
   final private val useUniqueName = true // false: better recall and worse precision.
+  // XXX: removed unification routines.
   final private val unification = false // true: better recall and worse precision.
 
   sealed trait Entity {
@@ -126,19 +127,18 @@ object PropName extends Features {
   }
 
   private def collectFunExprName(parent: Any, node: Any, maps: t): t = {
-    val map = maps._1
-    val tbl = maps._2
+    val map = maps
     node match {
       case SFunDecl(_, f, _) =>
         val name = nid(f.getName)
 
         val i = (map.getOrElse(node, empty) + name).filter(p => !p.isEmpty)
-        (map + (node -> i), tbl)
+        map + (node -> i)
       case SFunExpr(_, f) =>
         val name = nid(f.getName)
 
         val i = (map.getOrElse(node, empty) + name).filter(p => !p.isEmpty)
-        (map + (node -> i), tbl)
+        map + (node -> i)
 
       case SAssignOpApp(_, lhs, SOp(_, "="), expr) =>
         val funs = collectFuns(expr)
@@ -150,15 +150,8 @@ object PropName extends Features {
             if (i.nonEmpty) m + (f -> i)
             else m
           })
-        if (unification) {
-          val names_rhs = nameOfExpr(expr).filter(p => !p.isEmpty)
 
-          names_lhs.foreach(n_lhs => names_rhs.foreach(n_rhs => {
-            tbl.union(n_lhs, n_rhs)
-          }))
-        }
-
-        (map_2, tbl)
+        map_2
       case SField(_, prop, expr) =>
         val funs = collectFuns(expr)
         val prop_name = nameOfProp(prop)
@@ -169,13 +162,7 @@ object PropName extends Features {
             if (i.nonEmpty) m + (f -> i)
             else m
           })
-        if (unification) {
-          val names_rhs = nameOfExpr(expr).filter(p => !p.isEmpty)
-          names_rhs.foreach(n_rhs => {
-            tbl.union(prop_name, n_rhs)
-          })
-        }
-        (map_2, tbl)
+        map_2
       case _ =>
         maps
     }
@@ -211,7 +198,7 @@ object PropName extends Features {
     }
   }
 
-  private def name(n: Any): HashSet[Entity] = {
+  def name(n: Any): HashSet[Entity] = {
     def name_(n: Any): HashSet[Entity] = {
       n match {
         case SFunExpr(_, _) => empty
@@ -240,20 +227,15 @@ object PropName extends Features {
 
   def init(pgm: Any): t = {
     val name_binding = HashMap[Any, HashSet[Entity]]()
-    val binding = new DisjointSets[Entity]()
 
-    val v = walkAST(collectFunExprName)(null, pgm)((name_binding, binding))
+    val v = walkAST(collectFunExprName)(null, pgm)(name_binding)
 
     v
   }
 
   var debug: Boolean = true
 
-  def genFeature(maps: t)(map: FeatureMap) = {
-    genFeatureInit()
-    val nameMap = maps._1
-    val tbl = maps._2
-
+  def genMap(nameMap: t)(map: FeatureMap) = {
     val m = map.map(f => {
       val dc = f._1
       val callname = dc._2 match {
@@ -265,18 +247,7 @@ object PropName extends Features {
       val vec =
         nameMap.get(dc._1) match {
           case Some(xs) =>
-            val b = xs.exists(x => {
-              val xr = tbl.find(x)
-              callname.exists(y => {
-                val yr = tbl.find(y)
-                (xr, yr) match {
-                  case (Some(xx), Some(yy)) => xx.comp(yy) == 0 || x.comptext(y)
-                  case _ => x.comptext(y)
-                }
-              })
-            })
-            if (b) 1
-            else 0
+            if (xs.exists(x => callname.exists(y => x.comptext(y)))) 1 else 0
           case _ => 0
         }
 
@@ -290,14 +261,32 @@ object PropName extends Features {
       }
     })
 
+    m.filter(p => c.get(p._1._2) match {
+      case Some(v) if v > 1 => false
+      case _ => true
+    })
+  }
+
+  def feature(map: HashMap[(Any, Any), Int])(decl: Any, call: Any): Int = {
+    map.get((decl, call)) match {
+      case Some(v) => v
+      case _ => 0
+    }
+  }
+
+  def genFeature(maps: t)(map: FeatureMap) = {
+    genFeatureInit()
+    val nameMap = maps
+
+    val m = genMap(nameMap)(map)
+
     val m_2 = map.map(f => {
       val dc = f._1
       val vectors = f._2
-      c.get(dc._2) match {
-        case Some(v) if v > 1 =>
-          (dc, 0::vectors)
-        case _ => (dc, m(dc)::vectors)
-      }
+      val decl = dc._1
+      val call = dc._2
+
+      (dc, feature(m)(decl, call)::vectors)
     })
 
     genFeatureFinish()
