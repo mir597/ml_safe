@@ -62,7 +62,7 @@ object SimpleName {
   }
 
   // Find appropriate name string from 'lhs'
-  private def nameOfExpr(lhs: Any): Option[Entity] = {
+  def nameOfExpr(lhs: Any): Option[Entity] = {
     lhs match {
       case SExprList(_, list) => nameOfExpr(list.last)
       case SCond(_, _, et, ef) => None

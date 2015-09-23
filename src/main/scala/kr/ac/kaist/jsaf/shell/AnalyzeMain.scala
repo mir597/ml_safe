@@ -157,6 +157,13 @@ object AnalyzeMain {
     val inputTime = (System.nanoTime - inputstart) / 1000000000.0
     eprintln("# Time for parse the call history information(s): %.2f".format(inputTime))
 
+    val parent: HashMap[Any, Any] = walkAST((p, n, m: HashMap[Any, Any]) => {
+      m.get(n) match {
+        case Some(pp) => m + (n -> null)
+        case None => m + (n -> p)
+      }
+    })(null, pgm)(HashMap())
+
     // generate ID features
     val idf = IDFeatures.genFeatures(pgm)
     val empty = HashMap[Any, List[Int]]()
@@ -166,22 +173,31 @@ object AnalyzeMain {
       idf.foreach(f => eprintln(f._1 + " : " + f._2.toString))
     }
 
-    // generate decl features
-    val nm = SimpleName.declFeature(pgm)
+    // TODO generate decl features
     val df: HashMap[Any, List[Int]] = (empty /: decls)((m, d) => m + (d -> Nil)) >>
       // Simple name feature
+      // x = function() { ... }
       (dec => (empty /: dec)((m, d) => {
-        m + (d._1 -> (IDFeatures.find(idf, nm.get(d._1)) ++ dec(d._1)))
+        val decl = d._1
+        val v = parent(decl) match {
+            case SAssignOpApp(_, lhs, SOp(_, "="), expr) if expr == decl =>
+              val x = SimpleName.nameOfExpr(lhs)
+              IDFeatures.find(idf, x)
+            case _ =>
+              IDFeatures.find(idf, None)
+          }
+        m + (decl -> (v ++ dec(decl)))
       }))
 
 
-    // generate call features
+
+    // TODO generate call features
     val cf: HashMap[Any, List[Int]] = (empty /: calls)((m, d) => m + (d -> Nil)) >>
       // Simple call name feature
       (cal => (empty /: cal)((m, d) => {
         m + (d._1 -> (IDFeatures.find(idf, SimpleName.callname(d._1)) ++ cal(d._1)))
       }))
-    // TODO
+
 
     // Initialize features.
     val feature_map: HashMap[(Any, Any), List[Int]] = {
