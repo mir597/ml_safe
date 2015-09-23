@@ -1,7 +1,7 @@
 package kr.ac.kaist.jsaf.features
 
 import kr.ac.kaist.jsaf._
-import kr.ac.kaist.jsaf.nodes.Id
+import kr.ac.kaist.jsaf.nodes.{StringLiteral, Id}
 import kr.ac.kaist.jsaf.scala_src.nodes._
 
 import scala.collection.immutable.HashMap
@@ -18,6 +18,10 @@ object IDFeatures {
   val FDName = "FDName"
   val FDArgs = "FDArgs"
   val Prop = "Prop"
+  val ObjInit = "ObjInit"
+  val ChainCaller = "ChainCaller"
+  val HasArgs = "HasArgs"
+  val HasStrArg = "HasStrArg"
 
   class IDFeature {
     val map = MHashMap[String, Int]()
@@ -29,14 +33,18 @@ object IDFeatures {
     def asFunDeclName() = u(FDName -> 1)
     def asFunDeclArgs(ith: Int) = u(FDArgs -> (ith+1))
     def asProp() = u(Prop -> 1)
+    def asObjInit() = u(ObjInit -> 1)
+    def asChainCaller() = u(ChainCaller -> 1)
+    def hasArgs(i: Int) = u(HasArgs -> i)
+    def hasStrArg() = u(HasStrArg -> 1)
 
     private def g(n: String) = map.getOrElse(n, 0)
 
     override def toString: String = {
-      (g(VarRef)::g(FEName)::g(FEArgs)::g(FDName)::g(FDArgs)::g(Prop)::Nil).mkString(" ")
+      (g(VarRef)::g(FEName)::g(FEArgs)::g(FDName)::g(FDArgs)::g(Prop)::g(ObjInit)::g(ChainCaller)::g(HasArgs)::g(HasStrArg)::Nil).mkString(" ")
     }
 
-    def toVectors: List[Int] = g(VarRef)::g(FEName)::g(FEArgs)::g(FDName)::g(FDArgs)::g(Prop)::Nil
+    def toVectors: List[Int] = g(VarRef)::g(FEName)::g(FEArgs)::g(FDName)::g(FDArgs)::g(Prop)::g(ObjInit)::g(ChainCaller)::g(HasArgs)::g(HasStrArg)::Nil
   }
 
   val empty = new IDFeature()
@@ -51,6 +59,9 @@ object IDFeatures {
 
   def collectIDFeatures(parent: Any, node: Any, map: HashMap[Entity, IDFeature]): HashMap[Entity, IDFeature] = {
     node match {
+      case SAssignOpApp(_, SDot(_, SVarRef(_, o), id), SOp(_, "="), SObjectExpr(_, _)) if id.getText == "prototype" =>
+        map >> add(o, _.asObjInit())
+
       case SVarRef(_, n) => map >> add(n, _.asVarRef())
       case SFunExpr(_, SFunctional(_, _, _, name, params)) =>
         params.zipWithIndex.foldLeft(map)((m, p) => add(p._1, _.asFunExprArgs(p._2))(m)) >>
@@ -60,6 +71,12 @@ object IDFeatures {
           add(name, _.asFunDeclName())
       case SPropId(_, id) => map >> add(id.getText, _.asProp())
       case SPropStr(_, str) => map >> add(str, _.asProp())
+      case SDot(_, SFunApp(_, SVarRef(_, f), a), id) if a.nonEmpty && a.head.isInstanceOf[StringLiteral] => map >> add(f, _.asChainCaller()) >>
+        add(f, _.hasArgs(a.size)) >>
+        add(f, _.hasStrArg())
+
+      case SDot(_, SFunApp(_, SVarRef(_, f), a), id) => map >> add(f, _.asChainCaller()) >>
+        add(f, _.hasArgs(a.size))
 
       case _ => map
     }
